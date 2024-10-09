@@ -1,0 +1,160 @@
+@extends('layouts.app')
+
+@section('content')
+
+<div>
+    <h2 class="text-2xl text-center font-bold mb-10">Edit Post</h2>
+
+    <div class="w-3/4 mx-auto">
+
+        <form method="POST" action="/blog/{{ $post->id }}" enctype="multipart/form-data">
+        @csrf
+        {{ method_field('PUT') }}
+            
+        <div class="flex space-x-10 mb-10">
+            <div class="w-1/2">
+                <!-- Upload Featured Image -->
+                <div class="flex justify-center">
+                    <label for="image" class="text-gray-700 mb-2">Upload New Featured Image (optional)</label>
+                    <input type="file" name="image" id="image" accept="image/*" onchange="previewImage(event)">
+                </div>
+
+                <!-- Image preview container -->
+                <div id="image-preview" class="my-10">
+                    <img id="preview" class="w-full h-[300px]" />
+                </div>            
+            </div>
+            <div class="w-1/2">
+                <h2 class="font-bold text-lg mb-10">Existing Featured Image</h2>
+                @if($post->small_image)
+                    <img src="{{ asset($post->small_image) }}" alt="Featured Image">
+                @else
+                    <p class="text-gray-600">No featured image available</p>
+                @endif
+            </div>
+        </div>
+
+        <!-- Date Field -->
+        <div class="mt-10">
+            <label class="font-semibold text-gray-700 mb-2">Date of Post <span class="text-gray-400">(dd-mm-yyyy)</span>:</label>
+            <input class="border rounded text-sm h-8 w-full" type="date" name="date" value="{{ old('date', $post->GetRawOriginal('date')) }}">
+        </div> 
+
+        <!-- Post Title --> 
+        <div class="mt-3">
+            <label class="font-semibold text-gray-700 mb-2">Enter title:</label>
+            <input class="border rounded text-sm h-8 w-full" type="text" name="title" value="{{ old('title', $post->title) }}" placeholder="Enter a title for this post">
+        </div>  
+
+        <!-- Text area with TinyMCE for Excerpt of Post -->
+        <div class="form-group my-10">
+            <label class="font-semibold text-gray-700 mb-2">Enter an excerpt:</label>
+            <textarea class="border rounded text-sm w-full" name="excerpt">{{ old('excerpt', $post->excerpt) }}</textarea>
+        </div> 
+
+        <!-- Text area with TinyMCE for Body of Post -->
+        <div class="my-10">
+            <label class="font-semibold text-gray-700 mb-2">Enter the body of the post:</label>
+            <textarea class="w-full border rounded" name="body" id="editor">{{ old('body', $post->body) }}</textarea>    
+        </div>
+
+        <!-- Include TinyMCE from the npm installation -->
+        <script src="https://cdn.tiny.cloud/1/a1rn9rzvnlulpzdgoe14w7kqi1qpfsx7cx9am2kbgg226dqz/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
+        <script>
+            tinymce.init({
+                selector: '#editor',  // Select the textarea by its ID
+                plugins: 'advlist autolink lists link image charmap preview anchor image',
+                toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | image | help ',
+                menubar: false,
+                branding: false,
+            });
+        </script>
+
+        <!-- Upload Images for Editor -->
+        <div class="my-10">
+            <label class="font-semibold text-gray-700 mb-2">Upload Additional Images for Editor:</label>
+            <input type="file" name="images[]" id="editorImages" multiple class="form-control">
+        </div>
+
+        <!-- Display Uploaded Images -->
+        <div class="my-10" id="uploaded-images-preview">
+            <h4 class="font-bold mb-2">Uploaded Images for use in the editor</h4>
+            @if($post->images)
+                <div class="grid grid-cols-4 gap-10">
+                    @foreach(json_decode($post->images) as $image)
+                        <div class="border space-y-4 p-2">
+                            <img src="{{ asset($image) }}" class="h-[100px] w-full">
+                            <button onclick="copyToClipboard('{{ asset($image) }}')" class="py-1 px-2 border rounded"><i class="fa-regular fa-clipboard"></i></button>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <p>No additional images have been uploaded yet.</p>
+            @endif
+        </div>
+
+        <!-- Category Selection -->
+        <div class="border rounded border-gray-300 p-2 my-10">
+            <label class="font-semibold text-gray-700 mb-2">Select a category for the post:</label>
+            <ul class="flex justify-evenly mt-4 mb-10">
+                @foreach ($categories as $category)
+                    <li>
+                        <label>{{ $category->name }}</label>
+                        <input type="radio" name="category" value="{{ $category->id }}"
+                            @if ($post->categories_id === $category->id) checked="checked" @endif>
+                    </li>
+                @endforeach 
+            </ul>
+        </div>  
+
+        <!-- Post Tags -->
+        <div class="my-10">
+            <label class="font-semibold text-gray-700 mb-2">Enter tags:</label>
+            <input type="text" class="w-full border rounded text-sm h-8" name="tags" value="{{ $split_tags }}" placeholder="Enter tags for the post, e.g., one-two-three">
+        </div>
+
+        <!-- Post Options -->
+        <div>
+            <label class="font-semibold text-gray-700 mb-2">Post Options:</label>
+            <ul class="flex border rounded border-gray-300 py-2 text-sm justify-evenly">           
+                <li>
+                    <label>Publish?</label>     
+                    <input type="checkbox" name="published" @if ($post->published) checked @endif>
+                </li>
+                <li>
+                    <label>Featured?</label>        
+                    <input type="checkbox" name="featured" @if ($post->featured) checked @endif>
+                </li>
+            </ul>
+        </div> 
+
+        <button type="submit" class="my-10 border p-2 bg-lime-600 rounded text-white text-sm hover:bg-green-500">Update Post</button> 
+        </form>
+    </div>
+
+    <script>
+        // Function to preview uploaded image
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById('preview');
+                output.src = reader.result;
+                output.style.display = 'block'; // Show the image preview
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        // Function to copy image URL to clipboard
+        function copyToClipboard(text) {
+            const tempInput = document.createElement('input');
+            document.body.appendChild(tempInput);
+            tempInput.value = text;
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            alert('Image URL copied to clipboard!');
+        }
+    </script>
+
+@endsection
