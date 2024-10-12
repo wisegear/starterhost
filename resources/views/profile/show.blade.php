@@ -6,20 +6,20 @@
     <div class="w-3/4 mx-auto">
         <!-- Display name and social profiles -->
         <div class="text-center mb-4">
-            <p class="font-semibold mb-2 text-lg dark:text-white">You're viewing the user profile for {{ $user->name }}</p>
-            <div class="flex space-x-4 justify-center">
+            <p class="font-semibold mb-2 text-lg dark:text-white">You're viewing the user profile for <span class="text-lime-600">{{ $user->name }}</span></p>
+            <div class="flex space-x-4 justify-center my-6">
                 <a href="{{ $user->x }}" class="border border-gray-500 px-2 py-1 rounded-full hover:bg-lime-100"><i class="fa-brands fa-x-twitter w-4 h-4 dark:text-white dark:hover:text-black"></i></a>					
                 <a href="{{ $user->facebook }}" class="border border-gray-500 px-2 py-1 rounded-full hover:bg-lime-100"><i class="fa-brands fa-facebook-f text-[#1877f2] w-4 h-4"></i></a>					
                 <a href="{{ $user->linkedin }}" class="border border-gray-500 px-2 py-1 rounded-full hover:bg-lime-100"><i class="fa-brands fa-linkedin-in text-[#0a66c2] w-4 h-4"></i></a>
             </div>				
         </div>
         <!-- Display profile and other user details -->
-        <div class="flex justify-evenly items-center my-10 dark:text-white">
+        <div class="flex flex-col md:flex-row md:justify-evenly items-center md:space-y-0 space-y-6 my-6">
             <!-- Profile Avatar -->
             <div>
-                <img src="{{ asset("/assets/images/avatars/$user->avatar") }}" class="shadow-md border dark:border-gray-400 p-1 rounded">
+                <img class="rounded-full border p-1 dark:border-gray-600" src="{{ asset("/assets/images/avatars/$user->avatar") }}">
             </div>
-            <div>
+            <div class="dark:text-white">
                 <ul class="text-sm space-y-1 flex flex-col justify-center">
                     <!-- Website -->
                     <li>
@@ -52,7 +52,7 @@
                 @else
                     <!-- display user Bio -->
                     <p class="border rounded-md p-2 text-gray-700 text-sm">{{ $user->bio }}</p>
-                @endif
+            @endif
         </div>
             <!-- Edit Profile -->
             @if (Auth::user()->name === $user->name || Auth::user()->has_user_role('Admin'))

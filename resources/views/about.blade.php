@@ -42,9 +42,9 @@
     </div>
 
     <div class="flex justify-center mt-10 space-x-10">
-        <img src="/assets/images/site/cemap.png" class="h-28" alt="cemap">
-        <img src="/assets/images/site/later.png" class="h-28" alt="cemap">
-        <img src="/assets/images/site/cpsp.png" class="h-28" alt="cemap">
+        <img src="/assets/images/site/cemap.png" class="max-h-24" alt="cemap">
+        <img src="/assets/images/site/later.png" class="max-h-24" alt="cemap">
+        <img src="/assets/images/site/cpsp.png" class="max-h-24" alt="cemap">
     </div>
 
 @endsection

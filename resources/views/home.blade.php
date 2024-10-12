@@ -32,8 +32,8 @@
         <div class="w-full">
             <h2 class="border-b dark:border-b-gray-700 font-bold mb-2 dark:text-white">Older Posts </h2>
             @foreach ($other_posts as $other_post)
-                <div class="flex space-x-10 items-center mb-4 dark:text-white">
-                    <p>{{ $other_post->date->format('d M') }}</p>
+                <div class="flex items-center mb-4 dark:text-white">
+                    <p class="w-3/12 md:w-2/12 shrink-0">{{ $other_post->date->format('d M') }}</p>
                     <h3><a href="/blog/{{ $other_post->slug }}">{{ $other_post->title }}</a></h3>
                 </div>
             @endforeach
@@ -42,8 +42,8 @@
         <div class="w-full">
             <h2 class="border-b dark:border-b-gray-700 font-bold mb-2 dark:text-white">Recent Guides </h2>
             @foreach ($guides as $guide)
-                <div class="flex space-x-10 items-center mb-4 dark:text-white">
-                    <p>{{ $guide->date->format('d M') }}</p>
+                <div class="flex items-center mb-4 dark:text-white">
+                    <p class="w-3/12 md:w-2/12 shrink-0">{{ $guide->date->format('d M') }}</p>
                     <h3><a href="/blog/{{ $guide->slug }}">{{ $guide->title }}</a></h3>
                 </div>
             @endforeach

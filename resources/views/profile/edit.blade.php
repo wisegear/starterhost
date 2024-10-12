@@ -60,10 +60,10 @@
                     @endcan
         </div>
     
-        <div class="my-10 flex justify-evenly items-center border rounded-md p-6">
+        <div class="my-10 flex flex-col items-center space-y-10 md:flex-row md:justify-evenly">
                 <!-- Manage the user avatar -->
                 
-                <div class="flex flex-col text-center w-3/12 dark:text-white">
+                <div class="flex flex-col items-center w-full dark:text-white">
                     <p class="py-2">Add an Avatar by uploading new file.</p>
                     <input type="file" name="image" accept="image/*" onchange="loadFile(event)" class="w-3/4">
                         <script>
@@ -75,18 +75,18 @@
                     <p>{{ $errors->has('image') ? ' Image must be JPG, JPEG, PNG or GIF.  Cannot be larger than 500kb' : '' }}</p>
                 </div>
                 
-                <div class="w-3/12">
+                <div class="w-full">
                     <p class="text-center mb-2 dark:text-white">Existing Avatar</p>
                     <img src="{{ asset("/assets/images/avatars/$user->avatar") }}" class="mx-auto shadow-md rounded" style="width: 100px; height: 100px;">
                 </div>
       
-                <div class="w-3/12">
+                <div class="w-full">
                     <p class="text-center mb-2 dark:text-white">New Avatar here (if added)</p>
                     <img class="" id="new_avatar" name="new_avatar">
                 </div>		
         </div>
     
-        <div class="my-10 w-1/2 mx-auto">
+        <div class="my-10 w-full md:w-1/2 md:mx-auto">
             <div class="flex flex-col space-y-6">
                   <div class="">
                     <label for="name" class="font-semibold dark:text-white">Username (Locked, open a ticket to change username)</label>
@@ -136,7 +136,7 @@
                     <input type="text" class="border rounded-md w-full" id="facebook" name="facebook" value="{{ $user->facebook }}">
                   </div>
     
-                  <button type="submit" class="border rounded-md py-1 px-2 bg-lime-500 hover:bg-lime-400 dark:border-gray-700 w-1/3 mx-auto">Update Profile</button>
+                  <button type="submit" class="border rounded-md py-1 px-2 bg-lime-500 hover:bg-lime-400 dark:border-gray-700 md:w-1/3 md:mx-auto">Update Profile</button>
             </form>
             </div>
         </div>

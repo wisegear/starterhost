@@ -5,7 +5,7 @@
     <!-- Post Header Section -->
     <div class="">    
         <h1 class="text-4xl font-bold text-center dark:text-white">{{$post->title}}</h1>
-            <ul class="flex justify-center space-x-8 my-4">
+            <ul class="flex flex-col md:flex-row items-center md:justify-center md:space-y-0 md:space-x-10 space-y-2 my-4">
                 <li><a href="/profile/{{ $post->users->name_slug }}" class="text-gray-700 dark:text-gray-400 hover:text-sky-700"><i class="fa-solid fa-user mr-2"></i>{{ $post->users->name }}</a></li>
                 <li class="text-gray-700 dark:text-gray-400"><i class="fa-solid fa-calendar-days mr-2"></i>{{ $post->created_at->diffForHumans() }}</li>
                 <li><a href="/blog?category={{ $post->blogcategories->name }}" class="text-gray-700 dark:text-gray-400 hover:text-sky-700"><i class="fa-solid fa-folder mr-2"></i>{{ $post->blogcategories->name }}</a></li>
@@ -57,7 +57,13 @@
                 </div>
                 <div class="w-full lg:w-10/12">
                     <p class="font-bold text-center text-gray-700 dark:text-gray-300">{{ $post->users->name }}</p>
-                    <p class="text-center text-sm dark:text-gray-200">{{ $post->users->bio }}</p>
+                    @if (empty($post->users->bio))
+                    <!-- If no user Bio -->
+                    <p class="text-center">User has not provided any information about themselves.</p>
+                    @else
+                        <!-- display user Bio -->
+                        <p class="text-center text-sm dark:text-gray-200">{{ $post->users->bio }}</p>
+                    @endif   
                 </div>
             </div>
 

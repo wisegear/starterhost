@@ -5,15 +5,15 @@
 <!-- Article Header Section -->
 
 <div class="">    
-    <h1 class="text-4xl font-bold text-center">{{$article->title}}</h1>
-        <ul class="flex justify-center space-x-8 my-4">
-            <li><a href="/profile/{{ $article->user->name_slug }}" class="text-gray-700 hover:text-sky-700"><i class="fa-solid fa-user mr-2"></i>{{ $article->user->name }}</a></li>
-            <li class="text-gray-700"><i class="fa-solid fa-calendar-days mr-2"></i>{{ $article->date->diffForHumans() }}</li>
-            <li class="text-gray-700"><i class="fa-solid fa-folder mr-2"></i>{{ $article->articles->name }}</li>
+    <h1 class="text-4xl font-bold text-center dark:text-white">{{$article->title}}</h1>
+        <ul class="my-4 flex flex-col md:flex-row items-center md:justify-center md:space-y-0 space-y-4 md:space-x-10">
+            <li><a href="/profile/{{ $article->user->name_slug }}" class="text-gray-700 hover:text-sky-700 dark:text-white"><i class="fa-solid fa-user mr-2"></i>{{ $article->user->name }}</a></li>
+            <li class="text-gray-700 dark:text-white"><i class="fa-solid fa-calendar-days mr-2 "></i>{{ $article->date->diffForHumans() }}</li>
+            <li class="text-gray-700 dark:text-white"><i class="fa-solid fa-folder mr-2"></i>{{ $article->articles->name }}</li>
         </ul>    
-    <p class="text-center md:w-1/2 mx-auto text-gray-500 mb-10">{{$article->summary }}</p>
+    <p class="text-center md:w-1/2 mx-auto text-gray-500 mb-10 dark:text-gray-300">{{$article->summary }}</p>
 
-    <img src="{{ asset($article->large_image) }}" class="w-full max-h-[350px] shadow-lg border rounded p-1" alt="">
+    <img src="{{ asset($article->large_image) }}" class="w-full max-h-[350px] shadow-lg border dark:border-gray-700 rounded p-1" alt="">
 </div>
 
 <!-- Main article section split by flex of main content and sidebar content -->
@@ -53,7 +53,13 @@
                 </div>
                 <div class="w-full lg:w-10/12">
                     <p class="font-bold text-center text-gray-700 dark:text-gray-300">{{ $article->user->name }}</p>
-                    <p class="text-center text-sm dark:text-gray-200">{{ $article->user->bio }}</p>
+                    @if (empty($article->user->bio))
+                    <!-- If no user Bio -->
+                    <p class="text-center">User has not provided any information about themselves.</p>
+                    @else
+                        <!-- display user Bio -->
+                        <p class="text-center text-sm dark:text-gray-200">{{ $article->user->bio }}</p>
+                    @endif   
                 </div>
             </div>
 
@@ -63,19 +69,19 @@
     <!-- Sidebar Content -->
     <div class="hidden md:block md:w-3/12 space-y-6">
         <div>
-            <h2 class="font-bold text-xl border-b">{{ $article->articles->name }}</h2>
-            <ol class="my-2 list-decimal list-inside">
+            <h2 class="font-bold text-xl border-b dark:border-b-gray-600 dark:text-white">{{ $article->articles->name }}</h2>
+            <ol class="my-2 list-decimal list-inside dark:text-white">
                 @foreach ($allArticles as $item)
-                    <li><a href="/article/{{ $item->slug }}">{{ $item->title }}</a></li>
+                    <li><a href="/article/{{ $item->slug }}" class="dark:text-white">{{ $item->title }}</a></li>
                 @endforeach
             </ol>
         </div>
         <div class="space-y-6">
-            <h2 class="font-bold text-xl border-b">Recent Blog Posts</h2>
+            <h2 class="font-bold text-xl border-b dark:border-b-gray-600 dark:text-white">Recent Blog Posts</h2>
             @foreach ($posts as $post)
                 <div class="">
-                    <img src="{{ asset($post->small_image) }}" class="h-[150px] w-full rounded border p-1" alt="">
-                    <h3 class="font-bold mt-2"><a href="/blog/{{ $post->slug }}">{{ $post->title }}</a></h2>
+                    <img src="{{ asset($post->small_image) }}" class="h-[150px] w-full rounded border dark:border-gray-600 p-1" alt="Post Image">
+                    <h3 class="font-bold mt-2 dark:text-white"><a href="/blog/{{ $post->slug }}">{{ $post->title }}</a></h2>
                 </div>               
             @endforeach
 
