@@ -61,15 +61,16 @@
     <!-- Place the first <script> tag in your HTML's <head> -->
     <script src="https://cdn.tiny.cloud/1/a1rn9rzvnlulpzdgoe14w7kqi1qpfsx7cx9am2kbgg226dqz/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 
-        <script>
-            tinymce.init({
-                selector: '#editor',  // Select the textarea by its ID
-                plugins: 'advlist autolink lists link image charmap preview anchor image',
-                toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | image | help ',
-                menubar: false,
-                branding: false,
-            });
-        </script>
+    <script>
+        tinymce.init({
+            selector: '#editor',  // Select the textarea by its ID
+            plugins: 'advlist autolink lists link image charmap preview anchor image code fullscreen insertdatetime media table paste help wordcount',
+            toolbar: 'undo redo | h1 h2 h3 | formatselect | bold italic backcolor | table | alignleft aligncenter alignright alignjustify | bullist numlist | removeformat | image | help',
+            menubar: 'file edit view insert format tools table help',
+            branding: false,
+            block_formats: 'Paragraph=p; Heading 1=h1; Heading 2=h2; Heading 3=h3; Heading 4=h4; Heading 5=h5; Heading 6=h6;'
+        });
+    </script>
 
         <!-- Upload Images for Editor -->
         <div class="my-10">
