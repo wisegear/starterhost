@@ -131,7 +131,7 @@
                         <ul id="categoryDropdown-{{ $category->id }}" class="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-md shadow-lg hidden z-50">
                             @foreach ($category->article as $article)
                                 <li class="px-4 py-2 hover:bg-lime-100 hover:rounded dark:hover:bg-gray-500">
-                                    <a href="/article/{{ $article->slug }}">{{ $article->title }}</a>
+                                    <a href="/article/{{ $article->slug }}" class="text-sm">{{ $article->title }}</a>
                                 </li>
                             @endforeach
                         </ul>
