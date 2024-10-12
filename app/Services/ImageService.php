@@ -29,17 +29,17 @@ class ImageService
         // Read the original image and resize it for small, medium, and large versions with specified quality
         // Resize and save the small image: 350x175, 50% quality
         Image::read(public_path($originalPath))
-            ->resize(350, 200)
+            ->cover(350, 200, 'center')
             ->save(public_path($smallPath), 50);
 
         // Resize and save the medium image: 800x300, 75% quality
         Image::read(public_path($originalPath))
-            ->resize(800, 300)
+            ->cover(800, 300, 'center')
             ->save(public_path($mediumPath), 75);
 
         // Resize and save the large image: 1200x300, 75% quality
         Image::read(public_path($originalPath))
-            ->resize(1200, 300)
+            ->cover(1200, 400, 'center')
             ->save(public_path($largePath), 75);
 
         // Return the paths for each image size
@@ -82,10 +82,7 @@ class ImageService
             }
     
             Image::read($image->getRealPath())
-            ->resize(800, null, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })
+            ->cover(1200,400, 'center')
             ->save(public_path($optimizedPath)); // Save without using `encode()`
     
             return $optimizedPath;

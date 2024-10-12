@@ -17,7 +17,7 @@
                 @endforeach
             </div>
 
-            <img src="{{ asset($post->large_image) }}" class="w-full max-h-[350px] shadow-lg border dark:border-gray-700 rounded" alt="">
+            <img src="{{ asset($post->large_image) }}" class="w-full h-[400px] shadow-lg border dark:border-gray-700 rounded" alt="">
     </div>
 
     <!-- Wrapper around post to split into post and sidebar -->
