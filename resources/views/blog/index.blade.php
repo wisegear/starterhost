@@ -15,7 +15,7 @@
 
                         @can('Admin')
                         <div class="flex justify-end space-x-2">
-                            <form action="/blog/{{ $post->id }}" method="POST" onsubmit="return confirm('Do you really want to delete this Quote?');">
+                            <form action="/blog/{{ $post->id }}" method="POST" onsubmit="return confirm('Do you really want to delete this Post?');">
                             {{ csrf_field() }}
                             {{ method_field ('DELETE') }} 
                             <button class="hover:text-red-500 dark:text-white" role="button" type="submit">
@@ -27,9 +27,9 @@
                         @endcan
                         <h3 class="text-lg font-bold mt-4 dark:text-white"><a href="/blog/{{ $post->slug }}">{{ $post->title }}</a></h3>
                         <ul class="flex space-x-4 text-sm mt-1 dark:text-white">
-                            <li><a href="#"><i class="fa-solid fa-user mr-2"></i>{{ $post->users->name }}</a></li>
+                            <li><a href="/profile/{{ $post->users->name_slug }}"><i class="fa-solid fa-user mr-2"></i>{{ $post->users->name }}</a></li>
                             <li><i class="fa-solid fa-clock mr-2"></i>{{ $post->date->diffForHumans() }}</li>
-                            <li><a href="#"><i class="fa-solid fa-folder mr-2"></i>{{ $post->blogcategories->name }}</a></li>
+                            <li><a href="/blog?category={{ $post->blogCategories->name }}"><i class="fa-solid fa-folder mr-2"></i>{{ $post->blogcategories->name }}</a></li>
                         </ul>
                         <p class="my-2 dark:text-white">{{ $post->excerpt }}</p>
                         <div class="flex flex-wrap space-x-4">

@@ -68,7 +68,7 @@ class ImageService
         }
     }    
 
-        public function optimizeAndSaveImage($image, $path = 'public/assets/images/uploads/')
+        public function optimizeAndSaveImage($image, $path = '/assets/images/uploads/')
         {
             // Generate a unique image name
             $imageName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME) . '_' . time() . '.' . $image->getClientOriginalExtension();

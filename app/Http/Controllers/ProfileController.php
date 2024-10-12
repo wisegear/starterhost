@@ -47,6 +47,8 @@ class ProfileController extends Controller
      */
     public function show(string $name_slug)
     {
+        Gate::authorize('Member');
+
         $user = User::where('name_slug', $name_slug)->first();
 
         return view('profile.show', compact('user'));
@@ -57,7 +59,8 @@ class ProfileController extends Controller
      */
     public function edit(string $name)
     {
-        if (Auth::user()->name === $name Or Gate::authorize('Admin'))
+
+        if (Auth::user()->name_slug === $name Or Gate::authorize('Admin'))
         {
             $user = User::where('name', $name)->first();
             $roles = UserRoles::all();
@@ -75,6 +78,8 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        Gate::authorize('Member');
 
         $user = User::find($id);
 
@@ -140,36 +145,40 @@ class ProfileController extends Controller
 
             }
 
-            //Check if the user is trusted.
-            if (isset($request->trusted)) {
+            // Only an Admin can update these.
 
-                $user->trusted = 1;
+            if (Gate::allows('Admin')) {
+        
+                //Check if the user is trusted.
+                if (isset($request->trusted)) {
 
-            } else {
+                    $user->trusted = 1;
 
-                $user->trusted = 0;
+                } else {
+
+                    $user->trusted = 0;
+
+                }
+
+                //Check if the user is locked.
+                if (isset($request->lock)) {
+
+                    $user->lock = 1;
+
+                } else {
+
+                    $user->lock = 0;
+
+                }
+
+
+                $user->notes = $request->notes;
+
+                //Sync Roles only if user is Admin
+
+                    $user->user_roles()->sync($request->roles);
 
             }
-
-            //Check if the user is locked.
-            if (isset($request->lock)) {
-
-                $user->lock = 1;
-
-            } else {
-
-                $user->lock = 0;
-
-            }
-
-
-            $user->notes = $request->notes;
-
-            //Sync Roles only if user is Admin
-
-            Gate::authorize('Admin');
-
-                $user->user_roles()->sync($request->roles);
 
                 $user->save();
 

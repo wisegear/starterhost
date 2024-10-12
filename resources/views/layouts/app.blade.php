@@ -162,8 +162,12 @@
                     {{ Auth::user()->name }} <i class="fa-solid fa-angles-down ml-2"></i>
                 </a>
                 <ul id="userDropdown" class="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-md shadow-lg hidden z-50">
-                    <li class="px-4 py-2 hover:bg-lime-100 hover:rounded dark:hover:bg-gray-500"><a href="/profile/{{ Auth::user()->name_slug }}">Profile</a></li>
-                    <li class="px-4 py-2 hover:bg-lime-100 hover:rounded dark:hover:bg-gray-500"><a href="/admin">Admin</a></li>
+                    @if (Auth::user()->has_user_role('Member'))
+                        <li class="px-4 py-2 hover:bg-lime-100 hover:rounded dark:hover:bg-gray-500"><a href="/profile/{{ Auth::user()->name_slug }}">Profile</a></li>
+                    @endif
+                    @if (Auth::user()->has_user_role('Admin'))
+                        <li class="px-4 py-2 hover:bg-lime-100 hover:rounded dark:hover:bg-gray-500"><a href="/admin">Admin</a></li>
+                    @endif
                     <li class="px-4 py-2 text-red-500 hover:bg-lime-100 hover:rounded dark:hover:bg-gray-500"><a href="/logout">Logout</a></li>
                 </ul>
             </li>

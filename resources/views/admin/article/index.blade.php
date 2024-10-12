@@ -21,6 +21,7 @@
                 <th>ID</th>
                 <th>Title</th>
                 <th>Category</th>
+                <th>Order</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
@@ -30,6 +31,7 @@
                 <td>{{ $article->id }}</td>
                 <td>{{ $article->title }}</td>
                 <td>{{ $article->articles->name }}</td>
+                <td>{{ $article->order }}</td>
                 <td><a href="/admin/article/{{ $article->id }}/edit"><button class="border p-1 uppercase bg-orange-500 rounded text-xs text-white">Edit</button></a></td>
                 <td>
                     <form action="/admin/article/{{ $article->id }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this article?');">

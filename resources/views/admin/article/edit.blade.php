@@ -14,7 +14,7 @@
             <div class="flex space-x-10 mb-10">
                 <div class="w-1/2">
                     <!-- Upload Featured Image -->
-                    <div class="flex justify-center">
+                    <div class="flex flex-col justify-center">
                         <label for="image" class="text-gray-700 mb-2">Upload New Featured Image (optional)</label>
                         <input type="file" name="image" id="image" accept="image/*" onchange="previewImage(event)">
                     </div>

@@ -12,17 +12,19 @@
     @endforeach
 
     <!-- Comment Form -->
-    @auth
-    <form action="{{ route('comments.store') }}" method="POST">
-        @csrf
-        <input type="hidden" name="commentable_type" value="{{ get_class($model) }}">
-        <input type="hidden" name="commentable_id" value="{{ $model->id }}">
-        <textarea name="comment_text" class="w-full border rounded" rows="2" placeholder="Add your comment"></textarea>
-        <button type="submit" class="border rounded p-2 mt-2 bg-lime-500 hover:bg-lime-400 dark:border-gray-700">Submit Comment</button>
-    </form>
-    @endauth
+    @can('Member')
+        <form action="{{ route('comments.store') }}" method="POST">
+            @csrf
+            <input type="hidden" name="commentable_type" value="{{ get_class($model) }}">
+            <input type="hidden" name="commentable_id" value="{{ $model->id }}">
+            <textarea name="comment_text" class="w-full border rounded" rows="2" placeholder="Add your comment"></textarea>
+            <button type="submit" class="border rounded p-2 mt-2 bg-lime-500 hover:bg-lime-400 dark:border-gray-700">Submit Comment</button>
+        </form>
+    @endcan
 
-    <div class="mt-4 font-bold">
-        <p class="dark:text-white">Want to comment on this page? <a href="/login" class="text-lime-700">Login</a> or <a href="/register" class="text-lime-700">Register</a>.</p>
-    </div>
+    @guest
+        <div class="mt-4 font-bold">
+            <p class="dark:text-white">Want to comment on this page? <a href="/login" class="text-lime-700">Login</a> or <a href="/register" class="text-lime-700">Register</a>.</p>
+        </div>
+    @endguest
 </div>

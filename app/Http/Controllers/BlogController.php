@@ -106,24 +106,27 @@ class BlogController extends Controller
         $post->user_id = Auth::user()->id;
         $post->categories_id = $request->category;
     
-        // Handle the main featured image upload if it exists
         if ($request->hasFile('image')) {
-            // Use the ImageService to handle the image upload and generate different sizes
-            $imagePaths = $imageService->optimizeAndSaveImage($request->file('image'));
-    
-            // Store each image path in the respective database columns
-            $post->original_image = $imagePaths;
+            // Use handleImageUpload for the main blog post image to create multiple sizes
+            $imagePaths = $imageService->handleImageUpload($request->file('image'));
+            
+            // Store each image path
+            $post->original_image = $imagePaths['original'];
+            $post->small_image = $imagePaths['small'];
+            $post->medium_image = $imagePaths['medium'];
+            $post->large_image = $imagePaths['large'];
         }
-    
-        // Handle additional images for use in the editor
+        
+        // Handle additional images for use in the editor (single version)
         $uploadedPaths = [];
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
+                // Use optimizeAndSaveImage for editor images to create a single optimized version
                 $imagePath = $imageService->optimizeAndSaveImage($image);
                 $uploadedPaths[] = $imagePath;
             }
         }
-    
+        
         // Store the additional image paths in the 'images' column as JSON
         $post->images = json_encode($uploadedPaths);
     
@@ -186,40 +189,38 @@ class BlogController extends Controller
         $post->user_id = Auth::user()->id;
         $post->categories_id = $request->category;
     
-        // Handle main featured image upload if a new image is uploaded
         if ($request->hasFile('image')) {
-            // Delete the old featured images if they exist
+            // Delete the old images
             $imageService->deleteImage([
                 $post->original_image,
                 $post->small_image,
                 $post->medium_image,
                 $post->large_image
             ]);
-    
-            // Upload and resize the new featured image
+        
+            // Handle the new blog post image upload with multiple sizes
             $imagePaths = $imageService->handleImageUpload($request->file('image'));
-    
-            // Store the new image paths in the respective database columns
+        
+            // Store the new image paths
             $post->original_image = $imagePaths['original'];
             $post->small_image = $imagePaths['small'];
             $post->medium_image = $imagePaths['medium'];
             $post->large_image = $imagePaths['large'];
         }
-    
-        // Handle additional images for the editor
+        
+        // Handle additional images for the editor (single optimized version)
         $uploadedPaths = [];
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                // Optimize and save each new image using the ImageService
                 $imagePath = $imageService->optimizeAndSaveImage($image);
                 $uploadedPaths[] = $imagePath;
             }
         }
-    
-        // Merge new images with existing ones (if any)
+        
+        // Merge new images with existing ones
         $existingImages = json_decode($post->images) ?? [];
         $updatedImages = array_merge($existingImages, $uploadedPaths);
-    
+        
         // Store the updated image paths in the 'images' field
         $post->images = json_encode($updatedImages);
     
@@ -243,6 +244,9 @@ class BlogController extends Controller
      */
     public function destroy(string $id, ImageService $imageService)
     {
+
+        Gate::authorize('Admin');
+        
         // Retrieve the post by ID
         $post = BlogPosts::findOrFail($id);
     
