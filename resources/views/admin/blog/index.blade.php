@@ -124,18 +124,23 @@
             <th>Update</th>
             <th>Delete</th>
         </tr>
-    @foreach ($posts as $post)
+        @foreach ($posts as $post)
         <tr>
             <td>{{ $post->id }}</td>
             <td><a href="../blog/{{ $post->slug }}">{{ $post->title }}</a></td>
             <td>{{ $post->users->name }}</td>
             <td>{{ $post->date->format('d-m-Y') }}</td>
             <td class="text-center"><a href="../blog/{{ $post->id }}/edit"><button class="border rounded bg-lime-500 hover:bg-lime-400 p-1 text-sm">Update</button></a></td>
-            <td class="text-center"><button class="border rounded bg-red-500 text-white p-1 text-sm">Delete</button></td>
+            <td class="text-center">
+                <!-- Delete Form -->
+                <form action="../blog/{{ $post->id}}" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="border rounded bg-red-500 text-white p-1 text-sm hover:bg-red-400">Delete</button>
+                </form>
+            </td>
         </tr>
-
-        
-    @endforeach
+        @endforeach
     </table>
 
     <div class="mt-6 w-1/2 mx-auto">
