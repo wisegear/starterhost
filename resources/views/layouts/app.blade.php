@@ -7,10 +7,6 @@
 
         <title>{{ config('app.name', 'TheHolocaust') }}</title>
 
-    <!-- Place the first <script> tag in your HTML's <head> -->
-    <script src="https://cdn.tiny.cloud/1/a1rn9rzvnlulpzdgoe14w7kqi1qpfsx7cx9am2kbgg226dqz/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
-
-
         <!-- FontAwesome -->
         <script src="https://kit.fontawesome.com/0ff5084395.js" crossorigin="anonymous"></script>
 
