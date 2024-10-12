@@ -82,8 +82,7 @@ class ImageService
             }
     
             Image::read($image->getRealPath())
-            ->cover(1200,400, 'center')
-            ->save(public_path($optimizedPath)); // Save without using `encode()`
+            ->save(public_path($optimizedPath), 50);  // Save with 75% quality to reduce file size
     
             return $optimizedPath;
         }
