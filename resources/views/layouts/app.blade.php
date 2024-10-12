@@ -24,12 +24,12 @@
             <div class="flex mb-4">
                 <div class="flex items-center w-2/12">
                     <ul class="flex items-center space-x-4">
-                        <li><a href="/"><i class="fa-brands fa-square-facebook"></i></a></li>
-                        <li><a href="/"><i class="fa-brands fa-x-twitter"></i></a></li>
+                        <li><a href="/"><i class="fa-brands fa-square-facebook dark:text-white"></i></a></li>
+                        <li><a href="/"><i class="fa-brands fa-x-twitter dark:text-white"></i></a></li>
                     </ul>
                 </div>
                 <div class="flex-grow text-center">
-                    <p class="text-2xl font-bold">MortgageBlog<span class="text-lg font-normal text-gray-600">.uk</span></p>
+                    <p class="text-2xl font-bold dark:text-white">MortgageBlog<span class="text-lg font-normal text-gray-600 dark:text-gray-400">.uk</span></p>
                 </div>
                 <div class="w-2/12 flex justify-end">
                     <!-- Sun icon for Light Mode -->
@@ -45,20 +45,20 @@
 
                     
 <!-- Navigation Section -->
-<div class="w-full bg-white border-y">
+<div class="w-full border-y dark:border-gray-700">
     <!-- Mobile Menu Toggle Button -->
     <div class="md:hidden flex justify-center items-center p-4">
         <button id="mobileMenuToggle" class="text-gray-800 focus:outline-none">
             <!-- Hamburger Icon -->
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <svg class="w-6 h-6 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
             </svg>
         </button>
     </div>
 
     <!-- Mobile Navigation Menu -->
-    <div id="mobileMenu" class="md:hidden bg-gray-100 border-t hidden">
-        <ul class="flex flex-col space-y-2 py-4 px-6">
+    <div id="mobileMenu" class="md:hidden bg-gray-100 border-t dark:border-t-gray-700 hidden">
+        <ul class="flex flex-col space-y-2 py-4 px-6 dark:bg-gray-700 dark:text-white">
             <li><a href="/" class="block py-2">Home</a></li>
             <li><a href="/blog" class="block py-2">Blog</a></li>
 
@@ -115,7 +115,7 @@
     </div>
 
     <!-- Standard Navigation Menu (Hidden on Mobile) -->
-    <div class="hidden md:flex justify-center space-x-4 py-4">
+    <div class="hidden md:flex justify-center space-x-4 py-4 dark:text-white">
         <ul class="flex justify-center space-x-4">
             <li><a href="/">Home</a></li>
             <li><a href="/blog">Blog</a></li>
@@ -128,9 +128,9 @@
                         {{ $category->name }}
                     </a>
                     @if ($category->article->count() > 0)
-                        <ul id="categoryDropdown-{{ $category->id }}" class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden z-50">
+                        <ul id="categoryDropdown-{{ $category->id }}" class="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-md shadow-lg hidden z-50">
                             @foreach ($category->article as $article)
-                                <li class="px-4 py-2 hover:bg-lime-100">
+                                <li class="px-4 py-2 hover:bg-lime-100 hover:rounded dark:hover:bg-gray-500">
                                     <a href="/article/{{ $article->slug }}">{{ $article->title }}</a>
                                 </li>
                             @endforeach
@@ -145,9 +145,9 @@
                 <a href="javascript:void(0)" class="flex items-center" id="calculatorDropdownToggle">
                     Calculators
                 </a>
-                <ul id="calculatorDropdown" class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden z-50">
-                    <li class="px-4 py-2 hover:bg-lime-100"><a href="/calculators/mortgage-payments">Mortgage Calculator</a></li>
-                    <li class="px-4 py-2 hover:bg-lime-100"><a href="/calculators/stamp-duty">Stamp Duty</a></li>
+                <ul id="calculatorDropdown" class="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-md shadow-lg hidden z-50">
+                    <li class="px-4 py-2 hover:bg-lime-100 hover:rounded dark:hover:bg-gray-500"><a href="/calculators/mortgage-payments">Mortgage Calculator</a></li>
+                    <li class="px-4 py-2 hover:bg-lime-100 hover:rounded dark:hover:bg-gray-500"><a href="/calculators/stamp-duty">Stamp Duty</a></li>
                 </ul>
             </li>
 
@@ -161,10 +161,10 @@
                 <a href="javascript:void(0)" class="flex items-center text-lime-700" id="userDropdownToggle">
                     {{ Auth::user()->name }} <i class="fa-solid fa-angles-down ml-2"></i>
                 </a>
-                <ul id="userDropdown" class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden z-50">
-                    <li class="px-4 py-2 hover:bg-lime-100"><a href="/profile/{{ Auth::user()->name_slug }}">Profile</a></li>
-                    <li class="px-4 py-2 hover:bg-lime-100"><a href="/admin">Admin</a></li>
-                    <li class="px-4 py-2 text-red-500 hover:bg-lime-100"><a href="/logout">Logout</a></li>
+                <ul id="userDropdown" class="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-md shadow-lg hidden z-50">
+                    <li class="px-4 py-2 hover:bg-lime-100 hover:rounded dark:hover:bg-gray-500"><a href="/profile/{{ Auth::user()->name_slug }}">Profile</a></li>
+                    <li class="px-4 py-2 hover:bg-lime-100 hover:rounded dark:hover:bg-gray-500"><a href="/admin">Admin</a></li>
+                    <li class="px-4 py-2 text-red-500 hover:bg-lime-100 hover:rounded dark:hover:bg-gray-500"><a href="/logout">Logout</a></li>
                 </ul>
             </li>
             @else
@@ -224,8 +224,8 @@
         </div>
 
         <!-- Footer Section -->
-        <footer class="border-t">
-            <p class="text-center text-sm font-bold text-gray-500 py-4">Copyright 2024, All rights Reserved.  <a href="/">MortgageBlog.uk</a> built and maintained by Lee Wisener</p>
+        <footer class="border-t dark:border-t-gray-700">
+            <p class="text-center text-sm font-bold text-gray-500 dark:text-gray-300 py-4">Copyright 2024, All rights Reserved.  <a href="/">MortgageBlog.uk</a> built and maintained by Lee Wisener</p>
         </footer>
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])

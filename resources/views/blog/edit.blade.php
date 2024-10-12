@@ -14,20 +14,20 @@
         <div class="flex space-x-10 mb-10">
             <div class="w-1/2">
                 <!-- Upload Featured Image -->
-                <div class="flex justify-center">
-                    <label for="image" class="text-gray-700 mb-2">Upload New Featured Image (optional)</label>
+                <div class="flex flex-col mb-4">
+                    <label for="image" class="text-gray-700 mb-2 font-bold">Upload New Featured Image (optional)</label>
                     <input type="file" name="image" id="image" accept="image/*" onchange="previewImage(event)">
                 </div>
 
                 <!-- Image preview container -->
-                <div id="image-preview" class="my-10">
-                    <img id="preview" class="w-full h-[300px]" />
+                <div id="image-preview" class="">
+                    <img id="preview" class="w-full" />
                 </div>            
             </div>
             <div class="w-1/2">
-                <h2 class="font-bold text-lg mb-10">Existing Featured Image</h2>
+                <h2 class="font-bold text-lg mb-12">Existing Featured Image</h2>
                 @if($post->small_image)
-                    <img src="{{ asset($post->small_image) }}" alt="Featured Image">
+                    <img src="{{ asset($post->small_image) }}" class="w-full h-[350px]" alt="Featured Image">
                 @else
                     <p class="text-gray-600">No featured image available</p>
                 @endif

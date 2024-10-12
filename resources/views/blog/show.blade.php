@@ -4,20 +4,20 @@
 
     <!-- Post Header Section -->
     <div class="">    
-        <h1 class="text-4xl font-bold text-center">{{$post->title}}</h1>
+        <h1 class="text-4xl font-bold text-center dark:text-white">{{$post->title}}</h1>
             <ul class="flex justify-center space-x-8 my-4">
-                <li><a href="/profile/{{ $post->users->name_slug }}" class="text-gray-700 hover:text-sky-700"><i class="fa-solid fa-user mr-2"></i>{{ $post->users->name }}</a></li>
-                <li class="text-gray-700"><i class="fa-solid fa-calendar-days mr-2"></i>{{ $post->created_at->diffForHumans() }}</li>
-                <li><a href="/blog?category={{ $post->blogcategories->name }}" class="text-gray-700 hover:text-sky-700"><i class="fa-solid fa-folder mr-2"></i>{{ $post->blogcategories->name }}</a></li>
+                <li><a href="/profile/{{ $post->users->name_slug }}" class="text-gray-700 dark:text-gray-400 hover:text-sky-700"><i class="fa-solid fa-user mr-2"></i>{{ $post->users->name }}</a></li>
+                <li class="text-gray-700 dark:text-gray-400"><i class="fa-solid fa-calendar-days mr-2"></i>{{ $post->created_at->diffForHumans() }}</li>
+                <li><a href="/blog?category={{ $post->blogcategories->name }}" class="text-gray-700 dark:text-gray-400 hover:text-sky-700"><i class="fa-solid fa-folder mr-2"></i>{{ $post->blogcategories->name }}</a></li>
             </ul>    
-        <p class="text-center md:w-1/2 mx-auto text-gray-500">{{$post->excerpt }}</p>
+        <p class="text-center md:w-1/2 mx-auto text-gray-500 dark:text-gray-300">{{$post->excerpt }}</p>
             <div class="flex space-x-4 my-6 justify-center">
                 @foreach ($post->blogtags as $tag)
-                    <a href="/blog?tag={{ $tag->name }}" class="p-1 text-xs uppercase border rounded font-bold bg-slate-600 text-white hover:bg-slate-400 hover:text-white">{{ $tag->name }}</a>
+                    <a href="/blog?tag={{ $tag->name }}" class="p-1 text-xs uppercase border dark:border-gray-700 rounded font-bold bg-slate-600 text-white hover:bg-slate-400 hover:text-white">{{ $tag->name }}</a>
                 @endforeach
             </div>
 
-            <img src="{{ asset($post->large_image) }}" class="w-full max-h-[350px] shadow-lg border rounded" alt="">
+            <img src="{{ asset($post->large_image) }}" class="w-full max-h-[350px] shadow-lg border dark:border-gray-700 rounded" alt="">
     </div>
 
     <!-- Wrapper around post to split into post and sidebar -->
@@ -51,13 +51,13 @@
 
             <!-- Author Box -->
 
-            <div class="flex items-center rounded shadow-lg border bg-lime-100 p-4 my-10 space-y-2">
-                <div class="w-4/12">
+            <div class="flex flex-col md:flex-row items-center rounded shadow-lg border bg-lime-100 dark:bg-gray-600 dark:border-gray-700 p-4 my-10 space-y-2">
+                <div class="w-3/12 lg:w-2/12">
                     <img src="/assets/images/avatars/{{ $post->users->avatar }}" class="mx-auto rounded-full h-20 border border-gray-400 p-1">
                 </div>
-                <div>
-                    <p class="font-bold text-center text-gray-700">{{ $post->users->name }}</p>
-                    <p class="text-center text-sm">{{ $post->users->bio }}</p>
+                <div class="w-full lg:w-10/12">
+                    <p class="font-bold text-center text-gray-700 dark:text-gray-300">{{ $post->users->name }}</p>
+                    <p class="text-center text-sm dark:text-gray-200">{{ $post->users->bio }}</p>
                 </div>
             </div>
 
@@ -67,11 +67,11 @@
         </div>
         <!-- Wrapper for the sidebar content -->
         <div class="hidden md:block w-3/12 mt-10">
-            <H2 class="text-xl font-bold mb-4">Recent Posts:</H2>
+            <H2 class="text-xl font-bold mb-4 dark:text-white">Recent Posts:</H2>
             @foreach ($recentPosts as $recentPost)
                 <div class="mb-6">
-                    <img src="{{ asset($recentPost->small_image) }}" class="h-[150px] w-full rounded border p-1" alt="">
-                    <h3 class="font-bold mt-2"><a href="/blog/{{ $recentPost->slug }}">{{ $recentPost->title }}</a></h2>
+                    <img src="{{ asset($recentPost->small_image) }}" class="h-[150px] w-full rounded border dark:border-gray-700 p-1" alt="">
+                    <h3 class="font-bold mt-2 dark:text-white"><a href="/blog/{{ $recentPost->slug }}">{{ $recentPost->title }}</a></h2>
                 </div>               
             @endforeach
         </div>

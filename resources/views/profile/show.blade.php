@@ -8,7 +8,7 @@
         <div class="text-center mb-4">
             <p class="font-semibold mb-2 text-lg dark:text-white">You're viewing the user profile for {{ $user->name }}</p>
             <div class="flex space-x-4 justify-center">
-                <a href="{{ $user->x }}" class="border border-gray-500 px-2 py-1 rounded-full hover:bg-lime-100"><i class="fa-brands fa-x-twitter w-4 h-4 dark:text-white"></i></a>					
+                <a href="{{ $user->x }}" class="border border-gray-500 px-2 py-1 rounded-full hover:bg-lime-100"><i class="fa-brands fa-x-twitter w-4 h-4 dark:text-white dark:hover:text-black"></i></a>					
                 <a href="{{ $user->facebook }}" class="border border-gray-500 px-2 py-1 rounded-full hover:bg-lime-100"><i class="fa-brands fa-facebook-f text-[#1877f2] w-4 h-4"></i></a>					
                 <a href="{{ $user->linkedin }}" class="border border-gray-500 px-2 py-1 rounded-full hover:bg-lime-100"><i class="fa-brands fa-linkedin-in text-[#0a66c2] w-4 h-4"></i></a>
             </div>				

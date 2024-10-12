@@ -31,8 +31,9 @@
                 <div class="space-x-4 hidden md:block md:text-center md:w-8/12">
                     <a href="/" class="hover:text-red-500">Site Home</a>
                     <a href="/admin" class="hover:text-red-500">Admin Home</a>
-                    <a href="/admin/article" class="hover:text-red-500">Article Management</a>
-                    <a href="/admin/blog" class="hover:text-red-500">Blog Management</a>
+                    <a href="/admin/users" class="hover:text-red-500">Users</a>
+                    <a href="/admin/article" class="hover:text-red-500">Articles</a>
+                    <a href="/admin/blog" class="hover:text-red-500">Blog</a>
                 </div>
             </div>
 

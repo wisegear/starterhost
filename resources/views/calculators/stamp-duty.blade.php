@@ -15,7 +15,7 @@
                 <img class="h-[200px]" src="/assets/images/site/stamp-duty3.svg" alt="">
             </div>
         </div>
-    <div class="border rounded p-10 shadow-lg">
+    <div class="border dark:border-gray-500 rounded p-10 shadow-lg">
         <!-- Show validation errors -->
         @if($errors->any())
             <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-5">
@@ -29,7 +29,7 @@
 
         <!-- Stamp Duty Form -->
         <form action="{{ route('stamp-duty.calculate') }}" method="get">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 dark:text-white">
                 <!-- Scotland -->
                 <div class="form-group">
                     <h3 class="text-lg font-bold mb-4">Scotland</h3>
@@ -65,7 +65,7 @@
             </div>
 
             <div class="mt-6 w-4/12 mx-auto">
-                <label for="amount" class="block mb-2 font-bold">Enter Purchase Price</label>
+                <label for="amount" class="block mb-2 font-bold dark:text-white">Enter Purchase Price</label>
                 <input type="number" name="amount" id="amount" class="w-full p-2 border rounded" value="{{ old('amount') }}" required>
                 @error('amount')
                     <div class="text-red-600 mt-2">
@@ -81,20 +81,20 @@
 
         @if(isset($region))
             <!-- Results Section -->
-            <div class="bg-white mt-10 rounded">
+            <div class="mt-10 rounded dark:text-white">
                 <h3 class="text-xl font-bold mb-4">
                     Tax Calculation for {{ $regionDisplayName }} - {{ $buyerType }}
                 </h3>
                 <table class="table-auto w-full text-left rounded">
                     <thead>
                         <tr class="bg-lime-300">
-                            <th>Band</th>
-                            <th>Start (£)</th>
-                            <th>End (£)</th>
-                            <th>Normal Rate (%)</th>
-                            <th>Normal Tax (£)</th>
-                            <th>Additional Rate (%)</th>
-                            <th>Additional Tax (£)</th>
+                            <th class=" dark:text-black">Band</th>
+                            <th class=" dark:text-black">Start (£)</th>
+                            <th class=" dark:text-black">End (£)</th>
+                            <th class=" dark:text-black">Normal Rate (%)</th>
+                            <th class=" dark:text-black">Normal Tax (£)</th>
+                            <th class=" dark:text-black">Additional Rate (%)</th>
+                            <th class=" dark:text-black">Additional Tax (£)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -113,15 +113,15 @@
                     <tfoot class="">
                         <tr class="font-bold">
                             <td colspan="4" class="text-right">Total:</td>
-                            <td class="bg-lime-300">{{ number_format($totalNormalTax) }}</td>
+                            <td class="bg-lime-300 dark:text-black">{{ number_format($totalNormalTax) }}</td>
                             <td></td>
-                            <td class="bg-lime-300">{{ number_format($totalAdditionalTax) }}</td>
+                            <td class="bg-lime-300 dark:text-black">{{ number_format($totalAdditionalTax) }}</td>
                         </tr>
                     </tfoot>
                 </table>
             </div>
             <!-- Notes Section -->
-            <div class="mt-10">
+            <div class="mt-10 dark:text-white">
                 <h2 class="font-bold">Notes:</h2>
                 <p>In scotland Stamp Duty is known as LBTT - Land & Bulding Transaction Tax </p>
                 <p>In Wales Stamp Duty is known as LTT - Land Transaction Tax </p>

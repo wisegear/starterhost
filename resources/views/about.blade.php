@@ -3,10 +3,10 @@
 @section('content')
 
     <div class="">
-        <img src="/assets/images/site/about.jpg" alt="about page" class="w-full border p-2">
+        <img src="/assets/images/site/about.jpg" alt="about page" class="w-full border p-2 rounded dark:border-gray-700">
     </div>
 
-    <div class="mt-4">
+    <div class="mt-4 dark:text-white">
         <h2 class="font-bold text-2xl mb-4">About this site</h2>
         <p class="wise1text mb-2">
         When I started in the mortgage industry in 2000, it was new and interesting and I wanted to learn as much as I could. I had this idea that if 

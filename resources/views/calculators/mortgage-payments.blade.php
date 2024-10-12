@@ -15,7 +15,7 @@
     </div>
 
     <div role="main">
-        <div class="mb-10 border rounded shadow-lg border-gray-300 p-4 text-sm">
+        <div class="mb-10 border dark:border-gray-600 rounded shadow-lg border-gray-300 p-4 text-sm">
             <h3 class="text-center font-semibold text-gray-600 pb-4 dark:text-gray-200">Complete the form below to view the results.</h3>
 
             <!-- Add ID to the form field that you want to format -->
@@ -38,8 +38,8 @@
 
             @if(isset($amount) && isset($term) && isset($rate))
                 <div class="mt-10">
-                    <div class="my-10 border border-gray-300 rounded shadow-lg">
-                        <h4 class="text-center font-bold text-lg p-4 border">Based on a loan of <span class="text-lime-600">£{{ number_format($amount) }}</span> over <span class="text-lime-600">{{ $term }}</span> years at a rate of <span class="text-lime-600">{{ number_format($rate, 2) }}%</span></h4>
+                    <div class="my-10">
+                        <h4 class="text-center font-bold border rounded shadow-lg border-gray-300 dark:border-gray-600 text-lg p-4 dark:text-white">Based on a loan of <span class="text-lime-600">£{{ number_format($amount) }}</span> over <span class="text-lime-600">{{ $term }}</span> years at a rate of <span class="text-lime-600">{{ number_format($rate, 2) }}%</span></h4>
                     </div>
                     <div class="flex flex-col space-y-10 md:flex-row md:space-y-0 md:justify-around my-10">
                         <div class="text-center w-full md:w-1/3 border border-gray-300 rounded shadow-lg p-4 bg-yellow-100">
@@ -59,7 +59,7 @@
                             <p class="mt-4 text-sm text-gray-600">For every £1 borrowed you will repay £{{ number_format((($repayment * 12) * $term) / $amount, 2) }}</p>                       
                         </div>
                     </div>
-                    <div class="my-10 border border-gray-300 rounded shadow-lg">
+                    <div class="my-10 border-gray-300 dark:border-gray-600 rounded shadow-lg">
                     </div>
                 </div>
             @elseif (isset($_GET['submit']) && (empty($amount) || empty($term) || empty($rate)))

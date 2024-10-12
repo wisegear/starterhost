@@ -63,7 +63,7 @@
         <div class="my-10 flex justify-evenly items-center border rounded-md p-6">
                 <!-- Manage the user avatar -->
                 
-                <div class="text-center w-3/12">
+                <div class="flex flex-col text-center w-3/12 dark:text-white">
                     <p class="py-2">Add an Avatar by uploading new file.</p>
                     <input type="file" name="image" accept="image/*" onchange="loadFile(event)" class="w-3/4">
                         <script>
@@ -76,12 +76,12 @@
                 </div>
                 
                 <div class="w-3/12">
-                    <p class="text-center mb-2">Existing Avatar</p>
+                    <p class="text-center mb-2 dark:text-white">Existing Avatar</p>
                     <img src="{{ asset("/assets/images/avatars/$user->avatar") }}" class="mx-auto shadow-md rounded" style="width: 100px; height: 100px;">
                 </div>
       
                 <div class="w-3/12">
-                    <p class="text-center mb-2">New Avatar here (if added)</p>
+                    <p class="text-center mb-2 dark:text-white">New Avatar here (if added)</p>
                     <img class="" id="new_avatar" name="new_avatar">
                 </div>		
         </div>
@@ -89,54 +89,54 @@
         <div class="my-10 w-1/2 mx-auto">
             <div class="flex flex-col space-y-6">
                   <div class="">
-                    <label for="name" class="font-semibold">Username (Locked, open a ticket to change username)</label>
+                    <label for="name" class="font-semibold dark:text-white">Username (Locked, open a ticket to change username)</label>
                     <input type="text" class="border rounded-md w-full bg-gray-100" id="name" name="name" value="{{ $user->name }}" disabled>
                     <p class="text-red-500">{{ $errors->has('name') ? ' Cannot be blank, Max 255 characters, must be unique.' : '' }}</p>
                   </div>
     
                   <div class="">
-                    <label for="email">Email</label>
+                    <label for="email" class="dark:text-white">Email</label>
                     <input type="text" class="border rounded-md w-full" id="email" name="email" value="{{ $user->email }}">
                     <p class="text-red-500">{{ $errors->has('email') ? ' Cannot be blank, Max 255 characters, must be unique.' : '' }}</p>
                   </div>
     
                   <div class="text-center pt-4">
-                    <input type="checkbox" class="" id="email_visible" name="email_visible" value="{{ $user->email_visible }}" @if ($user->email_visible == true) checked @endif>
-                    <label class="" for="email_visible">Checking this box will display your email publically.</label>
+                    <input type="checkbox" class="dark:text-white" id="email_visible" name="email_visible" value="{{ $user->email_visible }}" @if ($user->email_visible == true) checked @endif>
+                    <label class="dark:text-white" for="email_visible">Checking this box will display your email publically.</label>
                   </div>
     
                   <div class="">
-                    <label for="website">Website</label>
+                    <label for="website" class="dark:text-white">Website</label>
                     <input type="text" class="border rounded-md w-full" id="website" name="website" value="{{ $user->website }}">
                   </div>
     
                   <div class="">
-                    <label for="location">Location</label>
+                    <label for="location" class="dark:text-white">Location</label>
                     <input type="text" class="border rounded-md w-full" id="location" name="location" value="{{ $user->location }}">
                   </div>
     
                   <div class="">
-                    <label for="bio">Tell everyone a bit about you</label>
+                    <label for="bio" class="dark:text-white">Tell everyone a bit about you</label>
                     <textarea class="border rounded-md w-full" id="bio" name="bio" rows="6">{{ $user->bio }}</textarea>
                     <p class="text-red-500">{{ $errors->has('bio') ? ' Max 500 characters' : '' }}</p>
                   </div>
     
                   <div class="">
-                    <label for="linkedin">Linkedin</label>
+                    <label for="linkedin" class="dark:text-white">Linkedin</label>
                     <input type="text" class="border rounded-md w-full" id="linkedin" name="linkedin" value="{{ $user->linkedin }}">
                   </div>
     
                   <div class="">
-                    <label for="twitter">Twitter</label>
+                    <label for="twitter" class="dark:text-white">Twitter</label>
                     <input type="text" class="border rounded-md w-full" id="x" name="x" value="{{ $user->x }}">
                   </div>
     
                   <div class="">
-                    <label for="facebook">Facebook</label>
+                    <label for="facebook" class="dark:text-white">Facebook</label>
                     <input type="text" class="border rounded-md w-full" id="facebook" name="facebook" value="{{ $user->facebook }}">
                   </div>
     
-                  <button type="submit" class="border rounded-md py-1 px-2 bg-lime-500 hover:bg-lime-400 w-1/3 mx-auto">Update Profile</button>
+                  <button type="submit" class="border rounded-md py-1 px-2 bg-lime-500 hover:bg-lime-400 dark:border-gray-700 w-1/3 mx-auto">Update Profile</button>
             </form>
             </div>
         </div>

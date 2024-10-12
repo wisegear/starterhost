@@ -45,15 +45,17 @@
 
         <!-- Author Box -->
 
-        <div class="flex items-center rounded shadow-lg border bg-lime-100 p-4 my-10 space-y-2">
-            <div class="w-4/12">
-                <img src="/assets/images/avatars/{{ $article->user->avatar }}" class="mx-auto rounded-full h-20 border border-gray-400 p-1">
+            <!-- Author Box -->
+
+            <div class="flex flex-col md:flex-row items-center rounded shadow-lg border bg-lime-100 dark:bg-gray-600 dark:border-gray-700 p-4 my-10 space-y-2">
+                <div class="w-3/12 lg:w-2/12">
+                    <img src="/assets/images/avatars/{{ $article->user->avatar }}" class="mx-auto rounded-full h-20 border border-gray-400 p-1">
+                </div>
+                <div class="w-full lg:w-10/12">
+                    <p class="font-bold text-center text-gray-700 dark:text-gray-300">{{ $article->user->name }}</p>
+                    <p class="text-center text-sm dark:text-gray-200">{{ $article->user->bio }}</p>
+                </div>
             </div>
-            <div>
-                <p class="font-bold text-center text-gray-700">Lee Wisener</p>
-                <p class="text-center text-sm">{{ $article->user->bio }}</p>
-            </div>
-        </div>
 
         @include('comments', ['comments' => $article->comments, 'model' => $article])
 

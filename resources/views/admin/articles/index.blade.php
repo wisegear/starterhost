@@ -41,14 +41,14 @@
             @enderror
             <input type="text" id="create_articles" name="create_name" class="rounded mb-4" value="{{ old('create_name') }}">
 
-            <label for="article_order" class="font-bold mb-2">Enter order of article</label>
+            <label for="article_order" class="font-bold mb-2">Enter order of article category</label>
             @error('article_order')
                 <span class="text-red-500">{{ $message }}</span>
             @enderror
             <input type="number" id="article_order" name="article_order" class="rounded w-1/5" value="{{ old('article_order') }}">
 
             <div class="flex items-center space-x-2 my-4">
-                <label for="nav_item">Is this article category a navigation item?</label>
+                <label for="nav_item" class="font-bold">Is this article category a navigation item?</label>
                 <input type="checkbox" name="create_navigation" id="nav_item" class="rounded-full">
             </div>
             <button type="submit" class="inline-block self-start mx-auto mt-4 border rounded p-2 bg-lime-400 hover:bg-lime-300">Create</button>
