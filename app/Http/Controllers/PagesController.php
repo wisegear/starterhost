@@ -228,4 +228,14 @@ class PagesController extends Controller
     
         return [$totalNormalTax, $totalAdditionalTax];
     }
+
+    public function contact() {
+
+        return view('contact');
+    }
+
+    public function about() {
+
+        return view('about');
+    }
 }

@@ -92,8 +92,8 @@
             </li>
 
             <!-- Mobile Contact and About Links -->
-            <li><a href="/" class="block py-2">Contact</a></li>
-            <li><a href="/" class="block py-2">About</a></li>
+            <li><a href="/contact" class="block py-2">Contact</a></li>
+            <li><a href="/about" class="block py-2">About</a></li>
 
             @if (Auth::check())
             <!-- Mobile User Dropdown -->
@@ -152,8 +152,8 @@
             </li>
 
             <!-- Standard Contact and About Links -->
-            <li><a href="/">Contact</a></li>
-            <li><a href="/">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/about">About</a></li>
 
             @if (Auth::check())
             <!-- Desktop User Dropdown -->
@@ -225,7 +225,7 @@
 
         <!-- Footer Section -->
         <footer class="border-t">
-            <p class="text-center font-bold text-gray-500 py-4">Copyright 2024, All rights Reserved.  Theholocaust.uk by Lee Wisener</p>
+            <p class="text-center text-sm font-bold text-gray-500 py-4">Copyright 2024, All rights Reserved.  <a href="/">MortgageBlog.uk</a> built and maintained by Lee Wisener</p>
         </footer>
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])

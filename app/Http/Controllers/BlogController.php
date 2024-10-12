@@ -148,8 +148,9 @@ class BlogController extends Controller
     public function show(string $slug)
     {
         $post = BlogPosts::with('BlogCategories', 'users', 'blogTags')->where('slug', $slug)->first();
+        $recentPosts = BlogPosts::orderBy('date', 'desc')->take(3)->get();
 
-        return view('blog.show', compact('post'));
+        return view('blog.show', compact('post', 'recentPosts'));
     }
 
     /**

@@ -18,14 +18,17 @@ use App\Http\Controllers\AdminArticleCategoriesController;
 use App\Http\Controllers\AdminArticleController;
 use App\Http\Controllers\AdminBlogController;
 
-route::get('/', [PagesController::class, ('home')]);
-route::get('/calculators/mortgage-payments', [PagesController::class, 'mortgagePayments']);
-route::get('/article/{slug}', [PagesController::class, 'article']);
+Route::get('/', [PagesController::class, ('home')]);
+Route::get('/calculators/mortgage-payments', [PagesController::class, 'mortgagePayments']);
+Route::get('/article/{slug}', [PagesController::class, 'article']);
 Route::get('/calculators/stamp-duty', [PagesController::class, 'calculateStampDuty'])->name('stamp-duty.calculate');
+Route::get('/contact', [PagesController::class, 'contact']);
+Route::get('/about', [PagesController::class, 'about']);
 
 Route::resource('/blog', BlogController::class);
 Route::resource('/quotes', QuotesController::class);
 Route::resource('/timeline', TimelineController::class);
+
 
 Route::middleware('auth')->group(function () {
 

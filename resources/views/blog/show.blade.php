@@ -67,9 +67,13 @@
         </div>
         <!-- Wrapper for the sidebar content -->
         <div class="hidden md:block w-3/12 mt-10">
-            <div>
-                <H2 class="text-xl font-bold">Recent Posts:</H2>
-            </div>
+            <H2 class="text-xl font-bold mb-4">Recent Posts:</H2>
+            @foreach ($recentPosts as $recentPost)
+                <div class="mb-6">
+                    <img src="{{ asset($recentPost->small_image) }}" class="h-[150px] w-full rounded border p-1" alt="">
+                    <h3 class="font-bold mt-2"><a href="/blog/{{ $recentPost->slug }}">{{ $recentPost->title }}</a></h2>
+                </div>               
+            @endforeach
         </div>
 
     </div>
