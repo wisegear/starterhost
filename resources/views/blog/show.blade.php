@@ -30,7 +30,7 @@
                 @if(count($post->getBodyHeadings('h2')) > 2)
                     <div class="toc my-10">
                         <h2 id="toc-title" class="mb-2 border-b border-gray-300 cursor-pointer">
-                            <i class="fa-solid fa-arrow-down-short-wide text-blue-600"></i> Table of contents
+                            <i class="fa-solid fa-arrow-down-short-wide text-blue-600 dark:text-white"></i> Table of contents
                             <span id="toc-arrow" class="ml-2 transform transition-transform duration-200"></span>
                         </h2>
                         <ul id="toc-list" class="space-y-2 hidden">

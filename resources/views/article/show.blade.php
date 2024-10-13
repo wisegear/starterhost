@@ -25,7 +25,7 @@
             @if(count($article->getBodyHeadings('h2')) > 2)
                 <div class="toc">
                     <h2 id="toc-title" class="mb-2 border-b border-gray-300 cursor-pointer">
-                        <i class="fa-solid fa-arrow-down-short-wide text-lime-600 mr-2"></i><span class="font-bold">Table of contents</span>
+                        <i class="fa-solid fa-arrow-down-short-wide text-lime-600 mr-2"></i><span class="font-bold dark:text-white">Table of contents</span>
                         <span id="toc-arrow" class="ml-2 transform transition-transform duration-200"></span>
                     </h2>
                     <ul id="toc-list" class="space-y-2 hidden">
