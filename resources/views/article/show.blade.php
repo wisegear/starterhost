@@ -72,7 +72,7 @@
             <h2 class="font-bold text-xl border-b dark:border-b-gray-600 dark:text-white">{{ $article->articles->name }}</h2>
             <ol class="my-2 list-decimal list-inside dark:text-white">
                 @foreach ($allArticles as $item)
-                    <li><a href="/article/{{ $item->slug }}" class="dark:text-white">{{ $item->title }}</a></li>
+                    <li><a href="/article/{{ $item->slug }}" class="dark:text-white mb-2">{{ $item->title }}</a></li>
                 @endforeach
             </ol>
         </div>
