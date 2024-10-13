@@ -21,7 +21,7 @@
 <div class="flex flex-col md:flex-row mt-10 space-x-10">
     <!-- Main Content -->
     <div class="w-full">
-        <div class="w-1/3 mx-auto">
+        <div class="w-1/2 mx-auto mb-10">
             @if(count($article->getBodyHeadings('h2')) > 2)
                 <div class="toc">
                     <h2 id="toc-title" class="mb-2 border-b border-gray-300 cursor-pointer">
