@@ -24,13 +24,13 @@
         <div class="w-1/2 mx-auto mb-10">
             @if(count($article->getBodyHeadings('h2')) > 2)
                 <div class="toc">
-                    <h2 id="toc-title" class="mb-2 border-b border-gray-300 cursor-pointer">
-                        <i class="fa-solid fa-arrow-down-short-wide text-lime-600 mr-2"></i><span class="font-bold dark:text-white">Table of contents</span>
+                    <h2 id="toc-title" class="mb-2 border-b border-gray-300 cursor-pointer dark:text-white">
+                        <i class="fa-solid fa-arrow-down-short-wide text-lime-600 mr-2"></i><span class="font-bold">Table of contents</span>
                         <span id="toc-arrow" class="ml-2 transform transition-transform duration-200"></span>
                     </h2>
                     <ul id="toc-list" class="space-y-2 hidden">
                         @foreach($article->getBodyHeadings('h2') as $heading)
-                            <li><a href="#{{ Str::slug($heading) }}" class="hover:text-blue-700">{{ $heading }}</a></li>
+                            <li><a href="#{{ Str::slug($heading) }}" class="hover:text-blue-700 dark:text-white">{{ $heading }}</a></li>
                         @endforeach
                     </ul>
                 </div>
@@ -72,7 +72,7 @@
             <h2 class="font-bold text-xl border-b dark:border-b-gray-600 dark:text-white">{{ $article->articles->name }}</h2>
             <ol class="my-2 list-decimal list-inside dark:text-white">
                 @foreach ($allArticles as $item)
-                    <li><a href="/article/{{ $item->slug }}" class="dark:text-white mb-2">{{ $item->title }}</a></li>
+                    <li class="mb-2"><a href="/article/{{ $item->slug }}" class="dark:text-white">{{ $item->title }}</a></li>
                 @endforeach
             </ol>
         </div>
