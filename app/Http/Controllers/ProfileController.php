@@ -62,7 +62,7 @@ class ProfileController extends Controller
 
         if (Auth::user()->name_slug === $name_slug Or Gate::authorize('Admin'))
         {
-            $user = User::where('name', $name_slug)->first();
+            $user = User::where('name_slug', $name_slug)->first();
             $roles = UserRoles::all();
 
             return view('profile.edit', compact('user', 'roles'));
