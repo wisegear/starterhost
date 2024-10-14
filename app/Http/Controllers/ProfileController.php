@@ -57,12 +57,12 @@ class ProfileController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $name)
+    public function edit(string $name_slug)
     {
 
-        if (Auth::user()->name_slug === $name Or Gate::authorize('Admin'))
+        if (Auth::user()->name_slug === $name_slug Or Gate::authorize('Admin'))
         {
-            $user = User::where('name', $name)->first();
+            $user = User::where('name', $name_slug)->first();
             $roles = UserRoles::all();
 
             return view('profile.edit', compact('user', 'roles'));
