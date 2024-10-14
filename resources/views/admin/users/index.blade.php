@@ -52,7 +52,7 @@
 		      <td class="border">{{ $user->created_at->DiffForHumans() }}</td>
 		      <td class="border">{{ $user->trusted  ? 'Yes' : 'No' }}</td>
 		      <td class="border">{{ $user->notes }}</td>
-		      <td class="border"><a class="border rounded-md text-xs p-1 inline-block my-1" href="/profile/{{ $user->id }}/edit" role="button">Edit</a></td>
+		      <td class="border"><a class="border rounded-md text-xs p-1 inline-block my-1" href="/profile/{{ $user->name_slug }}/edit" role="button">Edit</a></td>
 
 		      <form action="/admin/users/{{ $user->id}}" method="post" onsubmit="return confirm('Do you really want to delete this user? ');">
 		      	@csrf
