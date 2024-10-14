@@ -12,7 +12,7 @@
         @endif
     </div>
     
-        <form action="/profile/{{ $user->id }}" method="post" enctype="multipart/form-data">
+        <form action="/profile/{{ $user->name_slug }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PUT')
     
