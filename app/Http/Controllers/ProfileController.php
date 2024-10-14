@@ -76,12 +76,12 @@ class ProfileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $name_slug)
     {
 
         Gate::authorize('Member');
 
-        $user = User::find($id);
+        $user = User::where('name_slug', $name_slug)->first();
 
         // Check if there is a new avatar
 
@@ -125,7 +125,6 @@ class ProfileController extends Controller
 
         }        
 
-        //$user->name = $request->name;
         $user->email = $request->email;
         $user->website = $request->website;
         $user->location = $request->location;
