@@ -6,6 +6,7 @@ use App\Http\Controllers\QuotesController;
 use App\Http\Controllers\TimelineController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CommentsController;
+use App\Http\Controllers\SupportController;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +18,7 @@ use App\Http\Controllers\AdminArticleCategoriesController;
 use App\Http\Controllers\AdminArticleController;
 use App\Http\Controllers\AdminBlogController;
 use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\AdminSupportController;
 
 Route::get('/', [PagesController::class, ('home')]);
 Route::get('/calculators/mortgage-payments', [PagesController::class, 'mortgagePayments']);
@@ -35,6 +37,7 @@ Route::middleware('auth')->group(function () {
     // Standard Routes
     Route::resource('/profile', ProfileController::class);
     Route::post('/comments', [CommentsController::class, 'store'])->name('comments.store');
+    Route::resource('support', SupportController::class);
 
     // Protect the Dashboard routes behind Admin
     Route::prefix('admin')->group(function () {
@@ -43,6 +46,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('/articles', AdminArticleCategoriesController::class)->middleware('can:Admin');
         Route::resource('/article', AdminArticleController::class)->middleware('can:Admin');
         Route::resource('/blog', AdminBlogController::class)->middleware('can:Admin');
+        Route::resource('/support', AdminSupportController::class);
     });
 
 });

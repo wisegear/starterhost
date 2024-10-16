@@ -106,6 +106,7 @@
                 </a>
                 <ul id="mobileUserDropdown" class="pl-4 hidden">
                     <li class="py-1"><a href="/profile/{{ Auth::user()->name_slug }}" class="block">Profile</a></li>
+                    <li class="py-1"><a href="/support" class="block">Support</a></li>
                     <li class="py-1"><a href="/admin" class="block">Admin</a></li>
                     <li class="py-1 text-red-500"><a href="/logout" class="block">Logout</a></li>
                 </ul>
@@ -167,6 +168,7 @@
                 <ul id="userDropdown" class="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-md shadow-lg hidden z-50">
                     @if (Auth::user()->has_user_role('Member'))
                         <li class="px-4 py-2 hover:bg-lime-100 hover:rounded dark:hover:bg-gray-500"><a href="/profile/{{ Auth::user()->name_slug }}">Profile</a></li>
+                        <li class="px-4 py-2"><a href="/support" class="block">Support</a></li>
                     @endif
                     @if (Auth::user()->has_user_role('Admin'))
                         <li class="px-4 py-2 hover:bg-lime-100 hover:rounded dark:hover:bg-gray-500"><a href="/admin">Admin</a></li>

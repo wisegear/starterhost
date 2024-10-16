@@ -34,6 +34,7 @@
                     <a href="/admin/users" class="hover:text-red-500">Users</a>
                     <a href="/admin/article" class="hover:text-red-500">Articles</a>
                     <a href="/admin/blog" class="hover:text-red-500">Blog</a>
+                    <a href="/admin/support" class="hover:text-red-500">Support</a>
                 </div>
             </div>
 
