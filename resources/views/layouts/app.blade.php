@@ -76,7 +76,7 @@
             @if (!empty($categoriesWithNavigation) && $categoriesWithNavigation->count() > 0)
                 @foreach ($categoriesWithNavigation as $category)
                 <li class="relative">
-                    <a href="javascript:void(0)" class="block py-2" id="mobileCategoryDropdownToggle-{{ $category->id }}">
+                    <a href="#" class="block py-2" id="mobileCategoryDropdownToggle-{{ $category->id }}" role="button">
                         {{ $category->name }}
                     </a>
                     @if ($category->article->count() > 0)
@@ -92,7 +92,7 @@
 
             <!-- Mobile Calculators Dropdown -->
             <li class="relative">
-                <a href="javascript:void(0)" class="block py-2" id="mobileCalculatorDropdownToggle">
+                <a href="#" class="block py-2" id="mobileCalculatorDropdownToggle" role="button">
                     Calculators
                 </a>
                 <ul id="mobileCalculatorDropdown" class="pl-4 hidden">
@@ -108,7 +108,7 @@
             @if (Auth::check())
             <!-- Mobile User Dropdown -->
             <li class="relative">
-                <a href="javascript:void(0)" class="block py-2" id="mobileUserDropdownToggle">
+                <a href="#" class="block py-2" id="mobileUserDropdownToggle" role="button">
                     {{ Auth::user()->name }} <i class="fa-solid fa-angles-down ml-2"></i>
                 </a>
                 <ul id="mobileUserDropdown" class="pl-4 hidden">
@@ -135,7 +135,7 @@
             @if (!empty($categoriesWithNavigation) && $categoriesWithNavigation->count() > 0)
                 @foreach ($categoriesWithNavigation as $category)
                 <li class="relative">
-                    <a href="javascript:void(0)" class="flex items-center" id="categoryDropdownToggle-{{ $category->id }}">
+                    <a href="#" class="flex items-center" id="categoryDropdownToggle-{{ $category->id }}" role="button">
                         {{ $category->name }}
                     </a>
                     @if ($category->article->count() > 0)
@@ -153,7 +153,7 @@
 
             <!-- Desktop Calculators Dropdown -->
             <li class="relative">
-                <a href="javascript:void(0)" class="flex items-center" id="calculatorDropdownToggle">
+                <a href="#" class="flex items-center" id="calculatorDropdownToggle" role="button">
                     Calculators
                 </a>
                 <ul id="calculatorDropdown" class="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-md shadow-lg hidden z-50">
@@ -169,7 +169,7 @@
             @if (Auth::check())
             <!-- Desktop User Dropdown -->
             <li class="relative">
-                <a href="javascript:void(0)" class="flex items-center text-lime-700" id="userDropdownToggle">
+                <a href="#" class="flex items-center text-lime-700" id="userDropdownToggle" role="button">
                     {{ Auth::user()->name }} <i class="fa-solid fa-angles-down ml-2"></i>
                 </a>
                 <ul id="userDropdown" class="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-md shadow-lg hidden z-50">
@@ -205,27 +205,31 @@
         const mobileUserDropdown = document.getElementById('mobileUserDropdown');
 
         // Toggle the mobile menu
-        mobileMenuToggle.addEventListener('click', () => {
+        mobileMenuToggle.addEventListener('click', (event) => {
+            event.preventDefault();
             mobileMenu.classList.toggle('hidden');
         });
 
         // Toggle the Calculators dropdown in the mobile menu
         if (mobileCalculatorDropdownToggle) {
-            mobileCalculatorDropdownToggle.addEventListener('click', () => {
+            mobileCalculatorDropdownToggle.addEventListener('click', (event) => {
+                event.preventDefault();
                 mobileCalculatorDropdown.classList.toggle('hidden');
             });
         }
 
         // Toggle the User dropdown in the mobile menu
         if (mobileUserDropdownToggle) {
-            mobileUserDropdownToggle.addEventListener('click', () => {
+            mobileUserDropdownToggle.addEventListener('click', (event) => {
+                event.preventDefault();
                 mobileUserDropdown.classList.toggle('hidden');
             });
         }
 
         // Handle toggling of mobile article category dropdowns
         document.querySelectorAll('[id^="mobileCategoryDropdownToggle-"]').forEach(toggle => {
-            toggle.addEventListener('click', () => {
+            toggle.addEventListener('click', (event) => {
+                event.preventDefault();
                 const dropdownId = toggle.id.replace('Toggle', '');
                 const dropdown = document.getElementById(dropdownId);
                 dropdown.classList.toggle('hidden');
