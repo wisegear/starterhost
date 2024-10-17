@@ -53,7 +53,7 @@ Route::middleware('auth')->group(function () {
 
 });
 
-// Sitemap by Spatie
+// Sitemap by Spatie - Need to run generate-sitemap
 
 Route::get('/generate-sitemap', function () {
     SitemapGenerator::create(config('app.url'))->writeToFile(public_path('sitemap.xml'));
