@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 
+use Spatie\Sitemap\SitemapGenerator;
+
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminArticleCategoriesController;
 use App\Http\Controllers\AdminArticleController;
@@ -49,6 +51,14 @@ Route::middleware('auth')->group(function () {
         Route::resource('/support', AdminSupportController::class);
     });
 
+});
+
+// Sitemap
+
+Route::get('/generate-sitemap', function () {
+    SitemapGenerator::create(config('app.url'))->writeToFile(public_path('sitemap.xml'));
+    
+    return 'Sitemap generated!';
 });
 
 Route::get('/logout', function(){
