@@ -15,9 +15,7 @@ class Kernel extends ConsoleKernel
     
         // Full backup every day at 2 AM
         $schedule->command('backup:run')->dailyAt('02:00');
-    
-        // Database backup every day at 1 AM
-        $schedule->command('backup:run --only-db')->dailyAt('01:00');
+
     }
 
     /**
