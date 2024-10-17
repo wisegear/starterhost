@@ -10,17 +10,18 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      */
-    protected function schedule(Schedule $schedule): void
+    protected function schedule(Schedule $schedule)
     {
-        // Schedule database backup daily
-        $schedule->command('backup:run --only-db')->dailyAt('01:00');
-
-        // Schedule full backup daily
+        // Test task: log every minute
+        $schedule->call(function () {
+            \Log::info('Test scheduler is running at: ' . now());
+        })->everyMinute();
+    
+        // Full backup every day at 2 AM
         $schedule->command('backup:run')->dailyAt('02:00');
-
-        // Temporarily schedule the backup to run every minute
-        $schedule->command('backup:run')->everyMinute();
-
+    
+        // Database backup every day at 1 AM
+        $schedule->command('backup:run --only-db')->dailyAt('01:00');
     }
 
     /**
