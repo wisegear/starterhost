@@ -17,6 +17,10 @@ class Kernel extends ConsoleKernel
 
         // Schedule full backup daily
         $schedule->command('backup:run')->dailyAt('02:00');
+
+        // Temporarily schedule the backup to run every minute
+        $schedule->command('backup:run')->everyMinute();
+
     }
 
     /**
