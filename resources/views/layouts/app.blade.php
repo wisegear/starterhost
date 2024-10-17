@@ -34,8 +34,8 @@
             <div class="flex mb-4">
                 <div class="flex items-center w-2/12">
                     <ul class="flex items-center space-x-4">
-                        <li><a href="/"><i class="fa-brands fa-square-facebook dark:text-white"></i></a></li>
-                        <li><a href="/"><i class="fa-brands fa-x-twitter dark:text-white"></i></a></li>
+                        <li><a href="https://www.facebook.com/lee.wisener" aria-label="Facebook profile"><i class="fa-brands fa-square-facebook dark:text-white"></i></a></li>
+                        <li><a href="https://x.com/wisenerl" aria-label="X (formerly Twitter) profile"><i class="fa-brands fa-x-twitter dark:text-white"></i></a></li>
                     </ul>
                 </div>
                 <div class="flex-grow text-center">
@@ -58,7 +58,7 @@
 <div class="w-full border-y dark:border-gray-700">
     <!-- Mobile Menu Toggle Button -->
     <div class="md:hidden flex justify-center items-center p-4">
-        <button id="mobileMenuToggle" class="text-gray-800 focus:outline-none">
+        <button id="mobileMenuToggle" class="text-gray-800 focus:outline-none" aria-label="Toggle mobile menu">
             <!-- Hamburger Icon -->
             <svg class="w-6 h-6 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
