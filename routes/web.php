@@ -53,7 +53,7 @@ Route::middleware('auth')->group(function () {
 
 });
 
-// Sitemap
+// Sitemap by Spatie
 
 Route::get('/generate-sitemap', function () {
     SitemapGenerator::create(config('app.url'))->writeToFile(public_path('sitemap.xml'));
