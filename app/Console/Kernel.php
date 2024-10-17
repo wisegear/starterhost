@@ -12,10 +12,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // Test task: log every minute
-        $schedule->call(function () {
-            \Log::info('Test scheduler is running at: ' . now());
-        })->everyMinute();
     
         // Full backup every day at 2 AM
         $schedule->command('backup:run')->dailyAt('02:00');
