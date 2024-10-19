@@ -1,7 +1,5 @@
 @extends('layouts.app')
-
 @section('content')
-
 <div class="">
     <div class="">
         <div class="">
@@ -11,8 +9,7 @@
                 <a href="/support/create" class="border dark:border-gray-500 dark:text-white rounded p-2 bg-lime-500 dark:bg-lime-700 hover:bg-lime-400 shadow-lg">Create New Ticket</a>
             </div>
         </div>
-    </div>
-        
+    </div>       
     <div class="my-10">
         <table class="table-fixed text-center w-full shadow-lg">
             <thead class="">
@@ -44,5 +41,4 @@
         <div class=""> {{ $tickets->links() }} </div>	
     </div>
 </div>
-
 @endsection

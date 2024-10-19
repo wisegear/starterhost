@@ -1,7 +1,5 @@
 @extends('layouts.app')
-
 @section('content')
-
     <!-- header section -->
     <div class="mb-10 flex flex-col justify-center">
         <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
@@ -10,7 +8,6 @@
             visiting this site as part of information gathering, please always consult with a suitably qualified professional before making 
             any material decisions related to mortgages.</p>
     </div>
-
     <!-- Recent Posts -->
     <div>
         <p class="border-b dark:border-b-gray-700 font-bold dark:text-white">Recent Posts</p>
@@ -25,7 +22,6 @@
             @endforeach
         </div>
     </div>
-
     <!-- Other Posts -->
     <div class="flex flex-col space-y-10 md:flex-row md:space-x-10 md:space-y-0">
         <!-- Other recent posts -->
@@ -49,7 +45,6 @@
             @endforeach
         </div>
     </div>
-
     <!-- Calculators -->
     <div class="flex flex-col space-y-10 md:flex-row md:space-y-0 md:space-x-10 mt-10">
         <!-- Mortgage Calculator -->
@@ -71,5 +66,4 @@
             </div>
         </div>
     </div>
-
 @endsection

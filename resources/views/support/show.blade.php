@@ -1,7 +1,5 @@
 @extends('layouts.app')
-
 @section('content')
-
 <div class="border dark:border-gray-500 rounded-md p-2 w-4/5 mx-auto">
 	<h2 class="font-bold text-2xl text-center mb-1 dark:text-white">{{ $ticket->title }}</h2>
 	<div class="text-center text-gray-700 space-x-4 mb-4 dark:text-white">
@@ -10,7 +8,6 @@
 	</div>
 	<p class="text-gray-500 text-center dark:text-white">{!! $ticket->text !!}</p>
 </div>
-
 <div class="my-5 text-center">
 	<form method="POST" action="/support/{{ $ticket->id }}" enctype="multipart/form-data">
 	{{ csrf_field() }}
@@ -28,7 +25,6 @@
 		</div>  
 	</form>	
 </div>
-
 <div class="w-4/5 mx-auto">
 	<p class="text-xl font-bold text-center my-10 dark:text-white">Ticket Replies</p>
 	@foreach ( $ticket->comments as $comment)
@@ -41,7 +37,6 @@
 		</div>
 	@endforeach						
 </div>
-
 <div class="w-4/5 mx-auto my-10">
 	<form method="POST" action="/support/{{ $ticket->id }}" enctype="multipart/form-data">
 	{{ csrf_field() }}
@@ -53,5 +48,4 @@
 		<button type="submit" class="border dark:border-gray-500 rounded p-2 mt-2 text-sm bg-lime-500 hover:bg-lime-400" style="">Add Reply</button> 
 	</form>			
 </div>
-
-@endsection
+å@endsection

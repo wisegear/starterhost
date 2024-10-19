@@ -22,6 +22,8 @@ use App\Http\Controllers\AdminBlogController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminSupportController;
 
+// Base Pages
+
 Route::get('/', [PagesController::class, ('home')]);
 Route::get('/calculators/mortgage-payments', [PagesController::class, 'mortgagePayments']);
 Route::get('/article/{slug}', [PagesController::class, 'article']);
@@ -33,15 +35,16 @@ Route::resource('/blog', BlogController::class);
 Route::resource('/quotes', QuotesController::class);
 Route::resource('/timeline', TimelineController::class);
 
+// Routes first protected by Auth
 
 Route::middleware('auth')->group(function () {
 
-    // Standard Routes
+    // Standard Routes that require login to access
     Route::resource('/profile', ProfileController::class);
     Route::post('/comments', [CommentsController::class, 'store'])->name('comments.store');
     Route::resource('support', SupportController::class);
 
-    // Protect the Dashboard routes behind Admin
+    // Protect the Dashboard routes behind both Auth and Can
     Route::prefix('admin')->group(function () {
         Route::resource('/', AdminController::class)->middleware('can:Admin');
         Route::resource('/users', AdminUserController::class)->middleware('can:Admin');
@@ -60,6 +63,8 @@ Route::get('/generate-sitemap', function () {
     
     return 'Sitemap generated!';
 });
+
+// Logout route to clear session.
 
 Route::get('/logout', function(){
     Session::flush();
