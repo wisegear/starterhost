@@ -7,7 +7,7 @@
 
     <div class="w-3/4 mx-auto">
 
-        <form method="POST" action="/admin/article/{{ $article->id }}" enctype="multipart/form-data">
+        <form method="POST" action="/admin/article/{{ $page->id }}" enctype="multipart/form-data">
             @csrf
             {{ method_field('PUT') }}
             
@@ -26,8 +26,8 @@
                 </div>
                 <div class="w-1/2">
                     <h2 class="font-bold text-lg mb-10">Existing Featured Image</h2>
-                    @if($article->small_image)
-                        <img src="{{ asset($article->small_image) }}" alt="Featured Image">
+                    @if($page->small_image)
+                        <img src="{{ asset($page->small_image) }}" alt="Featured Image">
                     @else
                         <p class="text-gray-600">No featured image available</p>
                     @endif
@@ -37,31 +37,31 @@
             <!-- Article Date --> 
             <div class="mt-10">
                 <p class="font-semibold text-gray-700 mb-2">Enter Date of Article <span class="text-gray-400">(dd-mm-yyyy)</span>:</p>
-                <input class="border rounded text-sm h-8 w-full" type="date" id="date" name="date" value="{{ old('date', $article->GetRawOriginal('date')) }}">
+                <input class="border rounded text-sm h-8 w-full" type="date" id="date" name="date" value="{{ old('date', $page->GetRawOriginal('date')) }}">
             </div> 
 
             <!-- Article Order -->
             <div class="mt-10">
                 <label for="article_order">Order of Article:</label>
-                <input type="number" name="article_order" min="0" max="255" class="rounded" value="{{ old('order', $article->order) }}" required>
+                <input type="number" name="article_order" min="0" max="255" class="rounded" value="{{ old('order', $page->order) }}" required>
             </div>
 
             <!-- Article Title --> 
             <div class="mt-10">
                 <p class="font-semibold text-gray-700 mb-2">Enter Title:</p>
-                <input class="border rounded text-sm h-8 w-full" type="text" id="title" name="title" value="{{ old('title', $article->title) }}" placeholder="Enter a title for this article">
+                <input class="border rounded text-sm h-8 w-full" type="text" id="title" name="title" value="{{ old('title', $page->title) }}" placeholder="Enter a title for this article">
             </div>  
 
             <!-- Text area for summary section -->
             <div class="my-10">
                 <label class="font-semibold text-gray-700 mb-2">Enter a Summary:</label>
-                <textarea class="border rounded text-sm w-full" id="summary" name="summary" placeholder="Enter a summary for this article">{{ old('summary', $article->summary) }}</textarea>
+                <textarea class="border rounded text-sm w-full" id="summary" name="summary" placeholder="Enter a summary for this article">{{ old('summary', $page->summary) }}</textarea>
             </div> 
 
             <!-- Text area with TinyMCE for Body of post -->
             <div class="my-10">
                 <p class="font-semibold text-gray-700 mb-2">Enter the Body of the Article:</p>
-                <textarea class="w-full border rounded" name="text" id="editor" placeholder="This is the body of the article">{{ old('text', $article->text) }}</textarea>    
+                <textarea class="w-full border rounded" name="text" id="editor" placeholder="This is the body of the article">{{ old('text', $page->text) }}</textarea>    
             </div>
 
             <!-- Upload Additional Images for Editor -->
@@ -73,8 +73,8 @@
             <!-- Display Uploaded Images -->
             <div id="uploaded-images-preview" class="my-10">
                 <h4 class="text-lg font-bold">Uploaded Images</h4>
-                @if($article->images)
-                    @foreach(json_decode($article->images) as $image)
+                @if($page->images)
+                    @foreach(json_decode($page->images) as $image)
                         <div class="my-4">
                             <img src="{{ asset($image) }}" width="150" style="margin-right: 10px;">
                             <button onclick="copyToClipboard('{{ asset($image) }}')" class="bg-gray-300 px-2 py-1 rounded">Copy URL</button>
@@ -92,7 +92,7 @@
                     @foreach ($categories as $category)
                         <li>
                             <input type="radio" id="category" name="category" value="{{ $category->id }}"
-                                @if ($article->articles_id === $category->id)
+                                @if ($page->articles_id === $category->id)
                                     checked="checked"
                                 @endif>
                             {{ $category->name }}            
@@ -107,7 +107,7 @@
                 <ul class="flex border rounded border-gray-300 py-2 text-sm justify-evenly">           
                     <li>
                         <label> Publish?</label>     
-                        <input type="checkbox" class="form-field rounded-full" id="published" name="published" @if($article->published) checked @endif>
+                        <input type="checkbox" class="form-field rounded-full" id="published" name="published" @if($page->published) checked @endif>
                     </li>
                 </ul>
             </div> 

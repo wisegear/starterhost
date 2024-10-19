@@ -25,16 +25,16 @@
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
-            @foreach ($articles as $article)
+            @foreach ($pages as $page)
              
             <tr>
-                <td>{{ $article->id }}</td>
-                <td>{{ $article->title }}</td>
-                <td>{{ $article->articles->name }}</td>
-                <td>{{ $article->order }}</td>
-                <td><a href="/admin/article/{{ $article->id }}/edit"><button class="border p-1 uppercase bg-orange-500 rounded text-xs text-white">Edit</button></a></td>
+                <td>{{ $page->id }}</td>
+                <td>{{ $page->title }}</td>
+                <td>{{ $page->articles->name }}</td>
+                <td>{{ $page->order }}</td>
+                <td><a href="/admin/article/{{ $page->id }}/edit"><button class="border p-1 uppercase bg-orange-500 rounded text-xs text-white">Edit</button></a></td>
                 <td>
-                    <form action="/admin/article/{{ $article->id }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this article?');">
+                    <form action="/admin/article/{{ $page->id }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this article?');">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="border p-1 uppercase bg-red-500 rounded text-xs text-white">Delete</button>
