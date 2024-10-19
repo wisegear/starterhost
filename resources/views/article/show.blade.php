@@ -8,7 +8,7 @@
     <h1 class="text-4xl font-bold text-center dark:text-white">{{$page->title}}</h1>
         <ul class="my-4 flex flex-col md:flex-row items-center md:justify-center md:space-y-0 space-y-4 md:space-x-10">
             <li><a href="/profile/{{ $page->user->name_slug }}" class="text-gray-700 hover:text-sky-700 dark:text-white"><i class="fa-solid fa-user mr-2"></i>{{ $page->user->name }}</a></li>
-            <li class="text-gray-700 dark:text-white"><i class="fa-solid fa-calendar-days mr-2 "></i>{{ $page->date->diffForHumans() }}</li>
+            <li class="text-gray-700 dark:text-white"><i class="fa-solid fa-calendar-days mr-2 "></i>{{ $page->date->format('d-m-Y') }}</li>
             <li class="text-gray-700 dark:text-white"><i class="fa-solid fa-folder mr-2"></i>{{ $page->articles->name }}</li>
         </ul>    
     <p class="text-center md:w-1/2 mx-auto text-gray-500 mb-10 dark:text-gray-300">{{$page->summary }}</p>
