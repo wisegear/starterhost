@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\UserRolesPivot;
+use App\Models\BlogPosts;
+use App\Models\Support;
 
 class AdminController extends Controller
 {
@@ -11,8 +15,43 @@ class AdminController extends Controller
      */
     public function index() {
 
-        return view('admin.index');
+        // User info
+        $users = User::all();
 
+        // Ridiculous workaround, count users, roles then add 1 as admin has two roles!!
+        $users_count = User::all()->count();
+        $roles_count = UserRolesPivot::all()->Count();
+        $users_pending = UserRolesPivot::all()->where('role_id', '===', 2)->count();
+        $users_banned = UserRolesPivot::all()->where('role_id', '===', 1)->count();
+        $users_active = UserRolesPivot::all()->where('role_id', '===', 3)->count();
+        $users_admin = UserRolesPivot::all()->where('role_id', '===', 4)->count();
+
+        //Support info
+        $tickets = Support::all();
+        $awaiting_reply = Support::all()->where('status', '===', 'Awaiting Reply')->count();
+        $open_tickets = Support::all()->where('status', '===', 'Open')->count();
+        $in_progress_tickets = Support::all()->where('status', '===', 'In Progress')->count();
+
+        //Blog info
+        $blogposts = BlogPosts::all();
+        $blogunpublished = BlogPosts::where('published', false)->get();
+
+        $data = array(
+
+            'users' => $users,
+            'users_pending' => $users_pending,
+            'users_active' => $users_active,
+            'users_banned' => $users_banned,
+            'users_admin' => $users_admin,
+            'tickets' => $tickets,
+            'awaiting_reply' => $awaiting_reply,
+            'open_tickets' => $open_tickets,
+            'in_progress_tickets' => $in_progress_tickets,
+            'blogposts' => $blogposts,
+            'blogunpublished' => $blogunpublished,
+        );
+
+        return view ('admin.index')->with($data);
     }
 
     /**
