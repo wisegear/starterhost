@@ -7,7 +7,7 @@
         <h1 class="text-4xl font-bold text-center dark:text-white">{{$page->title}}</h1>
             <ul class="flex flex-col md:flex-row items-center md:justify-center md:space-y-0 md:space-x-10 space-y-2 my-4">
                 <li><a href="/profile/{{ $page->users->name_slug }}" class="text-gray-700 dark:text-gray-400 hover:text-sky-700"><i class="fa-solid fa-user mr-2"></i>{{ $page->users->name }}</a></li>
-                <li class="text-gray-700 dark:text-gray-400"><i class="fa-solid fa-calendar-days mr-2"></i>{{ $page->created_at->diffForHumans() }}</li>
+                <li class="text-gray-700 dark:text-gray-400"><i class="fa-solid fa-calendar-days mr-2"></i>{{ $page->date->format('d-m-Y') }}</li>
                 <li><a href="/blog?category={{ $page->blogcategories->name }}" class="text-gray-700 dark:text-gray-400 hover:text-sky-700"><i class="fa-solid fa-folder mr-2"></i>{{ $page->blogcategories->name }}</a></li>
             </ul>    
         <p class="text-center md:w-1/2 mx-auto text-gray-500 dark:text-gray-300">{{$page->summary }}</p>
