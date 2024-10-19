@@ -96,25 +96,25 @@ class BlogController extends Controller
         Gate::authorize('Admin');
     
         // Prepare a new database entry for the blog post
-        $post = new BlogPosts;
+        $page = new BlogPosts;
     
-        $post->date = $request->date;
-        $post->title = $request->title;
-        $post->excerpt = $request->excerpt;
-        $post->slug = Str::slug($post->title, '-');
-        $post->body = $request->body;
-        $post->user_id = Auth::user()->id;
-        $post->categories_id = $request->category;
+        $page->date = $request->date;
+        $page->title = $request->title;
+        $page->summary = $request->summary;
+        $page->slug = Str::slug($page->title, '-');
+        $page->body = $request->body;
+        $page->user_id = Auth::user()->id;
+        $page->categories_id = $request->category;
     
         if ($request->hasFile('image')) {
             // Use handleImageUpload for the main blog post image to create multiple sizes
             $imagePaths = $imageService->handleImageUpload($request->file('image'));
             
             // Store each image path
-            $post->original_image = $imagePaths['original'];
-            $post->small_image = $imagePaths['small'];
-            $post->medium_image = $imagePaths['medium'];
-            $post->large_image = $imagePaths['large'];
+            $page->original_image = $imagePaths['original'];
+            $page->small_image = $imagePaths['small'];
+            $page->medium_image = $imagePaths['medium'];
+            $page->large_image = $imagePaths['large'];
         }
         
         // Handle additional images for use in the editor (single version)
@@ -128,19 +128,19 @@ class BlogController extends Controller
         }
         
         // Store the additional image paths in the 'images' column as JSON
-        $post->images = json_encode($uploadedPaths);
+        $page->images = json_encode($uploadedPaths);
     
         // Check if the post is to be published
-        $post->published = $request->has('published') ? 1 : 0;
+        $page->published = $request->has('published') ? 1 : 0;
     
         // Check whether the post is featured
-        $post->featured = $request->has('featured') ? 1 : 0;
+        $page->featured = $request->has('featured') ? 1 : 0;
     
         // Save the post to the database
-        $post->save();
+        $page->save();
     
         // Sync the tags to the post
-        BlogTags::StoreTags($request->tags, $post->slug);
+        BlogTags::StoreTags($request->tags, $page->slug);
     
         return redirect()->action([BlogController::class, 'index'])->with('success', 'Post created successfully! Images are available for use.');
     }
@@ -150,10 +150,10 @@ class BlogController extends Controller
      */
     public function show(string $slug)
     {
-        $post = BlogPosts::with('BlogCategories', 'users', 'blogTags')->where('slug', $slug)->first();
-        $recentPosts = BlogPosts::orderBy('date', 'desc')->take(3)->get();
+        $page = BlogPosts::with('BlogCategories', 'users', 'blogTags')->where('slug', $slug)->first();
+        $recentPages = BlogPosts::orderBy('date', 'desc')->take(3)->get();
 
-        return view('blog.show', compact('post', 'recentPosts'));
+        return view('blog.show', compact('page', 'recentPages'));
     }
 
     /**
@@ -163,11 +163,11 @@ class BlogController extends Controller
     {
         Gate::authorize('Admin');
 
-        $post = BlogPosts::find($id);
+        $page = BlogPosts::find($id);
         $categories = BlogCategories::all();
         $split_tags = BlogTags::TagsForEdit($id);
 
-        return view('blog.edit', compact('post', 'categories', 'split_tags'));
+        return view('blog.edit', compact('page', 'categories', 'split_tags'));
     }
 
     /**
@@ -178,34 +178,34 @@ class BlogController extends Controller
         Gate::authorize('Admin');
     
         // Retrieve the existing post from the database
-        $post = BlogPosts::findOrFail($id);
+        $page = BlogPosts::findOrFail($id);
     
         // Update the post fields
-        $post->date = $request->date;
-        $post->title = $request->title;
-        $post->excerpt = $request->excerpt;
-        $post->slug = Str::slug($post->title, '-');
-        $post->body = $request->body;
-        $post->user_id = Auth::user()->id;
-        $post->categories_id = $request->category;
+        $page->date = $request->date;
+        $page->title = $request->title;
+        $page->summary = $request->summary;
+        $page->slug = Str::slug($page->title, '-');
+        $page->body = $request->body;
+        $page->user_id = Auth::user()->id;
+        $page->categories_id = $request->category;
     
         if ($request->hasFile('image')) {
             // Delete the old images
             $imageService->deleteImage([
-                $post->original_image,
-                $post->small_image,
-                $post->medium_image,
-                $post->large_image
+                $page->original_image,
+                $page->small_image,
+                $page->medium_image,
+                $page->large_image
             ]);
         
             // Handle the new blog post image upload with multiple sizes
             $imagePaths = $imageService->handleImageUpload($request->file('image'));
         
             // Store the new image paths
-            $post->original_image = $imagePaths['original'];
-            $post->small_image = $imagePaths['small'];
-            $post->medium_image = $imagePaths['medium'];
-            $post->large_image = $imagePaths['large'];
+            $page->original_image = $imagePaths['original'];
+            $page->small_image = $imagePaths['small'];
+            $page->medium_image = $imagePaths['medium'];
+            $page->large_image = $imagePaths['large'];
         }
         
         // Handle additional images for the editor (single optimized version)
@@ -218,23 +218,23 @@ class BlogController extends Controller
         }
         
         // Merge new images with existing ones
-        $existingImages = json_decode($post->images) ?? [];
+        $existingImages = json_decode($page->images) ?? [];
         $updatedImages = array_merge($existingImages, $uploadedPaths);
         
         // Store the updated image paths in the 'images' field
-        $post->images = json_encode($updatedImages);
+        $page->images = json_encode($updatedImages);
     
         // Check if the post is to be published
-        $post->published = $request->has('published') ? 1 : 0;
+        $page->published = $request->has('published') ? 1 : 0;
     
         // Check whether the post is featured
-        $post->featured = $request->has('featured') ? 1 : 0;
+        $page->featured = $request->has('featured') ? 1 : 0;
     
         // Save the updated post to the database
-        $post->save();
+        $page->save();
     
         // Sync the tags
-        BlogTags::StoreTags($request->tags, $post->slug);
+        BlogTags::StoreTags($request->tags, $page->slug);
         
         return back()->with('success', 'Post updated successfully with new images!');
     }
@@ -248,18 +248,18 @@ class BlogController extends Controller
         Gate::authorize('Admin');
         
         // Retrieve the post by ID
-        $post = BlogPosts::findOrFail($id);
+        $page = BlogPosts::findOrFail($id);
     
         // Delete all associated image sizes, including the original, if they exist
         $imageService->deleteImage([
-            $post->original_image,
-            $post->small_image,
-            $post->medium_image,
-            $post->large_image
+            $page->original_image,
+            $page->small_image,
+            $page->medium_image,
+            $page->large_image
         ]);
     
         // Delete all images stored in the `images` JSON field, if they exist
-        $additionalImages = json_decode($post->images);
+        $additionalImages = json_decode($page->images);
         if ($additionalImages) {
             foreach ($additionalImages as $imagePath) {
                 $imageService->deleteImage([$imagePath]); // Use the deleteImage method for each additional image
@@ -267,9 +267,9 @@ class BlogController extends Controller
         }
     
         // Delete the post from the database
-        $post->delete();
+        $page->delete();
     
-        return back()->with('success', 'Post deleted successfully!');
+        return back()->with('success', 'Page deleted successfully!');
     }
 
 }

@@ -9,7 +9,24 @@
         <link rel="canonical" href="{{ url()->current() }}">
         <meta name="author" content="Lee Wisener">
         <meta name="keywords" content="Mortgages, BTL, Lifetime, Rent, Borrowing, Inflation, CeMAP, CeRER">
-        <meta name="description" content="A UK Mortgage blog covering a range of topics in the mortgage market for all interest levels.">
+        <title>{{ $page->title ?? 'MortgageBlog.uk' }}</title>
+        <meta name="description" content="{{ $page->summary ?? 'Mortgages - A Personal mortgage blog dedicated to all aspects of mortgage lending in the UK.' }}">
+
+        @isset($page)
+        <!-- Twitter Meta -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@wisenerl" />
+        <meta name="twitter:title" content="{{ $page->title }}" />
+        <meta name="twitter:description" content="{{ $page->pagesummary }}" />
+        <meta name="twitter:image" content="{{ asset($page->small_image) }}" />
+    
+        <!-- Open Graph Meta -->
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="{{ $page->title }}" />
+        <meta property="og:description" content="{{ $page->pagesummary }}" />
+        <meta property="og:url" content="{{ url()->current() }}" />
+        <meta property="og:image" content="{{ asset($page->small_image) }}" />
+        @endisset
 
 
         <!-- Favicon -->

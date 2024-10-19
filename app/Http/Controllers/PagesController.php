@@ -31,15 +31,15 @@ class PagesController extends Controller
     public function article(String $slug) {
 
         // Get the current article id
-        $article = Article::with('articles', 'user')->where('slug', $slug)->first();
+        $page = Article::with('articles', 'user')->where('slug', $slug)->first();
 
         // Get all articles related to the article category
-        $allArticles = $article->articles->article()->select('id', 'slug', 'title')->get();
+        $allPages = $page->articles->article()->select('id', 'slug', 'title')->get();
 
         // Get 3 most recent blog posts
         $posts = BlogPosts::orderBy('date', 'desc')->take(3)->get();
 
-        return view('article.show', compact('article', 'allArticles', 'posts'));
+        return view('article.show', compact('page', 'allPages', 'posts'));
     }      
 
 

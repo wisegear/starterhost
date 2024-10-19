@@ -39,9 +39,9 @@
                 
                 <!-- Text area with TinyMCE for Excerpt of post -->
                 <div class="form-group my-10">
-                    <p class="font-semibold text-gray-700 mb-2">Enter an excerpt:</p>
-                    <div class="mt-2 text-red-500">{{ $errors->has('excerpt') ? 'A excerpt is required' : '' }}</div>
-                    <textarea class="border rounded text-sm w-full" id="excerpt" name="excerpt"  value="{{ old('excerpt') }}" placeholder="Enter a excerpt for this post"></textarea>
+                    <p class="font-semibold text-gray-700 mb-2">Enter a Summary:</p>
+                    <div class="mt-2 text-red-500">{{ $errors->has('summary') ? 'A excerpt is required' : '' }}</div>
+                    <textarea class="border rounded text-sm w-full" id="excerpt" name="summary"  value="{{ old('summary') }}" placeholder="Enter a summary for this post"></textarea>
                 </div> 
 
         <!-- Text area with TinyMCE for Body of post -->

@@ -18,9 +18,9 @@ class AdminArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::all();
+        $pages = Article::all();
 
-        return view('admin.article.index', compact('articles'));
+        return view('admin.article.index', compact('pages'));
     }
 
     /**
@@ -42,16 +42,16 @@ class AdminArticleController extends Controller
         $image_path = public_path('assets/images/articles/');
     
         // Prepare a new database entry.
-        $article = new Article;
+        $page = new Article;
     
-        $article->date = $request->date;
-        $article->order = $request->article_order;
-        $article->title = $request->title;
-        $article->summary = $request->summary;
-        $article->slug = Str::slug($article->title, '-');
-        $article->text = $request->text;
-        $article->user_id = Auth::user()->id;
-        $article->articles_id = $request->category;
+        $page->date = $request->date;
+        $page->order = $request->article_order;
+        $page->title = $request->title;
+        $page->summary = $request->summary;
+        $page->slug = Str::slug($page->title, '-');
+        $page->text = $request->text;
+        $page->user_id = Auth::user()->id;
+        $page->articles_id = $request->category;
     
         // Handle featured image upload if it exists
         if ($request->hasFile('image')) {
@@ -59,10 +59,10 @@ class AdminArticleController extends Controller
             $imagePaths = $imageService->handleImageUpload($request->file('image'), 'assets/images/articles/');
     
             // Store each image path in the respective database columns
-            $article->original_image = $imagePaths['original'];
-            $article->small_image = $imagePaths['small'];
-            $article->medium_image = $imagePaths['medium'];
-            $article->large_image = $imagePaths['large'];
+            $page->original_image = $imagePaths['original'];
+            $page->small_image = $imagePaths['small'];
+            $page->medium_image = $imagePaths['medium'];
+            $page->large_image = $imagePaths['large'];
         }
     
         // Handle additional images for the editor
@@ -75,13 +75,13 @@ class AdminArticleController extends Controller
         }
     
         // Store the image paths in the `images` JSON column
-        $article->images = json_encode($uploadedPaths);
+        $page->images = json_encode($uploadedPaths);
     
         // Check if the article is to be published
-        $article->published = $request->has('published') ? 1 : 0;
+        $page->published = $request->has('published') ? 1 : 0;
     
         // Save the new article to the database
-        $article->save();
+        $page->save();
     
         return redirect()->action([AdminArticleController::class, 'index'])->with('success', 'Article created successfully!');
     }
@@ -101,9 +101,9 @@ class AdminArticleController extends Controller
     {
         
         $categories = ArticleCategories::all();
-        $article = Article::findorFail($id);
+        $page = Article::findorFail($id);
 
-        return view('admin.article.edit', compact('article', 'categories'));
+        return view('admin.article.edit', compact('page', 'categories'));
 
     }
 
@@ -113,36 +113,36 @@ class AdminArticleController extends Controller
     public function update(Request $request, string $id, ImageService $imageService)
     {
         // Retrieve the existing article from the database
-        $article = Article::findOrFail($id);
+        $page = Article::findOrFail($id);
     
         // Update the article fields
-        $article->date = $request->date;
-        $article->order = $request->article_order;
-        $article->title = $request->title;
-        $article->summary = $request->summary;
-        $article->slug = Str::slug($article->title, '-');
-        $article->text = $request->text;
-        $article->user_id = Auth::user()->id;
-        $article->articles_id = $request->category;
+        $page->date = $request->date;
+        $page->order = $request->article_order;
+        $page->title = $request->title;
+        $page->summary = $request->summary;
+        $page->slug = Str::slug($page->title, '-');
+        $page->text = $request->text;
+        $page->user_id = Auth::user()->id;
+        $page->articles_id = $request->category;
     
         // Handle featured image upload if a new image is uploaded
         if ($request->hasFile('image')) {
             // Delete the old images if they exist
             $imageService->deleteImage([
-                $article->original_image,
-                $article->small_image,
-                $article->medium_image,
-                $article->large_image
+                $page->original_image,
+                $page->small_image,
+                $page->medium_image,
+                $page->large_image
             ]);
     
             // Upload and resize the new image, storing paths for multiple sizes
             $imagePaths = $imageService->handleImageUpload($request->file('image'), 'assets/images/articles/');
     
             // Store the new image paths in their respective columns
-            $article->original_image = $imagePaths['original'];
-            $article->small_image = $imagePaths['small'];
-            $article->medium_image = $imagePaths['medium'];
-            $article->large_image = $imagePaths['large'];
+            $page->original_image = $imagePaths['original'];
+            $page->small_image = $imagePaths['small'];
+            $page->medium_image = $imagePaths['medium'];
+            $page->large_image = $imagePaths['large'];
         }
     
         // Handle additional images for the editor
@@ -155,17 +155,17 @@ class AdminArticleController extends Controller
         }
     
         // Merge new images with existing ones (if any)
-        $existingImages = json_decode($article->images) ?? [];
+        $existingImages = json_decode($page->images) ?? [];
         $updatedImages = array_merge($existingImages, $uploadedPaths);
     
         // Store the updated image paths in the 'images' field
-        $article->images = json_encode($updatedImages);
+        $page->images = json_encode($updatedImages);
     
         // Check if the article is to be published
-        $article->published = $request->has('published') ? 1 : 0;
+        $page->published = $request->has('published') ? 1 : 0;
     
         // Save the updated article to the database
-        $article->save();
+        $page->save();
     
         return back()->with('success', 'Article updated successfully!');
     }
@@ -176,18 +176,18 @@ class AdminArticleController extends Controller
     public function destroy(string $id, ImageService $imageService)
     {
         // Retrieve the article by ID
-        $article = Article::findOrFail($id);
+        $page = Article::findOrFail($id);
     
         // Delete all associated featured image sizes, including the original, if they exist
         $imageService->deleteImage([
-            $article->original_image,
-            $article->small_image,
-            $article->medium_image,
-            $article->large_image
+            $page->original_image,
+            $page->small_image,
+            $page->medium_image,
+            $page->large_image
         ]);
     
         // Delete all images stored in the `images` JSON field, if they exist
-        $additionalImages = json_decode($article->images);
+        $additionalImages = json_decode($page->images);
         if ($additionalImages) {
             foreach ($additionalImages as $imagePath) {
                 $imageService->deleteImage([$imagePath]); // Use the deleteImage method for each additional image
@@ -195,7 +195,7 @@ class AdminArticleController extends Controller
         }
     
         // Delete the article from the database
-        $article->delete();
+        $page->delete();
     
         // Redirect or return a response
         return back()->with('success', 'Article deleted successfully!');

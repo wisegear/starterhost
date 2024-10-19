@@ -31,7 +31,7 @@
                             <li><i class="fa-solid fa-clock mr-2"></i>{{ $post->date->diffForHumans() }}</li>
                             <li><a href="/blog?category={{ $post->blogCategories->name }}"><i class="fa-solid fa-folder mr-2"></i>{{ $post->blogcategories->name }}</a></li>
                         </ul>
-                        <p class="my-2 dark:text-white">{{ $post->excerpt }}</p>
+                        <p class="my-2 dark:text-white">{{ $post->summary }}</p>
                         <div class="flex flex-wrap space-x-4">
                             @foreach ($post->blogtags as $tag)
                                 <a href="/blog?tag={{ $tag->name }}"><button class="text-xs uppercase border dark:border-gray-700 p-1 bg-slate-600 rounded text-white hover:bg-slate-400">{{ $tag->name }}</button></a>
