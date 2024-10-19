@@ -227,4 +227,10 @@ a { @apply hover:text-lime-800; @apply dark:hover:text-lime-500; }
   /* End Timeline */
 
 
+/* This is to ensure the mobile menu is properly hidden and does not flash appear on desktop. */
 
+@media (min-width: 768px) {
+  #mobileMenu {
+    display: none !important;
+  }
+}
