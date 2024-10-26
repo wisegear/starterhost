@@ -17,9 +17,9 @@
                         <div class="flex flex-col">
                             <a href="{{ $link->url }}"><h2 class="font-bold text-lg dark:text-white">{{ $link->title }}</h2></a>
                             <div class="dark:text-white text-gray-500">{!! $link->description !!}</div>
-                            <a href="/links?category={{ $link->link_category->name }}">
+                            <a href="{{ $link->url }}">
                                 <button class="self-start inline-block border rounded py-1 px-2 bg-lime-400 my-2 hover:bg-lime-300 text-xs">
-                                    {{ $link->link_category->name }}
+                                    Visit Website
                                 </button>
                             </a>
                             @can('Admin')
