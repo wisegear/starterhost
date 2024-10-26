@@ -11,7 +11,7 @@ class Links extends Model
     protected $table = 'links';
 
     public function link_category() {
-        return $this->hasOne(linksCategories::class, 'id', 'category_id');
+        return $this->hasOne(LinksCategories::class, 'id', 'category_id');
     }
 
 }
