@@ -13,7 +13,7 @@
             <div class="space-y-10">
                 @foreach ($links as $link)
                     <div class="flex space-x-10 border rounded p-4 shadow-lg">
-                        <img class="rounded" src="{{ asset($link->image) }}" alt="">
+                        <img class="rounded border" src="{{ asset($link->image) }}" alt="">
                         <div class="flex flex-col">
                             <a href="{{ $link->url }}"><h2 class="font-bold text-lg">{{ $link->title }}</h2></a>
                             <p>{!! $link->description !!}</p>
