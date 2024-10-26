@@ -15,8 +15,8 @@
                     <div class="flex space-x-10 border rounded p-4 shadow-lg">
                         <img class="rounded border" src="{{ asset($link->image) }}" alt="">
                         <div class="flex flex-col">
-                            <a href="{{ $link->url }}"><h2 class="font-bold text-lg">{{ $link->title }}</h2></a>
-                            <p>{!! $link->description !!}</p>
+                            <a href="{{ $link->url }}"><h2 class="font-bold text-lg dark:text-white">{{ $link->title }}</h2></a>
+                            <p class="dark:text-white">{!! $link->description !!}</p>
                             <a href="/links?category={{ $link->link_category->name }}">
                                 <button class="self-start inline-block border rounded py-1 px-2 bg-lime-400 my-2 hover:bg-lime-300 text-xs">
                                     {{ $link->link_category->name }}
