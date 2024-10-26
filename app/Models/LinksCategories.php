@@ -12,7 +12,7 @@ class LinksCategories extends Model
     public $timestamps = false;
 
     public function links() {
-        return $this->hasMany(links::class, 'category_id', 'id');
+        return $this->hasMany(Links::class, 'category_id', 'id');
     }
 
 }
