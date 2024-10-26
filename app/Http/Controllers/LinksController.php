@@ -31,7 +31,7 @@ class LinksController extends Controller
        if ($categoryName) {
            $links = Links::whereHas('link_category', function ($query) use ($categoryName) {
                $query->where('name', $categoryName);
-           })->with('link_category')->paginate(6);
+           })->with('link_category')->orderBy('id', 'desc')->paginate(6);
            
            // Append category query parameter to pagination links
            $links->appends(['category' => $categoryName]);

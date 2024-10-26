@@ -8,17 +8,17 @@
     </div>
 
     <!-- List of links and category menu -->
-    <div class="flex justify-between space-x-10 mt-10">
-        <div class="w-9/12">
+    <div class="flex flex-col-reverse md:flex md:flex-row md:space-x-10 mt-10">
+        <div class="md:w-9/12">
             <div class="space-y-10">
                 @foreach ($links as $link)
-                    <div class="flex space-x-10 border rounded p-4 shadow-lg">
-                        <img class="rounded border" src="{{ asset($link->image) }}" alt="">
-                        <div class="flex flex-col">
+                    <div class="flex space-x-10 border dark:border-gray-600 rounded p-4 shadow-lg">
+                        <img class="rounded border dark:border-gray-600 max-h-[150px]" src="{{ asset($link->image) }}" alt="">
+                        <div class="flex flex-col w-full">
                             <a href="{{ $link->url }}"><h2 class="font-bold text-lg dark:text-white">{{ $link->title }}</h2></a>
                             <div class="dark:text-white text-gray-500">{!! $link->description !!}</div>
                             <a href="{{ $link->url }}">
-                                <button class="self-start inline-block border rounded py-1 px-2 bg-lime-400 my-2 hover:bg-lime-300 text-xs">
+                                <button class="self-start inline-block border dark:border-gray-600 rounded py-1 px-2 bg-lime-300 my-2 hover:bg-lime-400 dark:hover:text-black text-xs ">
                                     Visit Website
                                 </button>
                             </a>
@@ -43,7 +43,7 @@
                 {{ $links->links() }}
             </div>
         </div>
-        <div class="w-3/12">
+        <div class="md:w-3/12 mb-10">
             <div>
                 <h2 class="font-bold text-xl border-b dark:border-gray-600 mb-2 dark:text-white">Categories</h2>
                 <ul class=" dark:text-white">
