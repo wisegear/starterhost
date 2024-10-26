@@ -31,7 +31,7 @@
                                     <i class="fa-solid fa-trash-can text-xs"></i>
                                 </button>
                                 </form>
-                                <a class="hover:text-yellow-500 dark:text-white" href="/links/{{ $link->id }}/edit" role="button"><i class="fa-solid fa-pen-to-square text-xs"></i></a>
+                                <a class="hover:text-yellow-500 dark:text-pink-500" href="/links/{{ $link->id }}/edit" role="button"><i class="fa-solid fa-pen-to-square text-xs"></i></a>
                             </div>
                             @endcan
                         </div>
