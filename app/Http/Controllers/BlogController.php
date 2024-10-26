@@ -28,53 +28,53 @@ class BlogController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-       // If the visitor uses the search box.
+public function index()
+{
+   if (isset($_GET['search'])) {
+       $searchTerm = $_GET['search'];
+       $posts = BlogPosts::where(function ($query) use ($searchTerm) {
+           $query->where('title', 'LIKE', '%' . $searchTerm . '%')
+                 ->orWhere('body', 'LIKE', '%' . $searchTerm . '%');
+       })->paginate(6);
 
-       if (isset($_GET['search']))
-       {
+       // Keep the search term in the pagination links
+       $posts->appends(['search' => $searchTerm]);
 
-           $posts = BlogPosts::where(function ($query) {
-               $query->where('title', 'LIKE', '%' . $_GET['search'] . '%')
-                     ->orWhere('body', 'LIKE', '%' . $_GET['search'] . '%');            
+   } elseif (isset($_GET['category'])) {
+       $category = $_GET['category'];
+       $posts = BlogPosts::GetCategories($category);  //Already Paginated in BlogPosts Model
 
-       })
-           ->paginate(6);
+       // Keep the category filter in the pagination links
+       $posts->appends(['category' => $category]);
 
-      }  elseif (isset($_GET['category'])) {
+   } elseif (isset($_GET['tag'])) {
+       $tag = $_GET['tag'];
+       $posts = BlogPosts::GetTags($tag)->paginate(6);
 
-           $posts = BlogPosts::GetCategories($_GET['category']);
-      
-      } elseif (isset($_GET['tag'])) {
+       // Keep the tag filter in the pagination links
+       $posts->appends(['tag' => $tag]);
 
-       $posts = BlogPosts::GetTags($_GET['tag']);
-
-      } else {
-
+   } else {
        $posts = BlogPosts::with('BlogCategories', 'BlogTags', 'Users')
-                ->where('published', true)
-                ->orderBy('date', 'desc')
-                ->paginate(10);
+            ->where('published', true)
+            ->orderBy('date', 'desc')
+            ->paginate(10);
+   }
 
-       }
+   $categories = BlogCategories::all();
 
-       $categories = BlogCategories::all();
-
-       $popular_tags = DB::table('blog_post_tags')
-       ->leftjoin('blog_tags', 'blog_tags.id', '=', 'blog_post_tags.tag_id')
+   $popular_tags = DB::table('blog_post_tags')
+       ->leftJoin('blog_tags', 'blog_tags.id', '=', 'blog_post_tags.tag_id')
        ->select('blog_post_tags.tag_id', 'name', DB::raw('count(*) as total'))
        ->groupBy('blog_post_tags.tag_id', 'name')
        ->orderBy('total', 'desc')
        ->limit(15)
        ->get();
 
-       $unpublished = \App\Models\BlogPosts::where('published', false)->get();
+   $unpublished = BlogPosts::where('published', false)->get();
 
-        return view('blog.index', compact('posts', 'categories', 'popular_tags', 'unpublished'));
-
-        //
-    }
+   return view('blog.index', compact('posts', 'categories', 'popular_tags', 'unpublished'));
+}
 
     /**
      * Show the form for creating a new resource.

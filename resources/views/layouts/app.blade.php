@@ -118,6 +118,9 @@
                 </ul>
             </li>
 
+            <!-- Other Links -->
+            <li><a href="/links">Links</a></li>
+
             <!-- Mobile Contact and About Links -->
             <li><a href="/contact" class="block py-2">Contact</a></li>
             <li><a href="/about" class="block py-2">About</a></li>
@@ -178,6 +181,9 @@
                     <li class="px-4 py-2 hover:bg-lime-100 hover:rounded dark:hover:bg-gray-500"><a href="/calculators/stamp-duty">Stamp Duty</a></li>
                 </ul>
             </li>
+
+            <!-- Other Links -->
+            <li><a href="/links">Links</a></li>
 
             <!-- Standard Contact and About Links -->
             <li><a href="/contact">Contact</a></li>

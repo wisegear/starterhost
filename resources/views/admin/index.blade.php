@@ -7,7 +7,7 @@
 	<p class="text-gray-500">Admin Dashboard. From here you can manage the Users, Blog, Articles, Support tickets and other elements as required.</p>
 </div>
 
-<div class="grid grid-cols-3 gap-20">
+<div class="grid grid-cols-4 gap-20">
 
 	<div class="border bg-gray-100 rounded p-4 shadow-lg">
 		<div class="border-b border-b-gray-400">
@@ -27,6 +27,15 @@
 		</div>
 		<div class="mt-5 text-center text-sm text-gray-500">
 			<p class="">Not published: <span class=""></span>{{ $blogunpublished->count() }}</p>
+		</div>
+	</div>
+
+	<div class="border bg-gray-100 rounded p-4 shadow-lg">
+		<div class="border-b border-b-gray-400">
+			<h2 class="text-xl font-bold text-center pb-2">Links <span class="text-blue-700 text-center">{{ $links->count() }}</span></h2>
+		</div>
+		<div class="mt-5 text-center text-sm text-gray-500">
+			<p class="">Not published: <span class=""></span>{{ $linksunpublished->count() }}</p>
 		</div>
 	</div>
 

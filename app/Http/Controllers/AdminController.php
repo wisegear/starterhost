@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\UserRolesPivot;
 use App\Models\BlogPosts;
 use App\Models\Support;
+use App\Models\Links;
 
 class AdminController extends Controller
 {
@@ -17,6 +18,10 @@ class AdminController extends Controller
 
         // User info
         $users = User::all();
+
+        // Links
+        $links = Links::all();
+        $linksunpublished = Links::where('published', false)->get();
 
         // Ridiculous workaround, count users, roles then add 1 as admin has two roles!!
         $users_count = User::all()->count();
@@ -49,6 +54,8 @@ class AdminController extends Controller
             'in_progress_tickets' => $in_progress_tickets,
             'blogposts' => $blogposts,
             'blogunpublished' => $blogunpublished,
+            'links' => $links,
+            'linksunpublished' => $linksunpublished,
         );
 
         return view ('admin.index')->with($data);

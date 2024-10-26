@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Links>
  */
-class BlogPostsFactory extends Factory
+class LinksFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,18 +17,16 @@ class BlogPostsFactory extends Factory
      */
     public function definition(): array
     {
-        $title = $this->faker->words(5, true);
+        $title = $this->faker->words(2, true);
         $slug = Str::slug($title, '-');
 
         return [ 
             'title' => $title,
             'slug' => $slug,
-            'summary' => $this->faker->paragraph(5, false),
-            'body' => $this->faker->paragraph(20, false),
-            'categories_id' => $this->faker->numberBetween(1, 5),
-            'user_id' => $this->faker->numberBetween(1, 4),
+            'description' => $this->faker->paragraph(5, false),
+            'url' => $this->faker->url,
+            'category_id' => $this->faker->numberBetween(1, 8),
             'created_at' => $this->faker->dateTimeThisYear(),
-            'date' => $this->faker->dateTimeThisYear(),
         ];
     }
 }

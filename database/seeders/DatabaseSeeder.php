@@ -2,18 +2,16 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Quote;
 use App\Models\Timeline;
-use App\Models\Users;
-use App\Models\UserRoles;
-use App\Models\UsersRolesPivot;
 use App\Models\BlogPosts;
 use App\Models\BlogCategories;
 use App\Models\BlogTags;
 use App\Models\BlogPostTags;
+use App\Models\LinksCategories;
+use App\Models\Links;
 
 
 class DatabaseSeeder extends Seeder
@@ -31,6 +29,8 @@ class DatabaseSeeder extends Seeder
         BlogPosts::factory(50)->create();
         BlogTags::factory(100)->create();
         BlogPostTags::factory(200)->create();
+        LinksCategories::factory(8)->create();
+        Links::factory(100)->create();
 
     }
 }

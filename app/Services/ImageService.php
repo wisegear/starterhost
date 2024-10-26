@@ -86,6 +86,32 @@ class ImageService
     
             return $optimizedPath;
         }
+
+        public function handleLinkImageUpload($image)
+        {
+            $path = '/assets/images/uploads/';
+            
+            // Generate a unique image name
+            $imageName = 'link_' . pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME) . '_' . time() . '.' . $image->getClientOriginalExtension();
+            $fullImagePath = public_path($path . $imageName);
+            $relativeImagePath = $path . $imageName; // Only the relative path
+        
+            // Ensure the directory exists
+            if (!file_exists(public_path($path))) {
+                mkdir(public_path($path), 0755, true);
+            }
+        
+            // Read, resize, crop, and save the image at 200x200 pixels
+            Image::read($image->getRealPath())
+                ->resize(200, 200, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })
+                ->crop(200, 200)
+                ->save($fullImagePath, 75);
+        
+            return $relativeImagePath; // Return only the relative path
+        }
     }
 
 

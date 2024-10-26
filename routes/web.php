@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 
+// 3rd Party packages 
+
 use Spatie\Sitemap\SitemapGenerator;
 
 use App\Http\Controllers\AdminController;
@@ -21,6 +23,8 @@ use App\Http\Controllers\AdminArticleController;
 use App\Http\Controllers\AdminBlogController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminSupportController;
+use App\Http\Controllers\LinksController;
+use App\Http\Controllers\AdminLinksController;
 
 // Base Pages
 
@@ -31,9 +35,11 @@ Route::get('/calculators/stamp-duty', [PagesController::class, 'calculateStampDu
 Route::get('/contact', [PagesController::class, 'contact']);
 Route::get('/about', [PagesController::class, 'about']);
 
+
 Route::resource('/blog', BlogController::class);
 Route::resource('/quotes', QuotesController::class);
 Route::resource('/timeline', TimelineController::class);
+Route::resource('/links', LinksController::class);
 
 // Routes first protected by Auth
 
@@ -51,7 +57,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('/articles', AdminArticleCategoriesController::class)->middleware('can:Admin');
         Route::resource('/article', AdminArticleController::class)->middleware('can:Admin');
         Route::resource('/blog', AdminBlogController::class)->middleware('can:Admin');
-        Route::resource('/support', AdminSupportController::class);
+        Route::resource('/support', AdminSupportController::class)->middleware('can:Admin');;
+        Route::resource('/links', AdminLinksController::class)->middleware('can:Admin');;
     });
 
 });
