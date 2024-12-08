@@ -46,7 +46,7 @@
     <script src="https://hcaptcha.com/1/api.js" async defer></script>
     </div>
     @if ($errors->has('h-captcha-response'))
-        <span class="text-danger">{{ $errors->first('h-captcha-response') }}</span>
+        <span class="text-red-500 text-center my-4">{{ $errors->first('h-captcha-response') }}</span>
     @endif
 
         <div class="flex items-center justify-end mt-4">
@@ -59,6 +59,4 @@
             </x-primary-button>
         </div>
     </form>
-
-
 </x-guest-layout>
