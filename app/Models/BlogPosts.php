@@ -55,8 +55,7 @@ class BlogPosts extends Model
         
             ->where('published', true)
             ->with('BlogCategories', 'Users', 'BlogTags')
-            ->orderBy('created_at', 'desc')
-            ->paginate();  
+            ->orderBy('created_at', 'desc'); 
     }
 
     // Used to create table of contents for the blog posts.
