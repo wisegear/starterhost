@@ -24,7 +24,7 @@
         <div class="space-y-2">
             <h3 class="text-lg font-medium text-gray-700">Current Featured Image</h3>
             @if($page->small_image)
-                <img src="{{ asset($page->small_image) }}" class="w-full rounded-lg border" alt="Featured Image">
+                <img src="{{ asset($page->medium_image) }}" class="w-full rounded-lg border" alt="Featured Image">
             @else
                 <p class="text-gray-600">No featured image available</p>
             @endif
