@@ -3,7 +3,7 @@
 @section('content')
 <h2 class="text-4xl font-bold text-center mb-8">Create a New Post</h2>
 
-<div class="w-4/5 mx-auto bg-white shadow-md rounded-lg p-6">
+<div class="w-full mx-auto bg-white shadow-md rounded-lg p-6">
     <!-- Form Start -->
     <form method="POST" action="/blog" enctype="multipart/form-data" class="space-y-6">
         @csrf
