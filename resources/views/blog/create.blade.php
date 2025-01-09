@@ -1,153 +1,128 @@
 @extends('layouts.app')
 
 @section('content')
+<h2 class="text-4xl font-bold text-center mb-8">Create a New Post</h2>
 
-    <h2 class="text-2xl text-center font-bold mb-10">Create a New Post</h2>
-
-    <div class="w-3/4 mx-auto">
-
-        <form method="POST" action="/blog" enctype="multipart/form-data">
+<div class="w-4/5 mx-auto bg-white shadow-md rounded-lg p-6">
+    <!-- Form Start -->
+    <form method="POST" action="/blog" enctype="multipart/form-data" class="space-y-6">
         @csrf
-            
-            <!-- Upload Featured Image -->
-            <div class="flex flex-col justify-center">
-                <label for="image">Upload Image</label>
-                <input type="file" name="image" id="image" accept="image/*" required onchange="previewImage(event)">
+
+        <!-- Upload Featured Image -->
+        <div class="space-y-2">
+            <label for="image" class="block text-sm font-medium text-gray-700">Upload Featured Image</label>
+            <input type="file" name="image" id="image" accept="image/*" class="block w-full border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" onchange="previewImage(event)">
+            <div id="image-preview" class="mt-4">
+                <img id="preview" class="w-full hidden" alt="Image Preview" />
             </div>
-
-            <!-- Image preview container -->
-            <div id="image-preview" class="my-10">
-                <img id="preview" class="w-full" />
-            </div>
-
-            <div class="mx-auto" id="output"></div>            
-
-                <!-- Post Date --> 
-                <div class="mt-10">
-                    <p class="font-semibold text-gray-700 mb-2">Enter Date of Post <span class="text-gray-400">(dd-mm-yyyy)</span>:</p>
-                    <div class="mt-2 text-red-500">{{ $errors->has('title') ? 'A title is required' : '' }}</div>
-                    <input class="border rounded text-sm h-8 w-full" type="date" id="date" name="date"  value="{{ old('date') }}">
-                </div> 
-
-                
-                <!-- Post Title --> 
-                <div class="mt-3">
-                    <p class="font-semibold text-gray-700 mb-2">Enter title:</p>
-                    <div class="mt-2 text-red-500">{{ $errors->has('title') ? 'A title is required' : '' }}</div>
-                    <input class="border rounded text-sm h-8 w-full" type="text" id="title" name="title"  value="{{ old('title') }}" placeholder="Enter a title for this post">
-                </div>  
-                
-                <!-- Text area with TinyMCE for Excerpt of post -->
-                <div class="form-group my-10">
-                    <p class="font-semibold text-gray-700 mb-2">Enter a Summary:</p>
-                    <div class="mt-2 text-red-500">{{ $errors->has('summary') ? 'A excerpt is required' : '' }}</div>
-                    <textarea class="border rounded text-sm w-full" id="excerpt" name="summary"  value="{{ old('summary') }}" placeholder="Enter a summary for this post"></textarea>
-                </div> 
-
-        <!-- Text area with TinyMCE for Body of post -->
-        <div class="my-10">
-            <p class="font-semibold text-gray-700 mb-2">Enter the body of the post:</p>
-            <div class="mt-2 text-red-500">{{ $errors->has('body') ? 'At least some text is required for the body' : '' }}</div>
-            <textarea class="w-full border rounded" name="body" id="editor" placeholder="This is the body of the post">{{ old('body') }}</textarea>    
         </div>
 
-<!-- Place the first <script> tag in your HTML's <head> -->
-    <script src="https://cdn.tiny.cloud/1/a1rn9rzvnlulpzdgoe14w7kqi1qpfsx7cx9am2kbgg226dqz/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+        <!-- Post Date -->
+        <div class="space-y-2">
+            <label for="date" class="block text-sm font-medium text-gray-700">Post Date</label>
+            <input type="date" id="date" name="date" class="block w-full border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" value="{{ old('date') }}">
+            @error('date')
+                <span class="text-red-500 text-sm">{{ $message }}</span>
+            @enderror
+        </div>
 
-    <script>
-        tinymce.init({
-            selector: '#editor',  // Select the textarea by its ID
-            plugins: 'advlist autolink lists link image charmap preview anchor image code fullscreen insertdatetime media table paste help wordcount',
-            toolbar: 'undo redo | h1 h2 h3 | formatselect | bold italic backcolor | table | alignleft aligncenter alignright alignjustify | bullist numlist | removeformat | image | help',
-            menubar: 'file edit view insert format tools table help',
-            branding: false,
-            block_formats: 'Paragraph=p; Heading 1=h1; Heading 2=h2; Heading 3=h3; Heading 4=h4; Heading 5=h5; Heading 6=h6;'
-        });
-    </script>
+        <!-- Post Title -->
+        <div class="space-y-2">
+            <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+            <input type="text" id="title" name="title" class="block w-full border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter a title for this post" value="{{ old('title') }}">
+            @error('title')
+                <span class="text-red-500 text-sm">{{ $message }}</span>
+            @enderror
+        </div>
 
-            <!-- New Image Upload Field -->
-            <div class="">
-                <label for="images">Upload Images for This Post</label>
-                <input type="file" name="images[]" id="images" multiple class="form-control">
+        <!-- Summary (Excerpt) -->
+        <div class="space-y-2">
+            <label for="summary" class="block text-sm font-medium text-gray-700">Summary</label>
+            <textarea id="summary" name="summary" class="block w-full border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" rows="3" placeholder="Enter a brief summary">{{ old('summary') }}</textarea>
+            @error('summary')
+                <span class="text-red-500 text-sm">{{ $message }}</span>
+            @enderror
+        </div>
+
+        <!-- Body (with TinyMCE) -->
+        <div class="space-y-2">
+            <label for="body" class="block text-sm font-medium text-gray-700">Post Body</label>
+            <textarea id="editor" name="body" class="block w-full border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" rows="10">{{ old('body') }}</textarea>
+            @error('body')
+                <span class="text-red-500 text-sm">{{ $message }}</span>
+            @enderror
+        </div>
+
+        <!-- Additional Images Upload -->
+        <div class="space-y-2">
+            <label for="images" class="block text-sm font-medium text-gray-700">Additional Images</label>
+            <input type="file" name="images[]" id="images" class="block w-full border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" multiple>
+        </div>
+
+        <!-- Category Selection -->
+        <div class="space-y-2">
+            <label class="block text-sm font-medium text-gray-700">Category</label>
+            <div class="space-y-2">
+                @foreach($categories as $category)
+                    <label class="inline-flex items-center">
+                        <input type="radio" name="category" value="{{ $category->id }}" class="text-indigo-600 focus:ring-indigo-500">
+                        <span class="ml-2">{{ $category->name }}</span>
+                    </label>
+                @endforeach
             </div>
+            @error('category')
+                <span class="text-red-500 text-sm">{{ $message }}</span>
+            @enderror
+        </div>
 
-            <!-- Display Uploaded Images After Creation -->
-            @if(isset($post) && $post->images)
-                <div id="uploaded-images-preview">
-                    <h4>Uploaded Images</h4>
-                    @foreach(json_decode($post->images) as $image)
-                        <div>
-                            <img src="/{{ $image }}" class="w-full">
-                            <button onclick="copyToClipboard('{{ asset($image) }}')">Click to Copy</button>
-                        </div>
-                    @endforeach
-                </div>
-            @endif
+        <!-- Tags -->
+        <div class="space-y-2">
+            <label for="tags" class="block text-sm font-medium text-gray-700">Tags</label>
+            <input type="text" id="tags" name="tags" class="block w-full border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter tags separated by commas">
+        </div>
 
-            <script>
-                // Function to copy the image URL to the clipboard
-                function copyToClipboard(text) {
-                    const tempInput = document.createElement('input');
-                    document.body.appendChild(tempInput);
-                    tempInput.value = text;
-                    tempInput.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(tempInput);
-                    alert('Image URL copied to clipboard!');
-                }
-            </script>
+        <!-- Post Options -->
+        <div class="space-y-2">
+            <label class="block text-sm font-medium text-gray-700">Post Options</label>
+            <div class="flex items-center space-x-6">
+                <label class="inline-flex items-center">
+                    <input type="checkbox" id="published" name="published" class="text-indigo-600 focus:ring-indigo-500">
+                    <span class="ml-2">Publish</span>
+                </label>
+                <label class="inline-flex items-center">
+                    <input type="checkbox" id="featured" name="featured" class="text-indigo-600 focus:ring-indigo-500">
+                    <span class="ml-2">Featured</span>
+                </label>
+            </div>
+        </div>
 
+        <!-- Submit Button -->
+        <div>
+            <button type="submit" class="bg-lime-600 text-white font-medium py-2 px-4 rounded-lg hover:bg-lime-500 focus:outline-none focus:ring-2 focus:ring-lime-500">
+                Create New Post
+            </button>
+        </div>
+    </form>
+</div>
 
-                        <!-- Manage category selection -->
-                        <div class="border rounded border-gray-300 p-2 my-10">
-                            <p class="font-semibold text-gray-700 mb-2">Select a category for the post:</p>
-                            <div class="mt-2 text-red-500">{{ $errors->has('category') ? 'A category is required' : '' }}</div>
-                            <div class="">
-                                <ul class="flex justify-evenly mt-4 mb-10">
-                                @foreach ($categories as $category)
-                                <li class="">
-                                <input type="radio" id="category" name="category" value="{{ $category->id }}"> 
-                                {{ $category->name }}            
-                                </li class="list-inline-item">
-                                @endforeach
-                                </ul>
-                            </div>
-                        </div>  
-
-                        <!-- Post Tags -->
-                        <div class="my-10">
-                            <p class="font-semibold text-gray-700 mb-2">Enter some tags if required:</p>
-                            <input type="text" class="w-full border rounded text-sm h-8" id="tags" name="tags" placeholder="Enter tags for the post, eg. one-two-three">
-                        </div>
-
-                        <!-- Manage the post options -->
-                        <div class="">
-                            <p class="font-semibold text-gray-700 mb-2">Post Options:</p>
-                            <ul class="flex border rounded border-gray-300 py-2 text-sm justify-evenly">           
-                                <li class="list-inline-item">
-                                    <label> Publish?</label>     
-                                    <input type="checkbox" class="form-field rounded-full" id="published" name="published">
-                                </li>
-                                <li class="list-inline-item">
-                                    <label> Featured?</label>        
-                                    <input type="checkbox" class="form-field rounded-full" id="featured" name="featured">
-                                </li>
-                            </ul>
-                        </div> 
-                        <button type="submit" class="my-10 border p-2 bg-lime-600 rounded text-white text-sm hover:bg-green-500">Create New Post</button> 
-                    </form>
-    </div>
-
+<!-- TinyMCE -->
+<script src="https://cdn.tiny.cloud/1/a1rn9rzvnlulpzdgoe14w7kqi1qpfsx7cx9am2kbgg226dqz/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
-    function previewImage(event) {
-        var reader = new FileReader();
-        reader.onload = function() {
-            var output = document.getElementById('preview');
-            output.src = reader.result;
-            output.style.display = 'block';  // Show the image preview
-        };
-        reader.readAsDataURL(event.target.files[0]); // Read the image as a data URL
-    }
-    </script>
+    tinymce.init({
+        selector: '#editor',
+        plugins: 'advlist autolink lists link image charmap preview anchor code fullscreen insertdatetime media table paste help wordcount',
+        toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+        branding: false,
+    });
 
+    function previewImage(event) {
+        const reader = new FileReader();
+        reader.onload = function () {
+            const output = document.getElementById('preview');
+            output.src = reader.result;
+            output.classList.remove('hidden');
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
 @endsection
