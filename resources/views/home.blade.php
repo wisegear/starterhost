@@ -3,10 +3,10 @@
     <!-- header section -->
     <div class="mb-10 flex flex-col justify-center">
         <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-        <p class="md:w-2/3 w-full mx-auto my-4 text-center dark:text-white">This is a personal mortgage-related blog. Whilst I do my best to ensure everything contained in here is accurate and up to date, 
+        <p class="md:w-2/3 w-full mx-auto my-4 text-center dark:text-white">This is a Scottish property-related site. Whilst I do my best to ensure everything contained in here is accurate and up to date, 
             there are times when it may not be. Also, double-check information regardless of where you see it on the internet. If you are 
             visiting this site as part of information gathering, please always consult with a suitably qualified professional before making 
-            any material decisions related to mortgages.</p>
+            any material decisions related to buying property.</p>
     </div>
     <!-- Recent Posts -->
     <div>

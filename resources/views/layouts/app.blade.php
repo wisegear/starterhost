@@ -9,8 +9,8 @@
         <link rel="canonical" href="{{ url()->current() }}">
         <meta name="author" content="Lee Wisener">
         <meta name="keywords" content="Mortgages, BTL, Lifetime, Rent, Borrowing, Inflation, CeMAP, CeRER">
-        <title>{{ $page->title ?? 'MortgageBlog.uk' }}</title>
-        <meta name="description" content="{{ $page->summary ?? 'Mortgages - A Personal mortgage blog dedicated to all aspects of mortgage lending in the UK.' }}">
+        <title>{{ $page->title ?? 'ScotProperty.com' }}</title>
+        <meta name="description" content="{{ $page->summary ?? 'Scottish Property website, mortgages, regulation, housing, castles and more.' }}">
 
         @isset($page)
         <!-- Twitter Meta -->
@@ -35,7 +35,7 @@
         <!-- Favicon -->
         <link rel="icon" type="image/svg+xml" href="{{ asset('/assets/images/site/house.svg') }}">
 
-        <title>{{ config('app.name', 'TheHolocaust') }}</title>
+        <title>{{ config('app.name', 'ScotProperty') }}</title>
 
         <!-- FontAwesome -->
         <script src="https://kit.fontawesome.com/0ff5084395.js" crossorigin="anonymous"></script>
@@ -59,7 +59,7 @@
                     </ul>
                 </div>
                 <div class="flex-grow text-center">
-                    <p class="text-2xl font-bold dark:text-white">MortgageBlog<span class="text-lg font-normal text-gray-600 dark:text-gray-400">.uk</span></p>
+                    <p class="text-2xl font-bold dark:text-white">ScotProperty<span class="text-lg font-normal text-gray-600 dark:text-gray-400">.com</span></p>
                 </div>
                 <div class="w-2/12 flex justify-end">
                     <!-- Sun icon for Light Mode -->
@@ -271,7 +271,7 @@
 
         <!-- Footer Section -->
         <footer class="border-t dark:border-t-gray-700">
-            <p class="text-center text-sm font-bold text-gray-500 dark:text-gray-300 py-4">Copyright 2024, All rights Reserved.  <a href="/">MortgageBlog.uk</a> built and maintained by Lee Wisener</p>
+            <p class="text-center text-sm font-bold text-gray-500 dark:text-gray-300 py-4">Copyright 2024, All rights Reserved.  <a href="https://scotproperty.com">ScotProperty.com</a> built and maintained by Lee Wisener</p>
         </footer>
         <!-- Scripts -->
         <!-- jQuery (Add it before other scripts update to 3.6.4) -->

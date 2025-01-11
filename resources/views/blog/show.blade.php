@@ -92,7 +92,7 @@
             </div>
 
             <!-- Author Box -->
-            <div class="flex items-center rounded shadow-lg border bg-lime-100 dark:bg-gray-600 dark:border-gray-700 p-4 my-10 space-y-2">
+            <div class="flex items-center rounded shadow-lg border bg-lime-50 dark:bg-gray-600 dark:border-gray-700 p-4 my-10 space-y-2">
                 <div class="w-3/12 lg:w-2/12">
                     <img src="/assets/images/avatars/{{ $page->users->avatar }}" class="mx-auto rounded-full h-20 border border-gray-400 p-1">
                 </div>
