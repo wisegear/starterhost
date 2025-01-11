@@ -53,10 +53,19 @@
             @enderror
         </div>
 
-        <!-- Additional Images Upload -->
-        <div class="space-y-2">
-            <label for="images" class="block text-sm font-medium text-gray-700">Additional Images</label>
-            <input type="file" name="images[]" id="images" class="block w-full border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" multiple>
+        <div class="flex justify-between">
+            <!-- Additional Images Upload -->
+            <div class="space-y-2">
+                <label for="images" class="block text-sm font-medium text-gray-700">Additional Images</label>
+                <input type="file" name="images[]" id="images" class="block w-full border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" multiple>
+            </div>
+            <!-- New Gallery Images Upload Section -->
+            <div class="space-y-2">
+                <label for="gallery_images" class="block text-sm font-medium text-gray-700">Gallery Images</label>
+                <input type="file" name="gallery_images[]" id="gallery_images" accept="image/*" class="block w-full border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" multiple onchange="previewGalleryImages(event)">
+                <small class="text-gray-500">You can upload multiple images for the gallery. These will be displayed in a gallery format on the post.</small>
+                <div id="gallery-preview" class="mt-4 flex flex-wrap gap-4"></div>
+            </div> 
         </div>
 
         <!-- Category Selection -->
@@ -115,6 +124,24 @@
         branding: false,
     });
 
+    // Preview the selected gallery images
+    function previewGalleryImages(event) {
+        const galleryPreview = document.getElementById('gallery-preview');
+        galleryPreview.innerHTML = ''; // Clear existing previews
+
+        Array.from(event.target.files).forEach(file => {
+            const reader = new FileReader();
+            reader.onload = function () {
+                const img = document.createElement('img');
+                img.src = reader.result;
+                img.classList.add('w-32', 'h-32', 'object-cover', 'rounded-lg', 'shadow-md');
+                galleryPreview.appendChild(img);
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    // Preview the featured image
     function previewImage(event) {
         const reader = new FileReader();
         reader.onload = function () {

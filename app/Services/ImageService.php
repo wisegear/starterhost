@@ -51,22 +51,38 @@ class ImageService
         ];
     }
 
-    public function deleteImage($imagePaths)
+    public function handleGalleryImageUpload($image, $path = '/assets/images/uploads/gallery/')
     {
-        // If $imagePaths is an array of multiple image paths
-        if (is_array($imagePaths)) {
-            foreach ($imagePaths as $imagePath) {
-                if (!empty($imagePath) && file_exists(public_path($imagePath))) {
-                    unlink(public_path($imagePath));  // Delete each file
-                }
-            }
-        } elseif (is_string($imagePaths)) {
-            // If $imagePaths is a single string, delete that one image
-            if (!empty($imagePaths) && file_exists(public_path($imagePaths))) {
-                unlink(public_path($imagePaths));
-            }
+        // Ensure the directory exists
+        if (!file_exists(public_path($path))) {
+            mkdir(public_path($path), 0755, true);
         }
-    }    
+    
+        // Generate a unique image name
+        $imageName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME) . '_' . time() . '.' . $image->getClientOriginalExtension();
+    
+        // Paths for the original and thumbnail images
+        $originalPath = $path . 'original_' . $imageName;
+        $thumbnailPath = $path . 'thumbnail_' . $imageName;
+    
+        // Move the original image to the original path
+        $image->move(public_path($path), 'original_' . $imageName);
+    
+        // Resize and crop to create the thumbnail (350x200)
+        Image::read(public_path($originalPath))
+            ->resize(350, 200, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })
+            ->crop(350, 200)
+            ->save(public_path($thumbnailPath), 70);
+    
+        // Return paths for both the original and thumbnail
+        return [
+            'original' => $originalPath,
+            'thumbnail' => $thumbnailPath,
+        ];
+    }
 
         public function optimizeAndSaveImage($image, $path = '/assets/images/uploads/')
         {
@@ -112,6 +128,37 @@ class ImageService
         
             return $relativeImagePath; // Return only the relative path
         }
+
+        public function deleteImage($imagePaths)
+        {
+            // If $imagePaths is an array of multiple image paths
+            if (is_array($imagePaths)) {
+                foreach ($imagePaths as $imagePath) {
+                    if (!empty($imagePath) && file_exists(public_path($imagePath))) {
+                        unlink(public_path($imagePath));  // Delete each file
+                    }
+                }
+            } elseif (is_string($imagePaths)) {
+                // If $imagePaths is a single string, delete that one image
+                if (!empty($imagePaths) && file_exists(public_path($imagePaths))) {
+                    unlink(public_path($imagePaths));
+                }
+            }
+        }
+        
+        public function deleteGalleryImages($galleryImages)
+        {
+            if (is_array($galleryImages)) {
+                foreach ($galleryImages as $imageSet) {
+                    if (isset($imageSet['original']) && file_exists(public_path($imageSet['original']))) {
+                        unlink(public_path($imageSet['original']));
+                    }
+                    if (isset($imageSet['thumbnail']) && file_exists(public_path($imageSet['thumbnail']))) {
+                        unlink(public_path($imageSet['thumbnail']));
+                    }
+                }
+            }
+        }  
     }
 
 
