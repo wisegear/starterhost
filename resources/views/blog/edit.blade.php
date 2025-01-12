@@ -2,7 +2,8 @@
 
 @section('content')
 
-<h2 class="text-4xl font-bold text-center mb-8">Edit Post</h2>
+<h2 class="text-4xl font-bold text-center">Edit Post</h2>
+<p class="text-center">USe this form to edit an existing blog post</p>
 
 <div class="w-full mx-auto bg-white shadow-md rounded-lg p-6">
 

@@ -8,7 +8,7 @@
         <link rel="mask-icon" href="{{ asset('/assets/images/site/house.svg') }}" color="#5bbad5">
         <link rel="canonical" href="{{ url()->current() }}">
         <meta name="author" content="Lee Wisener">
-        <meta name="keywords" content="Mortgages, BTL, Lifetime, Rent, Borrowing, Inflation, CeMAP, CeRER">
+        <meta name="keywords" content="Scotland, Property, Mortgages, land, castles, regulation, housing">
         <title>{{ $page->title ?? 'ScotProperty.com' }}</title>
         <meta name="description" content="{{ $page->summary ?? 'Scottish Property website, mortgages, regulation, housing, castles and more.' }}">
 
@@ -217,53 +217,6 @@
         </ul>
     </div>
 </div>
-
-<!-- JavaScript for toggling the mobile menu and dropdowns -->
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-        const mobileMenu = document.getElementById('mobileMenu');
-
-        // Mobile dropdown toggles
-        const mobileCalculatorDropdownToggle = document.getElementById('mobileCalculatorDropdownToggle');
-        const mobileCalculatorDropdown = document.getElementById('mobileCalculatorDropdown');
-
-        const mobileUserDropdownToggle = document.getElementById('mobileUserDropdownToggle');
-        const mobileUserDropdown = document.getElementById('mobileUserDropdown');
-
-        // Toggle the mobile menu
-        mobileMenuToggle.addEventListener('click', (event) => {
-            event.preventDefault();
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // Toggle the Calculators dropdown in the mobile menu
-        if (mobileCalculatorDropdownToggle) {
-            mobileCalculatorDropdownToggle.addEventListener('click', (event) => {
-                event.preventDefault();
-                mobileCalculatorDropdown.classList.toggle('hidden');
-            });
-        }
-
-        // Toggle the User dropdown in the mobile menu
-        if (mobileUserDropdownToggle) {
-            mobileUserDropdownToggle.addEventListener('click', (event) => {
-                event.preventDefault();
-                mobileUserDropdown.classList.toggle('hidden');
-            });
-        }
-
-        // Handle toggling of mobile article category dropdowns
-        document.querySelectorAll('[id^="mobileCategoryDropdownToggle-"]').forEach(toggle => {
-            toggle.addEventListener('click', (event) => {
-                event.preventDefault();
-                const dropdownId = toggle.id.replace('Toggle', '');
-                const dropdown = document.getElementById(dropdownId);
-                dropdown.classList.toggle('hidden');
-            });
-        });
-    });
-</script>
 
         <!-- Content Section -->
         <div class="flex-grow my-10">
