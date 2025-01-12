@@ -11,10 +11,10 @@ class PagesController extends Controller
     public function home() {
 
         //get x most recent posts
-        $posts = BlogPosts::orderBy('date', 'desc')->take(4)->get();
+        $posts = BlogPosts::where('published', true)->orderBy('date', 'desc')->take(4)->get();
     
         //Other recent posts
-        $other_posts = Blogposts::orderBy('date', 'desc')->skip(4)->take(6)->get();
+        $other_posts = Blogposts::where('published', true)->orderBy('date', 'desc')->skip(4)->take(6)->get();
 
         //Recent Guides
         $guides = BlogPosts::orderBy('date', 'desc')
