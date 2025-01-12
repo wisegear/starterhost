@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<h2 class="text-4xl font-bold text-center mb-8">Create a New Post</h2>
+<h2 class="text-4xl font-bold text-center">Create a New Post</h2>
+<p class="text-center ">Use this page to create a new blog post</p>
 
 <div class="w-full mx-auto bg-white shadow-md rounded-lg p-6">
     <!-- Form Start -->
@@ -58,6 +59,8 @@
             <div class="space-y-2">
                 <label for="images" class="block text-sm font-medium text-gray-700">Additional Images</label>
                 <input type="file" name="images[]" id="images" class="block w-full border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" multiple>
+                <small class="text-gray-500">Use this section to upload images you want to add to the blog post itself.</small>
+
             </div>
             <!-- New Gallery Images Upload Section -->
             <div class="space-y-2">
@@ -69,7 +72,7 @@
         </div>
 
         <!-- Category Selection -->
-        <div class="space-y-2">
+        <div class="space-y-2 border p-2 shadow-lg">
             <label class="block text-sm font-medium text-gray-700">Category</label>
             <div class="space-y-2">
                 @foreach($categories as $category)

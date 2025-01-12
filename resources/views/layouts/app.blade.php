@@ -28,14 +28,15 @@
         <meta property="og:image" content="{{ asset($page->small_image) }}" />
         @endisset
 
+        <!-- moved this to the top due to FOUC -->
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+
         <!-- Venobox css -->
         <link rel="stylesheet" href="{{ asset('assets/css/venobox.min.css') }}" type="text/css" media="screen" />
         <script type="text/javascript" src="{{ asset('assets/js/venobox.min.js') }}"></script>
 
         <!-- Favicon -->
         <link rel="icon" type="image/svg+xml" href="{{ asset('/assets/images/site/house.svg') }}">
-
-        <title>{{ config('app.name', 'ScotProperty') }}</title>
 
         <!-- FontAwesome -->
         <script src="https://kit.fontawesome.com/0ff5084395.js" crossorigin="anonymous"></script>
@@ -276,7 +277,7 @@
         <!-- Scripts -->
         <!-- jQuery (Add it before other scripts update to 3.6.4) -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        
 
     </body>
 </html>

@@ -66,53 +66,58 @@
             @enderror
         </div>
 
-        <!-- Additional Images Upload -->
-        <div class="space-y-2">
-            <label for="images" class="block text-sm font-medium text-gray-700">Additional Images</label>
-            <input type="file" name="images[]" id="editorImages" class="block w-full border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" multiple>
+        <div class="flex justify-around py-10 border shadow-lg p-2">
 
-            <!-- Preview of Existing Additional Images -->
-            @if($page->images)
-                <div class="mt-4">
-                    <h4 class="text-lg font-medium text-gray-700">Uploaded Images</h4>
-                    <div class="grid grid-cols-4 gap-4">
-                        @foreach(json_decode($page->images, true) as $image)
-                            <div class="relative group">
-                                <img src="{{ asset($image) }}" class="h-24 w-full rounded-lg border" alt="Uploaded Image">
-                                <!-- Copy URL Button -->
-                                <button type="button" onclick="copyToClipboard('{{ asset($image) }}')" class="absolute top-1 right-1 bg-gray-700 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition">
-                                    Copy URL
-                                </button>
-                            </div>
-                        @endforeach
+            <!-- Additional Images Upload -->
+            <div class="space-y-2">
+                <label for="images" class="block text-sm font-medium text-gray-700">Additional Images</label>
+                <input type="file" name="images[]" id="editorImages" class="block w-full border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" multiple>
+                <p class="text-sm">Existing blog images below, you can add but not delete from here.</p>
+
+                <!-- Preview of Existing Additional Images -->
+                @if($page->images)
+                    <div class="mt-4">
+                        <h4 class="text-lg font-medium text-gray-700">Uploaded Images</h4>
+                        <div class="grid grid-cols-4 gap-4">
+                            @foreach(json_decode($page->images, true) as $image)
+                                <div class="relative group">
+                                    <img src="{{ asset($image) }}" class="h-24 w-full rounded-lg border" alt="Uploaded Image">
+                                    <!-- Copy URL Button -->
+                                    <button type="button" onclick="copyToClipboard('{{ asset($image) }}')" class="absolute top-1 right-1 bg-gray-700 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition">
+                                        Copy URL
+                                    </button>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
-                </div>
-            @endif
-        </div>
+                @endif
+            </div>
 
-        <!-- Gallery Images Upload -->
-        <div class="space-y-2">
-            <label for="gallery_images" class="block text-sm font-medium text-gray-700">Upload New Gallery Images</label>
-            <input type="file" name="gallery_images[]" id="gallery_images" accept="image/*" class="block w-full border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" multiple>
-
-            <!-- Existing Gallery Images Preview -->
-            @if($page->gallery_images)
-                <div class="mt-4 space-y-2">
-                    <h4 class="text-lg font-medium text-gray-700">Existing Gallery Images</h4>
-                    <div class="grid grid-cols-4 gap-4">
-                        @foreach(json_decode($page->gallery_images, true) as $image)
-                            <div class="relative">
-                                <img src="{{ asset($image['thumbnail']) }}" class="h-24 w-full rounded-lg border" alt="Gallery Thumbnail">
-                                <a href="{{ asset($image['original']) }}" target="_blank" class="absolute top-1 right-1 bg-gray-700 text-white text-xs px-2 py-1 rounded">View</a>
-                            </div>
-                        @endforeach
+            <!-- Gallery Images Upload -->
+            <div class="space-y-2">
+                <label for="gallery_images" class="block text-sm font-medium text-gray-700">Upload New Gallery Images</label>
+                <input type="file" name="gallery_images[]" id="gallery_images" accept="image/*" class="block w-full border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" multiple>
+                <p class="text-sm">Existing gallery images below, you can add but not delete from here.</p>
+                <!-- Existing Gallery Images Preview -->
+                @if($page->gallery_images)
+                    <div class="mt-4 space-y-2">
+                        <h4 class="text-lg font-medium text-gray-700">Existing Gallery Images</h4>
+                        <div class="grid grid-cols-4 gap-4">
+                            @foreach(json_decode($page->gallery_images, true) as $image)
+                                <div class="relative">
+                                    <img src="{{ asset($image['thumbnail']) }}" class="h-24 w-full rounded-lg border" alt="Gallery Thumbnail">
+                                    <a href="{{ asset($image['original']) }}" target="_blank" class="absolute top-1 right-1 bg-gray-700 text-white text-xs px-2 py-1 rounded">View</a>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
-                </div>
-            @endif
+                @endif
+            </div>
+
         </div>
 
         <!-- Category Selection -->
-        <div class="space-y-2">
+        <div class="space-y-2 border p-2 shadow-lg">
             <label class="block text-sm font-medium text-gray-700">Category</label>
             <div class="space-y-2">
                 @foreach($categories as $category)
