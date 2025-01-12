@@ -36,7 +36,7 @@ class LinksController extends Controller
            // Append category query parameter to pagination links
            $links->appends(['category' => $categoryName]);
        } else {
-           $links = Links::paginate(6);
+           $links = Links::orderBy('id', 'asc')->paginate(6);
        }
     
        $categories = LinksCategories::all();
