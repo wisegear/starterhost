@@ -123,7 +123,7 @@ window.updateDarkModeButton = function updateDarkModeButton(isDarkMode) {
     }
 };
 
-// Scripts for mobile nav
+// Scripts for mobile nav and dropdowns.
 
 document.addEventListener('DOMContentLoaded', () => {
 const mobileMenuToggle = document.getElementById('mobileMenuToggle');
