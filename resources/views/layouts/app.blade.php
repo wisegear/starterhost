@@ -9,7 +9,7 @@
         <link rel="canonical" href="{{ url()->current() }}">
         <meta name="author" content="Lee Wisener">
         <meta name="keywords" content="Scotland, Property, Mortgages, land, castles, regulation, housing">
-        <title>{{ $page->title ?? 'ScotProperty.com' }}</title>
+        <title>{{ $page->title ?? 'Holocaust Research' }}</title>
         <meta name="description" content="{{ $page->summary ?? 'Scottish Property website, mortgages, regulation, housing, castles and more.' }}">
 
         
@@ -61,7 +61,7 @@
                     </ul>
                 </div>
                 <div class="flex-grow text-center">
-                    <p class="text-2xl font-bold dark:text-white">ScotProperty<span class="text-lg font-normal text-gray-600 dark:text-gray-400">.com</span></p>
+                    <p class="text-2xl font-bold dark:text-white">HolocaustResearch<span class="text-sm font-normal text-slate-500 dark:text-gray-400">.net</span></p>
                 </div>
                 <div class="w-2/12 flex justify-end">
                     <!-- Sun icon for Light Mode -->
@@ -111,17 +111,6 @@
                 </li>
                 @endforeach
             @endif
-
-            <!-- Mobile Calculators Dropdown -->
-            <li class="relative">
-                <a href="#" class="block py-2" id="mobileCalculatorDropdownToggle" role="button">
-                    Calculators
-                </a>
-                <ul id="mobileCalculatorDropdown" class="pl-4 hidden">
-                    <li class="py-1"><a href="/calculators/mortgage-payments" class="block">Mortgage Calculator</a></li>
-                    <li class="py-1"><a href="/calculators/stamp-duty" class="block">Stamp Duty</a></li>
-                </ul>
-            </li>
 
             <!-- Other Links -->
             <li><a href="/links">Links</a></li>
@@ -176,16 +165,8 @@
                 @endforeach
             @endif
 
-            <!-- Desktop Calculators Dropdown -->
-            <li class="relative">
-                <a href="#" class="flex items-center" id="calculatorDropdownToggle" role="button">
-                    Calculators
-                </a>
-                <ul id="calculatorDropdown" class="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-md shadow-lg hidden z-50">
-                    <li class="px-4 py-2 hover:bg-lime-100 hover:rounded dark:hover:bg-gray-500"><a href="/calculators/mortgage-payments">Mortgage Calculator</a></li>
-                    <li class="px-4 py-2 hover:bg-lime-100 hover:rounded dark:hover:bg-gray-500"><a href="/calculators/stamp-duty">Stamp Duty</a></li>
-                </ul>
-            </li>
+            <!-- Gallery --> 
+            <li class=""><a href="/gallery">Gallery</a></li>
 
             <!-- Other Links -->
             <li><a href="/links">Links</a></li>

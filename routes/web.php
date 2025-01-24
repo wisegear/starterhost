@@ -7,6 +7,7 @@ use App\Http\Controllers\TimelineController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\SupportController;
+use App\Http\Controllers\GalleryController;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -40,6 +41,8 @@ Route::resource('/blog', BlogController::class);
 Route::resource('/quotes', QuotesController::class);
 Route::resource('/timeline', TimelineController::class);
 Route::resource('/links', LinksController::class);
+
+Route::resource('/gallery', GalleryController::class);
 
 // Routes first protected by Auth
 

@@ -1,68 +1,64 @@
 @extends('layouts.app')
 @section('content')
-    <!-- header section -->
-    <div class="mb-10 flex flex-col justify-center">
-        <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-        <p class="md:w-2/3 w-full mx-auto my-4 text-center dark:text-white">This is a Scottish property-related site. Whilst I do my best to ensure everything contained in here is accurate and up to date, 
-            there are times when it may not be. Also, double-check information regardless of where you see it on the internet. If you are 
-            visiting this site as part of information gathering, please always consult with a suitably qualified professional before making 
-            any material decisions related to buying property.</p>
-    </div>
-    <!-- Recent Posts -->
-    <div>
-        <p class="border-b dark:border-b-gray-700 font-bold dark:text-white">Recent Posts</p>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 my-4">
-            @foreach ($posts as $post)
-                <a href="/blog/{{ $post->slug }}">
-                    <div class="">
-                        <img src="{{ $post->small_image }}" class="rounded shadow-lg w-full" alt="">
-                        <p class="font-bold text-center mt-2 dark:text-white">{{ $post->title }}</p>
-                    </div>
-                </a>
-            @endforeach
-        </div>
-    </div>
-    <!-- Other Posts -->
-    <div class="flex flex-col space-y-10 md:flex-row md:space-x-10 md:space-y-0">
-        <!-- Other recent posts -->
-        <div class="w-full">
-            <h2 class="border-b dark:border-b-gray-700 font-bold mb-2 dark:text-white">Older Posts </h2>
-            @foreach ($other_posts as $other_post)
-                <div class="flex items-center mb-4 dark:text-white">
-                    <p class="w-3/12 md:w-2/12 shrink-0">{{ $other_post->date->format('d M') }}</p>
-                    <h3><a href="/blog/{{ $other_post->slug }}">{{ $other_post->title }}</a></h3>
+    <!-- Content Section -->
+    <div class="flex-grow my-10">
+        <!-- Hero Section -->
+        <div class="border rounded p-5">
+            <div class="flex justify-between items-center space-x-10">
+                <div class="w-5/12">
+                  <img src="../assets/images/site/auschwitz-gate.jpg" alt="Gate at Auschwitz" class="w-full max-h-[250px]">
                 </div>
-            @endforeach
-        </div>
-        <!-- Recent Guides -->
-        <div class="w-full">
-            <h2 class="border-b dark:border-b-gray-700 font-bold mb-2 dark:text-white">Recent Guides </h2>
-            @foreach ($guides as $guide)
-                <div class="flex items-center mb-4 dark:text-white">
-                    <p class="w-3/12 md:w-2/12 shrink-0">{{ $guide->date->format('d M') }}</p>
-                    <h3><a href="/blog/{{ $guide->slug }}">{{ $guide->title }}</a></h3>
+                <div class="w-7/12">
+                    <i class="fa-solid fa-quote-left text-slate-500"></i>
+                    <p class="italic text-gray-500">
+                    There's a long road of suffering ahead of you. But don't lose courage. You've already escaped the gravest danger: selection. So now, muster your strength, and don't lose heart. We shall all see the day of liberation. Have faith in life. Above all else, have faith. Drive out despair, and you will keep death away from yourselves. Hell is not for eternity. And now, a prayer - or rather, a piece of advice: let there be comradeship among you. We are all brothers, and we are all suffering the same fate. The same smoke floats over all our heads. Help one another. It is the only way to survive.</p>
+                    <p class="text-right text-slate-500 font-semibold text-sm">-- Elie Wiesel </p>
                 </div>
-            @endforeach
-        </div>
-    </div>
-    <!-- Calculators -->
-    <div class="flex flex-col space-y-10 md:flex-row md:space-y-0 md:space-x-10 mt-10">
-        <!-- Mortgage Calculator -->
-        <div class="border rounded shadow-lg bg-gray-100 dark:bg-inherit dark:border-gray-700 dark:text-white p-4 w-full">
-            <h2 class="font-bold text-lg text-center">Mortgage Calculator</h2>
-            <p class="text-center">Check out our Mortgage Calculator to understand what you will pay whether on a Capital Repayment or 
-                Interest Only basis. Also understand the impact stress rates being applied could have on payments.</p>
-            <div class="text-center">
-                <a href="/calculators/mortgage-payments"><button class="mt-4 border dark:border-gray-700 rounded bg-lime-500 hover:bg-lime-400 text-black p-2 text-xs uppercase">Open Calculator</button></a>
             </div>
         </div>
-        <!-- Stamp Duty Calculator -->
-        <div class="border rounded shadow-lg bg-gray-100 dark:bg-inherit dark:border-gray-700 dark:text-white p-4 w-full">
-            <h2 class="font-bold text-lg text-center">Stamp Duty Calculator</h2>
-            <p class="text-center">If you need to know what stamp duty will be paid on a property purchase, I have that covered as well. 
-                Click below to see the calculator which covers all regions in the UK.</p>
-            <div class="text-center">
-                <a href="/calculators/stamp-duty"><button class="mt-4 border dark:border-gray-700 rounded bg-lime-500 hover:bg-lime-400 text-black p-2 text-xs uppercase">Open Calculator</button></a>
+         <!-- Outer content section -->
+         <div class="mt-10">
+            <!-- left and right content -->
+            <div class="flex justify-between space-x-10">
+                <!-- left -->
+                <div class="w-9/12">
+                    <h2 class="font-bold text-lg border-b mb-4">Welcome</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur reprehenderit vero nulla id temporibus, 
+                        voluptatem veniam porro laborum rem recusandae neque nostrum. Omnis corporis id placeat illo non magnam eos!
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut fugiat, sint ipsum iure assumenda, atque nam placeat porro adipisci, 
+                        recusandae error sed ullam! Similique ratione expedita officia alias quis magnam?</p>
+                </div>
+                <!-- right -->
+                <div class="w-3/12">
+                    <div class="mb-10">
+                        <h2 class="border-b text-lg font-bold mb-4">Random Gallery Images</h2>
+                        <!-- For each loop -->
+                        @foreach ($gallery as $image)
+                            <div class="relative">
+                                <a href="../gallery/{{ $image->slug }}" class=""><img class="mb-4 h-full w-full border rounded p-2" src="{{ $image->image }}" alt="{{ $image->title }}"></a>     
+                                <div class="absolute top-5 right-0 border text-sm bg-slate-500 text-white px-2 font-semibold">
+                                   <a href="../gallery?album={{ $image->GalleryAlbum->name }}"><p>{{ $image->GalleryAlbum->name }}</p></a>
+                                </div>  
+                            </div>   
+                        @endforeach
+                        <!-- End foreach -->
+                    </div>
+                    <div class="">
+                        <h2 class="border-b text-lg font-bold mb-4">Recent Blog Posts</h2>
+                        @foreach ( $posts as $post)
+                            <div class="">
+                                <h3 class="font-semibold text-slate-500 hover:text-yellow-700 text-lg"><a href="../blog/{{$post->slug}}"> {{$post->title}} </a></h3>
+                                <div class="mb-4">
+                                    <ul class="flex space-x-4 text-sm">
+                                        <li class=""> {{$post->date->diffForHumans()}} </li>
+                                        <li class="">{{$post->blogcategories->name}}</li>
+                        </ul>
+                                    <p class="text-sm mt-2"> {{$post->exceprt}} </p>
+                                </div>
+                            </div>            
+                        @endforeach
+                    </div>
+                </div>
             </div>
         </div>
     </div>
