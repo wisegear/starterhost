@@ -257,7 +257,7 @@
 
         <!-- Footer Section -->
         <footer class="border-t dark:border-t-gray-700">
-            <p class="text-center text-sm text-slate-700 dark:text-gray-300 py-4">Copyright 2025, All rights Reserved.  <a href="https://holocaustresearch.net">HolocaustResearch.net</a> built and maintained by Lee Wisener</p>
+            <p class="text-center text-sm text-slate-700 dark:text-gray-400 py-4">Copyright 2025, All rights Reserved.  <a href="https://holocaustresearch.net">HolocaustResearch.net</a> built and maintained by Lee Wisener</p>
         </footer>
         <!-- Scripts -->
         <!-- jQuery (Add it before other scripts update to 3.6.4) -->
