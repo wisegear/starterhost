@@ -17,7 +17,7 @@ class AdminBlogController extends Controller
     public function index()
     {
         $categories = BlogCategories::with('blogposts')->get();
-        $posts = BlogPosts::orderBy('date', 'desc')->paginate(12);
+        $posts = BlogPosts::orderBy('id', 'desc')->paginate(12);
 
         return view('admin.blog.index', compact('categories', 'posts'));
     }

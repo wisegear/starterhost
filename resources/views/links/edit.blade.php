@@ -26,7 +26,7 @@
             <div class="w-1/2">
                 <h2 class="font-bold text-lg mb-12">Existing Link Image</h2>
                 @if($page->image)
-                    <img src="{{ asset($page->image) }}" class="w-full h-[350px]" alt="Featured Image">
+                    <img src="{{ asset('storage/images/links/' . $page->image) }}" class="w-full h-[350px]" alt="Featured Image">
                 @else
                     <p class="text-gray-600">No featured image available</p>
                 @endif

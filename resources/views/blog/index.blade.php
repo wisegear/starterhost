@@ -10,9 +10,18 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-10">
                 @foreach ($posts as $post)
                     <div class="border p-2 shadow-lg dark:border-gray-700">
-                        
-                        <img src="{{ asset($post->small_image) }}" class="w-full" alt="">
-
+                        <div class="relative w-full">
+                            <img src="{{ asset('storage/images/blog/small_' . $post->image) }}" class="w-full" alt="{{ $post->title }}">
+                            <!-- Show featured badge if the 'featured' field is true -->
+                            @if($post->featured)
+                                <span 
+                                    class="absolute top-2 right-2 bg-lime-600 text-white 
+                                        text-xs font-semibold px-2 py-1 rounded"
+                                >
+                                <i class="fa-solid fa-star"></i> Featured
+                                </span>
+                            @endif
+                        </div>
                         @can('Admin')
                         <div class="flex justify-end space-x-2">
                             <form action="/blog/{{ $post->id }}" method="POST" onsubmit="return confirm('Do you really want to delete this Post?');">
@@ -32,9 +41,9 @@
                             <li><a href="/blog?category={{ $post->blogCategories->name }}"><i class="fa-solid fa-folder mr-2"></i>{{ $post->blogcategories->name }}</a></li>
                         </ul>
                         <p class="my-2 dark:text-white">{{ $post->summary }}</p>
-                        <div class="flex flex-wrap space-x-4">
+                        <div class="flex flex-wrap gap-2">
                             @foreach ($post->blogtags as $tag)
-                                <a href="/blog?tag={{ $tag->name }}"><button class="text-xs uppercase border dark:border-gray-700 p-1 bg-slate-600 rounded text-white hover:bg-slate-400">{{ $tag->name }}</button></a>
+                                <a href="/blog?tag={{ $tag->name }}"><button class="wise-button-sm">{{ $tag->name }}</button></a>
                             @endforeach
                         </div>
                     </div>
@@ -71,10 +80,29 @@
             <!-- Blog Tags -->
             <div class="hidden md:block my-6">
                 <h2 class="text-lg font-bold border-b dark:border-b-gray-700 mb-4">Popular Tags</h2>
-                @foreach ($popular_tags as $tag)
-                    <button class="mr-2 mb-4">
-                        <a href="/blog?tag={{ $tag->name }}" class="border p-1 text-xs uppercase bg-slate-600 text-white hover:bg-slate-400 hover:text-white rounded">{{ $tag->name }}</a>
-                    </button>
+                <div class="flex flex-wrap">
+                    @foreach ($popular_tags as $tag)
+                        <a href="/blog?tag={{ $tag->name }}" class=""><button class="wise-button-sm mb-2 mr-2">{{ $tag->name }}</button></a>
+                    @endforeach
+                </div>
+            </div>
+            <!-- Featured Posts -->
+            <div class="hidden md:block my-6">
+                <h2 class="text-lg font-bold border-b dark:border-b-gray-700 mb-4">Featured Posts</h2>
+                @foreach( $featured as $feature )
+                    <div class="border mb-4 shadow-lg">
+                        <img src="{{ asset('storage/images/blog/small_' . $feature->image) }}" class="p-2 w-full" alt="{{ $feature->title }}">
+                        <div class="p-2">
+                            <h3 class="font-bold"><a href="../blog/{{$feature->slug}}"> {{$feature->title}} </a></h3>
+                            <div class="mb-4">
+                                <ul class="flex space-x-4 text-sm mt-2">
+                                    <li class=""><i class="fa-solid fa-clock text-slate-400"></i> {{$feature->date->diffForHumans()}} </li>
+                                    <li class=""><i class="fa-solid fa-folder text-slate-400"></i> <a href="/blog?category={{ $post->blogcategories->name }}">{{$feature->blogcategories->name}}</a></li>
+                                </ul>
+                                <p class="text-sm mt-2"> {{ Str::words($feature->summary, 20, '...') }} </p>
+                            </div>
+                        </div>
+                    </div> 
                 @endforeach
             </div>
             @can('Admin')
@@ -82,7 +110,7 @@
             <div class="hidden md:block my-6">
              <h2 class="text-xl font-bold text-gray-700 dark:text-red-300 border-b dark:border-b-gray-700 border-gray-300 mb-4"><i class="fa-solid fa-user-secret text-red-800"></i> Admin Tools</h2>
                 <div class="flex justify-center">
-                    <p class="border dark:border-gray-700 p-1 bg-lime-400 text-black rounded text-sm"><a href="/blog/create">Create New Post</a></p>
+                    <p class="wise-button-md"><a href="/blog/create">Create New Post</a></p>
                 </div>
                 <div class="flex flex-col space-y-2 text-sm mt-4">
                     @foreach ($unpublished as $post)

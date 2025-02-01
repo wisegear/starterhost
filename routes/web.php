@@ -26,6 +26,11 @@ use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminSupportController;
 use App\Http\Controllers\LinksController;
 use App\Http\Controllers\AdminLinksController;
+use App\Http\Controllers\AdminTimelineController;
+use App\Http\Controllers\AdminGalleryController;
+use App\Http\Controllers\AdminQuotesController;
+use App\Http\Controllers\AdminGalleryCategoryController;
+use App\Http\Controllers\AdminGalleryAlbumController;
 
 // Base Pages
 
@@ -41,7 +46,6 @@ Route::resource('/blog', BlogController::class);
 Route::resource('/quotes', QuotesController::class);
 Route::resource('/timeline', TimelineController::class);
 Route::resource('/links', LinksController::class);
-
 Route::resource('/gallery', GalleryController::class);
 
 // Routes first protected by Auth
@@ -54,14 +58,25 @@ Route::middleware('auth')->group(function () {
     Route::resource('support', SupportController::class);
 
     // Protect the Dashboard routes behind both Auth and Can
-    Route::prefix('admin')->group(function () {
-        Route::resource('/', AdminController::class)->middleware('can:Admin');
-        Route::resource('/users', AdminUserController::class)->middleware('can:Admin');
-        Route::resource('/articles', AdminArticleCategoriesController::class)->middleware('can:Admin');
-        Route::resource('/article', AdminArticleController::class)->middleware('can:Admin');
-        Route::resource('/blog', AdminBlogController::class)->middleware('can:Admin');
-        Route::resource('/support', AdminSupportController::class)->middleware('can:Admin');;
-        Route::resource('/links', AdminLinksController::class)->middleware('can:Admin');;
+    Route::prefix('admin')->middleware('can:Admin')->group(function () {
+        Route::resource('/', AdminController::class);
+        Route::resource('/users', AdminUserController::class);
+        Route::resource('/articles', AdminArticleCategoriesController::class);
+        Route::resource('/article', AdminArticleController::class);
+        Route::resource('/blog', AdminBlogController::class);
+        Route::resource('/support', AdminSupportController::class);
+        Route::resource('/links', AdminLinksController::class);
+        Route::get('/timeline', [AdminTimelineController::class, 'index']);
+        Route::get('/quotes', [AdminQuotesController::class, 'index']);
+        Route::get('/gallery', [AdminGalleryController::class, 'index'])->name('admin.gallery.index');
+        Route::resource('/gallery/categories', AdminGalleryCategoryController::class)->except(['show']);
+        Route::resource('/gallery/albums', AdminGalleryAlbumController::class)->except(['show']);
+        
+        Route::get('/gallery/categories/{id}/edit', [AdminGalleryCategoryController::class, 'edit'])->name('categories.edit');
+        Route::put('/gallery/categories/{id}', [AdminGalleryCategoryController::class, 'update'])->name('categories.update');
+        
+        Route::get('/gallery/albums/{id}/edit', [AdminGalleryAlbumController::class, 'edit'])->name('albums.edit');
+        Route::put('/gallery/albums/{id}', [AdminGalleryAlbumController::class, 'update'])->name('albums.update');
     });
 
 });

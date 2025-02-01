@@ -37,7 +37,7 @@
         <script type="text/javascript" src="{{ asset('assets/js/venobox.min.js') }}"></script>
 
         <!-- Favicon -->
-        <link rel="icon" type="image/svg+xml" href="{{ asset('/assets/images/site/house.svg') }}">
+        <link rel="icon" type="image/svg+xml" href="{{ asset('/assets/images/site/auschwitz-gate.jpg') }}">
 
         <!-- FontAwesome -->
         <script src="https://kit.fontawesome.com/0ff5084395.js" crossorigin="anonymous"></script>
@@ -75,128 +75,178 @@
                 </div>
         </div>
 
-                    
-<!-- Navigation Section -->
-<div class="w-full border-y dark:border-gray-700">
-    <!-- Mobile Menu Toggle Button -->
-    <div class="md:hidden flex justify-center items-center p-4">
-        <button id="mobileMenuToggle" class="text-gray-800 focus:outline-none" aria-label="Toggle mobile menu">
-            <!-- Hamburger Icon -->
-            <svg class="w-6 h-6 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-            </svg>
-        </button>
-    </div>
+                
+    <!-- =======================
+         Navigation Section
+    ======================== -->
+    <div class="w-full border-y dark:border-gray-700">
+        <!-- Mobile Menu Toggle (visible on small screens) -->
+        <div class="md:hidden flex justify-center items-center p-4">
+            <button id="mobileMenuToggle" class="text-gray-800 focus:outline-none" aria-label="Toggle mobile menu">
+                <!-- Hamburger Icon -->
+                <svg class="w-6 h-6 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" 
+                          stroke-linejoin="round" 
+                          stroke-width="2" 
+                          d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </div>
 
-    <!-- Mobile Navigation Menu -->
-    <div id="mobileMenu" class="md:hidden bg-gray-100 border-t dark:border-t-gray-700 hidden">
-        <ul class="flex flex-col space-y-2 py-4 px-6 dark:bg-gray-700 dark:text-white">
-            <li><a href="/" class="block py-2">Home</a></li>
-            <li><a href="/blog" class="block py-2">Blog</a></li>
+        <!-- Mobile Navigation Menu (hidden by default) -->
+        <div id="mobileMenu" class="md:hidden bg-gray-100 border-t dark:border-t-gray-700 hidden">
+            <ul class="flex flex-col space-y-2 py-4 px-6 dark:bg-gray-700 dark:text-white">
+                <!-- Basic Links -->
+                <li><a href="/" class="block py-2">Home</a></li>
+                <li><a href="/blog" class="block py-2">Blog</a></li>
 
-            <!-- Dynamic Article Categories Section for Mobile -->
-            @if (!empty($categoriesWithNavigation) && $categoriesWithNavigation->count() > 0)
-                @foreach ($categoriesWithNavigation as $category)
-                <li class="relative">
-                    <a href="#" class="block py-2" id="mobileCategoryDropdownToggle-{{ $category->id }}" role="button">
-                        {{ $category->name }}
-                    </a>
-                    @if ($category->article->count() > 0)
-                        <ul id="mobileCategoryDropdown-{{ $category->id }}" class="pl-4 hidden">
-                            @foreach ($category->article as $article)
-                                <li class="py-1"><a href="/article/{{ $article->slug }}" class="block">{{ $article->title }}</a></li>
-                            @endforeach
-                        </ul>
-                    @endif
-                </li>
-                @endforeach
-            @endif
+                <!-- Categories + Articles -->
+                @if (!empty($categoriesWithNavigation) && $categoriesWithNavigation->count() > 0)
+                    @foreach ($categoriesWithNavigation as $category)
+                        <li class="relative">
+                            <a href="#" class="block py-2" 
+                               id="mobileCategoryDropdownToggle-{{ $category->id }}" 
+                               role="button">
+                                {{ $category->name }}
+                            </a>
+                            @if ($category->article->count() > 0)
+                                <ul id="mobileCategoryDropdown-{{ $category->id }}" class="pl-4 hidden">
+                                    @foreach ($category->article as $article)
+                                        <li class="py-1">
+                                            <a href="/article/{{ $article->slug }}" class="block">
+                                                {{ $article->title }}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        </li>
+                    @endforeach
+                @endif
 
-            <!-- Other Links -->
-            <li><a href="/links">Links</a></li>
+                <!-- Additional Links (MATCH Desktop) -->
+                <li><a href="/quotes" class="block py-2">Quotes</a></li>
+                <li><a href="/gallery" class="block py-2">Gallery</a></li>
+                <li><a href="/timeline" class="block py-2">Timeline</a></li>
+                <li><a href="/links" class="block py-2">Links</a></li>
+                <li><a href="/contact" class="block py-2">Contact</a></li>
+                <li><a href="/about" class="block py-2">About</a></li>
 
-            <!-- Mobile Contact and About Links -->
-            <li><a href="/contact" class="block py-2">Contact</a></li>
-            <li><a href="/about" class="block py-2">About</a></li>
-
-            @if (Auth::check())
-            <!-- Mobile User Dropdown -->
-            <li class="relative">
-                <a href="#" class="block py-2" id="mobileUserDropdownToggle" role="button">
-                    {{ Auth::user()->name }} <i class="fa-solid fa-angles-down ml-2"></i>
-                </a>
-                <ul id="mobileUserDropdown" class="pl-4 hidden">
-                    <li class="py-1"><a href="/profile/{{ Auth::user()->name_slug }}" class="block">Profile</a></li>
-                    <li class="py-1"><a href="/support" class="block">Support</a></li>
-                    <li class="py-1"><a href="/admin" class="block">Admin</a></li>
-                    <li class="py-1 text-red-500"><a href="/logout" class="block">Logout</a></li>
-                </ul>
-            </li>
-            @else
-            <li><a href="/login" class="block py-2">Login</a></li>
-            <li><a href="/register" class="block py-2">Register</a></li>
-            @endif
-        </ul>
-    </div>
-
-    <!-- Standard Navigation Menu (Hidden on Mobile) -->
-    <div class="hidden md:flex justify-center space-x-4 py-4 dark:text-white">
-        <ul class="flex justify-center space-x-4">
-            <li><a href="/">Home</a></li>
-            <li><a href="/blog">Blog</a></li>
-
-            <!-- Dynamic Article Categories Section for Desktop -->
-            @if (!empty($categoriesWithNavigation) && $categoriesWithNavigation->count() > 0)
-                @foreach ($categoriesWithNavigation as $category)
-                <li class="relative">
-                    <a href="#" class="flex items-center" id="categoryDropdownToggle-{{ $category->id }}" role="button">
-                        {{ $category->name }}
-                    </a>
-                    @if ($category->article->count() > 0)
-                        <ul id="categoryDropdown-{{ $category->id }}" class="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-md shadow-lg hidden z-50">
-                            @foreach ($category->article as $article)
-                                <li class="px-4 py-2 hover:bg-lime-100 hover:rounded dark:hover:bg-gray-500">
-                                    <a href="/article/{{ $article->slug }}" class="text-sm">{{ $article->title }}</a>
+                <!-- Authenticated User -->
+                @if (Auth::check())
+                    <li class="relative">
+                        <a href="#" class="block py-2" id="mobileUserDropdownToggle" role="button">
+                            {{ Auth::user()->name }} <i class="fa-solid fa-angles-down ml-2"></i>
+                        </a>
+                        <ul id="mobileUserDropdown" class="pl-4 hidden">
+                            <!-- Example: Member role -->
+                            @if (Auth::user()->has_user_role('Member'))
+                                <li class="py-1">
+                                    <a href="/profile/{{ Auth::user()->name_slug }}" class="block">Profile</a>
                                 </li>
-                            @endforeach
+                                <li class="py-1">
+                                    <a href="/support" class="block">Support</a>
+                                </li>
+                            @endif
+                            <!-- Example: Admin role -->
+                            @if (Auth::user()->has_user_role('Admin'))
+                                <li class="py-1">
+                                    <a href="/admin" class="block">Admin</a>
+                                </li>
+                            @endif
+                            <!-- Logout -->
+                            <li class="py-1 text-red-500">
+                                <a href="/logout" class="block">Logout</a>
+                            </li>
                         </ul>
-                    @endif
-                </li>
-                @endforeach
-            @endif
+                    </li>
+                @else
+                    <!-- Guest Links -->
+                    <li><a href="/login" class="block py-2">Login</a></li>
+                    <li><a href="/register" class="block py-2">Register</a></li>
+                @endif
+            </ul>
+        </div>
 
-            <!-- Gallery --> 
-            <li class=""><a href="/gallery">Gallery</a></li>
+        <!-- Desktop Navigation Menu (visible on md+ screens) -->
+        <div class="hidden md:flex justify-center space-x-4 py-4 dark:text-white">
+            <ul class="flex justify-center space-x-4">
+                <!-- Basic Links -->
+                <li><a href="/">Home</a></li>
+                <li><a href="/blog">Blog</a></li>
 
-            <!-- Other Links -->
-            <li><a href="/links">Links</a></li>
+                <!-- Categories + Articles -->
+                @if (!empty($categoriesWithNavigation) && $categoriesWithNavigation->count() > 0)
+                    @foreach ($categoriesWithNavigation as $category)
+                        <li class="relative">
+                            <a href="#" class="flex items-center" 
+                               id="categoryDropdownToggle-{{ $category->id }}" 
+                               role="button">
+                                {{ $category->name }}
+                            </a>
+                            @if ($category->article->count() > 0)
+                                <ul id="categoryDropdown-{{ $category->id }}" 
+                                    class="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-700 
+                                           rounded-md shadow-lg hidden z-50">
+                                    @foreach ($category->article as $article)
+                                        <li class="px-4 py-2 hover:bg-lime-100 hover:rounded dark:hover:bg-gray-500">
+                                            <a href="/article/{{ $article->slug }}" class="text-sm">
+                                                {{ $article->title }}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        </li>
+                    @endforeach
+                @endif
 
-            <!-- Standard Contact and About Links -->
-            <li><a href="/contact">Contact</a></li>
-            <li><a href="/about">About</a></li>
+                <!-- Additional Links -->
+                <li><a href="/quotes">Quotes</a></li>
+                <li><a href="/gallery">Gallery</a></li>
+                <li><a href="/timeline">Timeline</a></li>
+                <li><a href="/links">Links</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li><a href="/about">About</a></li>
 
-            @if (Auth::check())
-            <!-- Desktop User Dropdown -->
-            <li class="relative">
-                <a href="#" class="flex items-center text-lime-700" id="userDropdownToggle" role="button">
-                    {{ Auth::user()->name }} <i class="fa-solid fa-angles-down ml-2"></i>
-                </a>
-                <ul id="userDropdown" class="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-md shadow-lg hidden z-50">
-                    @if (Auth::user()->has_user_role('Member'))
-                        <li class="px-4 py-2 hover:bg-lime-100 hover:rounded dark:hover:bg-gray-500"><a href="/profile/{{ Auth::user()->name_slug }}">Profile</a></li>
-                        <li class="px-4 py-2"><a href="/support" class="block">Support</a></li>
-                    @endif
-                    @if (Auth::user()->has_user_role('Admin'))
-                        <li class="px-4 py-2 hover:bg-lime-100 hover:rounded dark:hover:bg-gray-500"><a href="/admin">Admin</a></li>
-                    @endif
-                    <li class="px-4 py-2 text-red-500 hover:bg-lime-100 hover:rounded dark:hover:bg-gray-500"><a href="/logout">Logout</a></li>
-                </ul>
-            </li>
-            @else
-            <li><a href="/login">Login</a></li>
-            <li><a href="/register">Register</a></li>
-            @endif
-        </ul>
+                <!-- Authenticated User -->
+                @if (Auth::check())
+                    <li class="relative">
+                        <a href="#" class="flex items-center text-lime-700" 
+                           id="userDropdownToggle" 
+                           role="button">
+                            {{ Auth::user()->name }} 
+                            <i class="fa-solid fa-angles-down ml-2"></i>
+                        </a>
+                        <ul id="userDropdown" 
+                            class="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-700 
+                                   rounded-md shadow-lg hidden z-50">
+                            @if (Auth::user()->has_user_role('Member'))
+                                <li class="px-4 py-2 hover:bg-lime-100 hover:rounded dark:hover:bg-gray-500">
+                                    <a href="/profile/{{ Auth::user()->name_slug }}">Profile</a>
+                                </li>
+                                <li class="px-4 py-2 hover:bg-lime-100 hover:rounded dark:hover:bg-gray-500">
+                                    <a href="/support">Support</a>
+                                </li>
+                            @endif
+                            @if (Auth::user()->has_user_role('Admin'))
+                                <li class="px-4 py-2 hover:bg-lime-100 hover:rounded dark:hover:bg-gray-500">
+                                    <a href="/admin">Admin</a>
+                                </li>
+                            @endif
+                            <li class="px-4 py-2 text-red-500 hover:bg-lime-100 hover:rounded dark:hover:bg-gray-500">
+                                <a href="/logout">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                @else
+                    <!-- Guest Links -->
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/register">Register</a></li>
+                @endif
+            </ul>
+        </div>
     </div>
 </div>
 

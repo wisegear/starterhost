@@ -9,6 +9,7 @@ class GalleryTag extends Model
 {
     use HasFactory;
     protected $table = 'gallery_tags';
+    protected $fillable = ['name'];
     public $timestamps = false;
 
     public function GalleryTags()
@@ -18,6 +19,11 @@ class GalleryTag extends Model
 
     public function ImageTags() 
     {
-        return $this->belongsToMany(GalleryImage::class, 'gallery_image_tags');
+        return $this->belongsToMany(GalleryImage::class, 'gallery_image_tag');
+    }
+
+    public function images()
+    {
+        return $this->belongsToMany(GalleryImage::class, 'gallery_image_tag', 'tag_id', 'gallery_image_id');
     }
 }

@@ -12,7 +12,7 @@
                     <p class="w-3/4 mx-auto text-center text-sm text-gray-600">{{ $page->summary }}</p>
                 </div>
                 <div class="border">
-                    <img class="w-full rounded shadow-lg" src="{{ $page->image }}" alt="{{ $page->title }}">
+                    <img class="w-full rounded shadow-lg" src="{{ asset('/storage/images/gallery/' . $page->category->name . '/' . $page->album->name . '/' . 'large_' . $page->image) }}" alt="{{ $page->title }}">
                 </div>
                 <div class="mt-4">
                     <ul class="flex justify-center space-x-10">
@@ -24,12 +24,16 @@
                     {{ $page->text }}
                 </div>
                 <div class="flex justify-center space-x-4 mt-4">
-                    @foreach($page->ImageTags as $tag)
-                        <div class="border p-1 rounded">
+                    @foreach($page->tags as $tag)
+                        <div class="wise-button-sm">
                             <a href="../gallery?tag={{ $tag->name }}">{{ $tag->name }}</a>
                         </div>
                     @endforeach     
                 </div>
+            </div>
+            <div class="my-10">
+             <!-- Comments Section -->
+            @include('comments', ['comments' => $page->comments, 'model' => $page])
             </div>
         </div>
 
@@ -58,8 +62,8 @@
             <div class="">
                 <h2 class="border-b font-bold text-lg mb-4">Popular Tags</h2> 
                 @foreach ($popularTags as $tag)
-                    <div class="flex inline-flex pb-2 pr-2">
-                        <a href="../gallery?tag={{ $tag->name }}" class="border rounded py-1 px-2 text-sm bg-slate-300 hover:bg-gray-100 hover:text-red-800 hover:border-gray-300">{{ $tag->name }}</a>
+                    <div class="inline-flex pb-2 pr-2">
+                        <a href="../gallery?tag={{ $tag->name }}" class="wise-button-sm">{{ $tag->name }}</a>
                     </div>
                 @endforeach
             </div>

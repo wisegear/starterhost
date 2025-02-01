@@ -121,7 +121,7 @@
             <th>Title</th>
             <th>Author</th>
             <th>Date</th>
-            <th>Update</th>
+            <th>Edit</th>
             <th>Delete</th>
         </tr>
         @foreach ($posts as $post)
@@ -130,7 +130,7 @@
             <td><a href="../blog/{{ $post->slug }}">{{ $post->title }}</a></td>
             <td>{{ $post->users->name }}</td>
             <td>{{ $post->date->format('d-m-Y') }}</td>
-            <td class="text-center"><a href="../blog/{{ $post->id }}/edit"><button class="border rounded bg-lime-500 hover:bg-lime-400 p-1 text-sm">Update</button></a></td>
+            <td class="text-center"><a href="../blog/{{ $post->id }}/edit"><button class="border rounded bg-lime-500 hover:bg-lime-400 p-1 text-sm">Edit</button></a></td>
             <td class="text-center">
                 <!-- Delete Form -->
                 <form action="../blog/{{ $post->id}}" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');">

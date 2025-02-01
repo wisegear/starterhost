@@ -42,7 +42,7 @@
 		  	@foreach ($users as $user)
 		    <tr>
 
-		      <td class="border text-indigo-500"><a href="/profile/{{ $user->name }}">{{ $user->name}}</a></td>
+		      <td class="border text-indigo-500"><a href="/profile/{{ $user->name_slug }}">{{ $user->name}}</a></td>
 		      <td class="border">
 		      	@foreach ( $user->user_roles as $role)
 		      		{{ $role->name }} </br>

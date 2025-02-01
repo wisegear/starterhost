@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class GalleryImageTag extends Model
 {
     use HasFactory;
-    protected $table = 'gallery_image_tags';
+    protected $table = 'gallery_image_tag';
     public $timestamps = false;  
 
 }

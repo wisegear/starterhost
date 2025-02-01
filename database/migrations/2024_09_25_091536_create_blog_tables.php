@@ -22,14 +22,12 @@ return new class extends Migration
         // Create Blog Tables
         Schema::create('blog_posts', function (Blueprint $table) {
             $table->id('id');
-            $table->text('original_image')->nullable();
-            $table->text('small_image')->nullable();
-            $table->text('medium_image')->nullable();
-            $table->text('large_image')->nullable();
+            $table->text('image')->nullable();
+            $table->json('gallery_images')->nullable();
             $table->date('date')->nullable();
             $table->string('title', 150);
             $table->string('slug', 200);
-            $table->text('excerpt');
+            $table->text('summary');
             $table->boolean('featured')->default(false);
             $table->boolean('published')->default(true);
             $table->text('body');

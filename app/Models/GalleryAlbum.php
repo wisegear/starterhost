@@ -9,13 +9,15 @@ class GalleryAlbum extends Model
 {
     use HasFactory;
     protected $table = 'gallery_albums';
+    protected $fillable = ['name', 'category_id'];
     public $timestamps = false;
 
-    public function GalleryCategory() {
-        return $this->belongsTo(GalleryCategory::class, 'category_id', 'id');
+    public function category()
+    {
+        return $this->belongsTo(GalleryCategory::class, 'category_id');
     }
 
-    public function GalleryImages() {
+    public function images() {
         return $this->hasMany(GalleryImage::class, 'album_id', 'id');
     }
 }

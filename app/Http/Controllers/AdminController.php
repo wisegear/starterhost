@@ -8,6 +8,9 @@ use App\Models\UserRolesPivot;
 use App\Models\BlogPosts;
 use App\Models\Support;
 use App\Models\Links;
+use App\Models\Timeline;
+use App\Models\GalleryImage;
+use App\Models\Quote;
 
 class AdminController extends Controller
 {
@@ -19,9 +22,22 @@ class AdminController extends Controller
         // User info
         $users = User::all();
 
+        // Quotes
+        $quotes = Quote::count();
+        $quotesnp = Quote::where('published', false)->count();
+
         // Links
         $links = Links::all();
         $linksunpublished = Links::where('published', false)->get();
+
+        // Timeline
+        $timeline = Timeline::all()->count();
+        $timelineunpublished = Timeline::where('published', false)->count();
+
+        // Gallery
+
+        $gallery = GalleryImage::all()->count();
+        $gallerynp = GalleryImage::where('published', false)->count();
 
         // Ridiculous workaround, count users, roles then add 1 as admin has two roles!!
         $users_count = User::all()->count();
@@ -56,6 +72,13 @@ class AdminController extends Controller
             'blogunpublished' => $blogunpublished,
             'links' => $links,
             'linksunpublished' => $linksunpublished,
+            'timeline' => $timeline,
+            'timelineunpublished' => $timelineunpublished,
+            'gallery' => $gallery,
+            'gallerynp' => $gallerynp,
+            'quotes' => $quotes,
+            'quotesnp' => $quotesnp,
+
         );
 
         return view ('admin.index')->with($data);

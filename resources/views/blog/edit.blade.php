@@ -24,11 +24,7 @@
         <!-- Existing Featured Image -->
         <div class="space-y-2">
             <h3 class="text-lg font-medium text-gray-700">Current Featured Image</h3>
-            @if($page->small_image)
-                <img src="{{ asset($page->medium_image) }}" class="w-full rounded-lg border" alt="Featured Image">
-            @else
-                <p class="text-gray-600">No featured image available</p>
-            @endif
+                <img src="{{ asset('storage/images/blog/large_' . $page->image) }}" class="w-full rounded-lg border" alt="Featured Image">
         </div>
 
         <!-- Date Field -->
@@ -82,9 +78,9 @@
                         <div class="grid grid-cols-4 gap-4">
                             @foreach(json_decode($page->images, true) as $image)
                                 <div class="relative group">
-                                    <img src="{{ asset($image) }}" class="h-24 w-full rounded-lg border" alt="Uploaded Image">
+                                    <img src="{{ asset('storage/images/blog/' . $image) }}" class="h-24 w-full rounded-lg border" alt="Uploaded Image">
                                     <!-- Copy URL Button -->
-                                    <button type="button" onclick="copyToClipboard('{{ asset($image) }}')" class="absolute top-1 right-1 bg-gray-700 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition">
+                                    <button type="button" onclick="copyToClipboard('{{ asset('storage/images/blog/' . $image) }}')" class="absolute top-1 right-1 bg-gray-700 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition">
                                         Copy URL
                                     </button>
                                 </div>
@@ -106,8 +102,8 @@
                         <div class="grid grid-cols-4 gap-4">
                             @foreach(json_decode($page->gallery_images, true) as $image)
                                 <div class="relative">
-                                    <img src="{{ asset($image['thumbnail']) }}" class="h-24 w-full rounded-lg border" alt="Gallery Thumbnail">
-                                    <a href="{{ asset($image['original']) }}" target="_blank" class="absolute top-1 right-1 bg-gray-700 text-white text-xs px-2 py-1 rounded">View</a>
+                                    <img src="{{ asset('storage/images/blog/' . $image['thumbnail']) }}" class="h-24 w-full rounded-lg border" alt="Gallery Thumbnail">
+                                    <a href="{{ asset('storage/images/blog/' . $image['original']) }}" target="_blank" class="absolute top-1 right-1 bg-gray-700 text-white text-xs px-2 py-1 rounded">View</a>
                                 </div>
                             @endforeach
                         </div>

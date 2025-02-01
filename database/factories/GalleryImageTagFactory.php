@@ -18,7 +18,7 @@ class GalleryImageTagFactory extends Factory
     {
         return [ 
             'tag_id' => $this->faker->numberBetween(1, 100),
-            'image_id' => $this->faker->numberBetween(1, 100),
+            'gallery_image_id' => $this->faker->numberBetween(1, 100),
         ];
     }
 }

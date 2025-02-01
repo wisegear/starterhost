@@ -64,31 +64,32 @@ return new class extends Migration
         });
 
 
-        // Create blog tags table
+        // Create Gallery tags table
         Schema::create('gallery_tags', function(Blueprint $table)
         {
             $table->id('id');
-            $table->string('name', 50);
+            $table->string('name', 50)->unique();
 
         });            
 
         // Create pivot table for Image tags
-        Schema::create('gallery_image_tags', function(Blueprint $table)
-        {
-            $table->id('id');
-            $table->UnsignedBigInteger('tag_id');
-            $table->UnsignedBigInteger('image_id');
-            
+        Schema::create('gallery_image_tag', function (Blueprint $table) {
+            $table->unsignedBigInteger('tag_id');
+            $table->unsignedBigInteger('gallery_image_id'); // Updated column name
+
             // Create foreign keys
             $table->foreign('tag_id')
-            ->references('id')
-            ->on('gallery_tags')
-            ->onDelete('cascade');
-            
-            $table->foreign('image_id')
-            ->references('id')
-            ->on('gallery_images')
-            ->onDelete('cascade');
+                ->references('id')
+                ->on('gallery_tags')
+                ->onDelete('cascade');
+
+            $table->foreign('gallery_image_id')
+                ->references('id')
+                ->on('gallery_images')
+                ->onDelete('cascade');
+
+            // Composite primary key
+            $table->primary(['tag_id', 'gallery_image_id']);
         });
 
     }

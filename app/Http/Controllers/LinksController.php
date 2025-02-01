@@ -7,17 +7,15 @@ use App\Models\Links;
 use App\Models\LinksCategories;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
-use App\Services\ImageService;
+use App\Services\LinkService;
 
 class LinksController extends Controller
 {
+    protected $linkService;
 
-    protected $imageService;
-
-    // Constructor injection for ImageService
-    public function __construct(ImageService $imageService)
+    public function __construct(LinkService $linkService)
     {
-        $this->imageService = $imageService;
+        $this->linkService = $linkService; // ✅ Ensures correct reference
     }
 
     /**
@@ -45,48 +43,38 @@ class LinksController extends Controller
        return view('links.index', compact('links', 'categories', 'unpublished'));
     }
 
-
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-
         $categories = LinksCategories::all();
-        
         return view('links.create', compact('categories'));
-
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, ImageService $imageService)
+    public function store(Request $request)
     {
         Gate::authorize('Admin');
-    
-        // Prepare a new database entry for the blog post
+
         $page = new Links;
-    
         $page->title = $request->title;
         $page->url = $request->url;
-        $page->slug = Str::slug($page->title, '-');
+        $page->slug = Str::slug($request->title, '-');
         $page->description = $request->text;
         $page->category_id = $request->category;
-    
+        $page->published = $request->has('published') ? 1 : 0;
+
         if ($request->hasFile('image')) {
-            // Use handleImageUpload for the link image
-            $imagePath = $imageService->handleLinkImageUpload($request->file('image'));
+            $imagePath = $this->linkService->handleLinkImageUpload($request->file('image'));
             $page->image = $imagePath;
         }
-           
-        // Check if the post is to be published
-        $page->published = $request->has('published') ? 1 : 0;
-    
-        // Save the post to the database
+
         $page->save();
-    
-        return redirect()->action([LinksController::class, 'index'])->with('success', 'Link created successfully! Images are available for use.');
+
+        return redirect()->action([LinksController::class, 'index'])->with('success', 'Link created successfully!');
     }
 
     /**
@@ -94,7 +82,7 @@ class LinksController extends Controller
      */
     public function show(string $id)
     {
-        // Not used
+
     }
 
     /**
@@ -104,64 +92,49 @@ class LinksController extends Controller
     {
         $page = Links::findOrFail($id);
         $categories = LinksCategories::all();
-
         return view('links.edit', compact('page', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id, ImageService $imageService)
+    public function update(Request $request, $id)
     {
         Gate::authorize('Admin');
-    
-        // Find the existing link by ID
+
         $page = Links::findOrFail($id);
-    
-        // Update the link fields
         $page->title = $request->title;
         $page->url = $request->url;
         $page->slug = Str::slug($request->title, '-');
         $page->description = $request->text;
         $page->category_id = $request->category;
         $page->published = $request->has('published') ? 1 : 0;
-    
-        // Check if a new image is uploaded
+
         if ($request->hasFile('image')) {
-            // Delete the old image if it exists
-            if ($page->image) {
-                $imageService->deleteImage($page->image);
-            }
-    
-            // Upload the new image and get its path
-            $imagePath = $imageService->handleLinkImageUpload($request->file('image'));
-            $page->image = $imagePath;
+            $page->image = $this->linkService->updateImage($request->file('image'), $page->image);
         }
-    
-        // Save the updated link
+
         $page->save();
-    
+
         return redirect()->action([LinksController::class, 'index'])->with('success', 'Link updated successfully!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id, ImageService $imageService)
+    public function destroy($id)
     {
         Gate::authorize('Admin');
-    
-        // Find the link by ID
+
         $page = Links::findOrFail($id);
-    
-        // Delete the associated image if it exists
+
         if ($page->image) {
-            $imageService->deleteImage($page->image);
+            $this->linkService->deleteImage($page->image);
         }
-    
-        // Delete the link record from the database
+
         $page->delete();
-    
+
         return back()->with('success', 'Link deleted successfully!');
     }
 }
+

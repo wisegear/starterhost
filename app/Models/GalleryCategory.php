@@ -9,9 +9,11 @@ class GalleryCategory extends Model
 {
     use HasFactory;
     protected $table = 'gallery_categories';
+    protected $fillable = ['name'];
     public $timestamps = false;
 
-    public function GalleryAlbum() {
-        return $this->hasMany(GalleryCategory::class, 'category_id', 'id');
+    public function albums()
+    {
+        return $this->hasMany(GalleryAlbum::class, 'category_id');
     }
 }

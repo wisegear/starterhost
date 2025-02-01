@@ -41,10 +41,19 @@ class DatabaseSeeder extends Seeder
         LinksCategories::factory(8)->create();
         Links::factory(100)->create();
 
-        GalleryCategory::factory(5)->create();
-        GalleryAlbum::factory(20)->create();
-        GalleryImage::factory(100)->create();
-        GalleryTag::factory(100)->create();
-        GalleryImageTag::factory(200)->create();
+        // Seed gallery categories, albums, and images
+        $galleryCategories = GalleryCategory::factory(5)->create();
+        $galleryAlbums = GalleryAlbum::factory(20)->create();
+        $galleryImages = GalleryImage::factory(100)->create();
+        $galleryTags = GalleryTag::factory(100)->create();
+
+        // Assign random tags to each gallery image
+        foreach ($galleryImages as $image) {
+            // Get a random number of tags
+            $randomTags = $galleryTags->random(rand(1, 5))->pluck('id');
+
+            // Sync tags with the image
+            $image->tags()->sync($randomTags);
+        }
     }
 }

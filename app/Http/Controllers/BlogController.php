@@ -10,23 +10,21 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use App\Services\ImageService;
+use App\Services\BlogService;
 
 class BlogController extends Controller
 {
-    protected $imageService;
+    protected $blogService;
 
-    // Constructor injection for ImageService
-    public function __construct(ImageService $imageService)
+    public function __construct(BlogService $blogService)
     {
-        $this->imageService = $imageService;
+        $this->blogService = $blogService;
     }
 
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
+
+        // Determine what is returned based on visitor pattern (Search, category, tag or nothing).
         if (isset($_GET['search'])) {
             $searchTerm = $_GET['search'];
             $posts = BlogPosts::where(function ($query) use ($searchTerm) {
@@ -49,8 +47,14 @@ class BlogController extends Controller
                 ->paginate(10);
         }
 
+        // Get the x most recent featured posts and display in the sidebar.
+
+        $featured = BlogPosts::where('featured', true)->orderBy('id', 'desc')->take(3)->get();
+
+        // Get all of the categories to display in the sidebar.
         $categories = BlogCategories::all();
 
+        // Sort the post tags and return the x most popular ones in desc order.
         $popular_tags = DB::table('blog_post_tags')
             ->leftJoin('blog_tags', 'blog_tags.id', '=', 'blog_post_tags.tag_id')
             ->select('blog_post_tags.tag_id', 'name', DB::raw('count(*) as total'))
@@ -59,14 +63,12 @@ class BlogController extends Controller
             ->limit(15)
             ->get();
 
+        // For the admin, display the posts that are unpublished in the sidebar when admin is logged in.
         $unpublished = BlogPosts::where('published', false)->get();
 
-        return view('blog.index', compact('posts', 'categories', 'popular_tags', 'unpublished'));
+        return view('blog.index', compact('posts', 'categories', 'popular_tags', 'unpublished', 'featured'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         Gate::authorize('Admin');
@@ -74,27 +76,6 @@ class BlogController extends Controller
         return view('blog.create', compact('categories'));
     }
 
-    public function show(string $slug)
-    {
-        $page = BlogPosts::with('BlogCategories', 'users', 'blogTags')->where('slug', $slug)->first();
-        $recentPages = BlogPosts::orderBy('date', 'desc')->take(3)->get();
-    
-        // Process the gallery images
-        $galleryHtml = '';
-        if (!empty($page->gallery_images)) {
-            $galleryImages = json_decode($page->gallery_images, true);
-            $galleryHtml = view('partials.gallery', ['galleryImages' => $galleryImages])->render();
-        }
-    
-        // Replace {{ gallery }} placeholder with the gallery HTML
-        $page->body = str_replace('{{gallery}}', $galleryHtml, $page->body);
-    
-        return view('blog.show', compact('page', 'recentPages'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         Gate::authorize('Admin');
@@ -107,19 +88,15 @@ class BlogController extends Controller
         $page->body = $request->body;
         $page->user_id = Auth::user()->id;
         $page->categories_id = $request->category;
-
+        
         if ($request->hasFile('image')) {
-            $imagePaths = $this->imageService->handleImageUpload($request->file('image'));
-            $page->original_image = $imagePaths['original'];
-            $page->small_image = $imagePaths['small'];
-            $page->medium_image = $imagePaths['medium'];
-            $page->large_image = $imagePaths['large'];
+            $page->image = $this->blogService->handleImageUpload($request->file('image'));
         }
 
         $galleryPaths = [];
         if ($request->hasFile('gallery_images')) {
             foreach ($request->file('gallery_images') as $image) {
-                $paths = $this->imageService->handleGalleryImageUpload($image);
+                $paths = $this->blogService->handleGalleryImageUpload($image);
                 $galleryPaths[] = $paths;
             }
         }
@@ -128,8 +105,7 @@ class BlogController extends Controller
         $uploadedPaths = [];
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                $imagePath = $this->imageService->optimizeAndSaveImage($image);
-                $uploadedPaths[] = $imagePath;
+                $uploadedPaths[] = $this->blogService->optimizeAndSaveImage($image);
             }
         }
         $page->images = json_encode($uploadedPaths);
@@ -142,9 +118,36 @@ class BlogController extends Controller
         return redirect()->action([BlogController::class, 'index'])->with('success', 'Post created successfully!');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    public function show(string $slug)
+    {
+        $page = BlogPosts::with('BlogCategories', 'users', 'blogTags')->where('slug', $slug)->firstOrFail();
+        $recentPages = BlogPosts::orderBy('date', 'desc')->take(3)->get();
+        
+        // Get the x most recent featured posts and display in the sidebar.
+        $featured = BlogPosts::where('featured', true)->orderBy('id', 'desc')->take(3)->get();
+    
+        // Process the gallery images
+        $galleryHtml = '';
+        if (!empty($page->gallery_images)) {
+            $galleryImages = json_decode($page->gallery_images, true);
+            $galleryHtml = view('partials.gallery', ['galleryImages' => $galleryImages])->render();
+        }
+    
+        // Replace {{ gallery }} placeholder with the gallery HTML
+        $page->body = str_replace('{{gallery}}', $galleryHtml, $page->body);
+
+        // Prepare "previous" and "next" post queries by date (or by ID)
+        $previousPage = BlogPosts::where('date', '<', $page->date)
+            ->orderBy('date', 'desc')
+            ->first();
+
+        $nextPage = BlogPosts::where('date', '>', $page->date)
+            ->orderBy('date', 'asc')
+            ->first();
+    
+        return view('blog.show', compact('page', 'recentPages', 'featured', 'previousPage', 'nextPage'));
+    }
+
     public function edit(string $id)
     {
         Gate::authorize('Admin');
@@ -156,9 +159,6 @@ class BlogController extends Controller
         return view('blog.edit', compact('page', 'categories', 'split_tags', 'galleryImages'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         Gate::authorize('Admin');
@@ -173,25 +173,15 @@ class BlogController extends Controller
         $page->categories_id = $request->category;
 
         if ($request->hasFile('image')) {
-            $this->imageService->deleteImage([
-                $page->original_image,
-                $page->small_image,
-                $page->medium_image,
-                $page->large_image
-            ]);
-
-            $imagePaths = $this->imageService->handleImageUpload($request->file('image'));
-            $page->original_image = $imagePaths['original'];
-            $page->small_image = $imagePaths['small'];
-            $page->medium_image = $imagePaths['medium'];
-            $page->large_image = $imagePaths['large'];
+            $this->blogService->deleteImage($page->image); // Delete old image
+            $newImage = $this->blogService->handleImageUpload($request->file('image'));
+            $page->image = $newImage; // Update new image path
         }
 
         $galleryPaths = json_decode($page->gallery_images, true) ?? [];
         if ($request->hasFile('gallery_images')) {
             foreach ($request->file('gallery_images') as $image) {
-                $paths = $this->imageService->handleGalleryImageUpload($image);
-                $galleryPaths[] = $paths;
+                $galleryPaths[] = $this->blogService->handleGalleryImageUpload($image);
             }
         }
         $page->gallery_images = json_encode($galleryPaths);
@@ -199,8 +189,7 @@ class BlogController extends Controller
         $uploadedPaths = json_decode($page->images, true) ?? [];
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                $imagePath = $this->imageService->optimizeAndSaveImage($image);
-                $uploadedPaths[] = $imagePath;
+                $uploadedPaths[] = $this->blogService->optimizeAndSaveImage($image);
             }
         }
         $page->images = json_encode($uploadedPaths);
@@ -213,35 +202,37 @@ class BlogController extends Controller
         return back()->with('success', 'Post updated successfully!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         Gate::authorize('Admin');
-
+    
         $page = BlogPosts::findOrFail($id);
-        $this->imageService->deleteImage([
-            $page->original_image,
-            $page->small_image,
-            $page->medium_image,
-            $page->large_image
-        ]);
-
+    
+        // ✅ Delete the main blog image (including small, medium, large versions)
+        if ($page->image) {
+            $this->blogService->deleteImage($page->image);
+        }
+    
+        // ✅ Delete additional images used inside the blog post
         $additionalImages = json_decode($page->images, true);
         if ($additionalImages) {
-            foreach ($additionalImages as $imagePath) {
-                $this->imageService->deleteImage($imagePath);
+            foreach ($additionalImages as $image) {
+                $this->blogService->deleteImage($image);
             }
         }
-
+    
+        // ✅ Delete gallery images (both original and thumbnails)
         $galleryImages = json_decode($page->gallery_images, true);
         if ($galleryImages) {
-            $this->imageService->deleteGalleryImages($galleryImages);
+            foreach ($galleryImages as $imageSet) {
+                $this->blogService->deleteImage($imageSet['original']);
+                $this->blogService->deleteImage('thumbnail_' . $imageSet['original']); // ✅ Delete thumbnail too
+            }
         }
-
+    
+        // ✅ Finally, delete the blog post from the database
         $page->delete();
-
+    
         return back()->with('success', 'Post deleted successfully!');
     }
 }

@@ -1,64 +1,123 @@
 @extends('layouts.app')
+
 @section('content')
     <!-- Content Section -->
     <div class="flex-grow my-10">
+
         <!-- Hero Section -->
         <div class="border rounded p-5">
-            <div class="flex justify-between items-center space-x-10">
-                <div class="w-5/12">
-                  <img src="../assets/images/site/auschwitz-gate.jpg" alt="Gate at Auschwitz" class="w-full max-h-[250px]">
+            <!-- Stack vertically on small screens, horizontal on md+ -->
+            <div class="flex flex-col md:flex-row justify-between items-center md:space-x-10 space-y-6 md:space-y-0">
+                <div class="md:w-4/12">
+                    <img 
+                        src="../assets/images/site/auschwitz-gate.jpg" 
+                        alt="Gate at Auschwitz" 
+                        class="w-full max-h-[250px] object-cover"
+                    >
                 </div>
-                <div class="w-7/12">
-                    <i class="fa-solid fa-quote-left text-slate-500"></i>
-                    <p class="italic text-gray-500">
-                    There's a long road of suffering ahead of you. But don't lose courage. You've already escaped the gravest danger: selection. So now, muster your strength, and don't lose heart. We shall all see the day of liberation. Have faith in life. Above all else, have faith. Drive out despair, and you will keep death away from yourselves. Hell is not for eternity. And now, a prayer - or rather, a piece of advice: let there be comradeship among you. We are all brothers, and we are all suffering the same fate. The same smoke floats over all our heads. Help one another. It is the only way to survive.</p>
-                    <p class="text-right text-slate-500 font-semibold text-sm">-- Elie Wiesel </p>
+                <div class="md:w-8/12">
+                    <h2 class="font-bold text-lg border-b mb-4">Welcome</h2>
+                    <p>
+                        HolocaustResearch.net is a personal website that I have been adding to for many years using 
+                        an internet blogging system that I had no real control over and had many limitations. 
+                        So I decided to buy a domain name, learn how to code and build something that meets my needs. 
+                        This is it. It may not be the best but it's better than what I had. The site went live 
+                        on the 27th Jan 2025. It will take time to update with all my information, so depending 
+                        on when you visit it may have little to no information or be nearly complete!
+                    </p>
                 </div>
             </div>
         </div>
-         <!-- Outer content section -->
-         <div class="mt-10">
-            <!-- left and right content -->
-            <div class="flex justify-between space-x-10">
-                <!-- left -->
-                <div class="w-9/12">
-                    <h2 class="font-bold text-lg border-b mb-4">Welcome</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur reprehenderit vero nulla id temporibus, 
-                        voluptatem veniam porro laborum rem recusandae neque nostrum. Omnis corporis id placeat illo non magnam eos!
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut fugiat, sint ipsum iure assumenda, atque nam placeat porro adipisci, 
-                        recusandae error sed ullam! Similique ratione expedita officia alias quis magnam?</p>
-                </div>
-                <!-- right -->
-                <div class="w-3/12">
-                    <div class="mb-10">
-                        <h2 class="border-b text-lg font-bold mb-4">Random Gallery Images</h2>
-                        <!-- For each loop -->
-                        @foreach ($gallery as $image)
-                            <div class="relative">
-                                <a href="../gallery/{{ $image->slug }}" class=""><img class="mb-4 h-full w-full border rounded p-2" src="{{ $image->image }}" alt="{{ $image->title }}"></a>     
-                                <div class="absolute top-5 right-0 border text-sm bg-slate-500 text-white px-2 font-semibold">
-                                   <a href="../gallery?album={{ $image->GalleryAlbum->name }}"><p>{{ $image->GalleryAlbum->name }}</p></a>
-                                </div>  
-                            </div>   
-                        @endforeach
-                        <!-- End foreach -->
-                    </div>
-                    <div class="">
+
+        <!-- Outer content section -->
+        <div class="mt-10">
+            <!-- Stack vertically on small screens; side-by-side on lg+ -->
+            <div class="flex flex-col lg:flex-row lg:space-x-10 space-y-10 lg:space-y-0">
+
+                <!-- Left Content -->
+                <div class="lg:w-9/12">
+                    <!-- Recent Blog Posts -->
+                    <div class="mb-4">
                         <h2 class="border-b text-lg font-bold mb-4">Recent Blog Posts</h2>
-                        @foreach ( $posts as $post)
-                            <div class="">
-                                <h3 class="font-semibold text-slate-500 hover:text-yellow-700 text-lg"><a href="../blog/{{$post->slug}}"> {{$post->title}} </a></h3>
-                                <div class="mb-4">
-                                    <ul class="flex space-x-4 text-sm">
-                                        <li class=""> {{$post->date->diffForHumans()}} </li>
-                                        <li class="">{{$post->blogcategories->name}}</li>
-                        </ul>
-                                    <p class="text-sm mt-2"> {{$post->exceprt}} </p>
+
+                        <!-- Responsive grid: 1 column on mobile, 2 on md, 4 on lg -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                            @foreach ($posts as $post)
+                                <div class="border mb-4 shadow-lg">
+                                    <img 
+                                        src="{{ asset('storage/images/blog/small_' . $post->image) }}" 
+                                        class="p-2 w-full object-cover"
+                                        alt="{{ $post->title }}"
+                                    >
+                                    <div class="p-2">
+                                        <h3 class="font-bold">
+                                            <a href="../blog/{{ $post->slug }}">
+                                                {{ $post->title }}
+                                            </a>
+                                        </h3>
+                                        <div class="mb-4">
+                                            <ul class="flex space-x-4 text-sm mt-2">
+                                                <li class="">
+                                                    <i class="fa-solid fa-clock text-slate-400"></i> 
+                                                    {{ $post->date->diffForHumans() }}
+                                                </li>
+                                                <li class="">
+                                                    <i class="fa-solid fa-folder text-slate-400"></i> 
+                                                    <a href="/blog?category={{ $post->blogcategories->name }}">
+                                                        {{ $post->blogcategories->name }}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <p class="text-sm mt-2">
+                                                {{ Str::words($post->summary, 20, '...') }}
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>            
-                        @endforeach
+                            @endforeach
+                        </div>
                     </div>
                 </div>
+
+                <!-- Right Content / Sidebar -->
+                <div class="lg:w-3/12">
+                    <!-- Random Quote -->
+                    <div>
+                        <h2 class="font-bold text-lg border-b mb-4">Random Quote</h2>
+                        <i class="fa-solid fa-quote-left text-slate-500"></i>
+                        <p class="italic text-gray-500">{{ $quote->text }}</p>
+                        <p class="text-right text-slate-500 font-semibold text-sm pt-4">
+                            -- {{ $quote->author }}
+                        </p>
+                    </div>
+
+                    <!-- Recent Gallery Images -->
+                    <div class="my-6">
+                        <h2 class="font-bold text-lg border-b mb-4">Recent Gallery Images</h2>
+                        <!-- Single column for simplicity; change to multiple if you prefer -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-1 gap-4">
+                            @foreach ($gallery as $image)
+                                <div class="relative border p-2 border-gray-200 shadow-lg">
+                                    <a href="../gallery/{{ $image->slug }}">
+                                        <img
+                                            class="h-32 w-full object-cover"
+                                            src="{{ asset('storage/images/gallery/' . $image->category->name . '/' . $image->album->name . '/small_' . $image->image) }}"
+                                            alt="{{ $image->title }}"
+                                        >
+                                    </a>
+                                    <div class="absolute top-2 right-2 border border-gray-400 text-sm bg-slate-500 text-white font-semibold">
+                                        <a href="../gallery?album={{ $image->album->name }}">
+                                            <p class="px-1">
+                                                {{ $image->album->name }}
+                                            </p>
+                                        </a>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div> <!-- /End Right Content -->
+
             </div>
         </div>
     </div>

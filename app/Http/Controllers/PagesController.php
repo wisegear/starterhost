@@ -6,13 +6,17 @@ use Illuminate\Http\Request;
 use App\Models\Article;
 use App\Models\BlogPosts;
 use App\Models\GalleryImage;
+use App\Models\Quote;
 
 class PagesController extends Controller
 {
     public function home() {
 
         // Get x random gallery images
-        $gallery = GalleryImage::with('GalleryAlbum')->inRandomOrder()->take(3)->get();
+        $gallery = GalleryImage::orderby('id', 'desc')->with('album')->inRandomOrder()->take(4)->get();
+
+        // Get a random quote
+        $quote = Quote::inRandomOrder()->first();
 
         //get x most recent posts
         $posts = BlogPosts::where('published', true)
@@ -21,7 +25,7 @@ class PagesController extends Controller
             ->take(4)
             ->get();
     
-         return view('home', compact('posts', 'gallery'));
+         return view('home', compact('posts', 'gallery', 'quote'));
     }
 
     public function article(String $slug) {
