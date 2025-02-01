@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="sitemap" type="application/xml" title="Sitemap" href="{{ url('/sitemap.xml') }}">
-        <link rel="mask-icon" href="{{ asset('/assets/images/site/house.svg') }}" color="#5bbad5">
+        <link rel="mask-icon" href="{{ asset('/assets/images/site/auschwitz-gate.jpg') }}" color="#5bbad5">
         <link rel="canonical" href="{{ url()->current() }}">
         <meta name="author" content="Lee Wisener">
         <meta name="keywords" content="Scotland, Property, Mortgages, land, castles, regulation, housing">
