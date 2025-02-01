@@ -11,24 +11,30 @@ class GalleryService
 {
     public function handleGalleryImageUpload($image, $categoryName, $albumName)
     {
+        // Option 1: Remove quotes directly
+        $categoryName = trim($categoryName, "\"'");
+    
+        // Option 2: Use a slug for file paths (recommended)
+        $categorySlug = \Illuminate\Support\Str::slug($categoryName);
+        
         // Ensure category and album exist or create them
         $category = $this->ensureCategoryExists($categoryName);
         $album = $this->ensureAlbumExists($albumName, $category);
-
-        // Base folder path for the gallery
-        $basePath = "images/gallery/{$categoryName}/{$albumName}";
-
+    
+        // Base folder path for the gallery using the slug instead of the raw name
+        $basePath = "images/gallery/{$categorySlug}/{$albumName}";
+    
         // Generate a unique image name
         $imageName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME) . '_' . time() . '.' . $image->getClientOriginalExtension();
-
+    
         // Paths for different image sizes
         $originalPath = "{$basePath}/{$imageName}";
         $smallPath = "{$basePath}/small_{$imageName}";
         $largePath = "{$basePath}/large_{$imageName}";
-
+    
         // Save the original image
         $image->storeAs($basePath, $imageName, 'public');
-
+    
         // Create the small image (375x150)
         Image::read($image->getRealPath())
             ->resize(375, 150, function ($constraint) {
@@ -36,7 +42,7 @@ class GalleryService
                 $constraint->upsize();
             })
             ->save(storage_path("app/public/{$smallPath}"), 75);
-
+    
         // Create the large image (1000x600)
         Image::read($image->getRealPath())
             ->resize(1000, 600, function ($constraint) {
@@ -44,7 +50,7 @@ class GalleryService
                 $constraint->upsize();
             })
             ->save(storage_path("app/public/{$largePath}"), 75);
-
+    
         return $imageName;
     }
 
