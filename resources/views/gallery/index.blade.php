@@ -54,7 +54,7 @@
                 <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 my-4">
                     @foreach ($results as $album)
                         <div class="border p-1 relative bg-gray-50">
-                            <a class="" href="/gallery?album={{ $album->name }}"> 
+                            <a class="" href="/gallery?album={{ \Illuminate\Support\Str::slug($album->name) }}"> 
                                 <img class="w-full object-cover h-[150px]" src="{{ asset('storage/images/gallery/' . $album->category->name . '/' . $album->name . '/small_' . $album->images()->inRandomOrder()->first()?->image) }}" 
                                      alt="{{ $album->name }}">
                             </a>
