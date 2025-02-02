@@ -54,7 +54,10 @@
                 <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 my-4">
                     @foreach ($results as $album)
                         <div class="border p-1 relative bg-gray-50">
-                            <a class="" href="/gallery?album={{$album->name}}"> <img src="{{ $album->images()->inRandomOrder()->first()?->image }}" alt="{{ $album->name }}"></a>
+                            <a class="" href="/gallery?album={{ $album->name }}"> 
+                                <img src="{{ asset('storage/images/gallery/' . $album->category->name . '/' . $album->name . '/small_' . $album->images()->inRandomOrder()->first()?->image) }}" 
+                                     alt="{{ $album->name }}">
+                            </a>
                             <p class="absolute top-5 right-0 bg-gray-300 text-xs p-1 shadow-md">{{ $album->category->name }}</p>
                             <p class="text-xs p-2 text-center text-gray-500 bg-gray-50">{{ $album->name }}</p>
                         </div>
