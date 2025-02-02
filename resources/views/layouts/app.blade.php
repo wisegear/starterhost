@@ -8,9 +8,9 @@
         <link rel="mask-icon" href="{{ asset('/assets/images/site/auschwitz-gate.jpg') }}" color="#5bbad5">
         <link rel="canonical" href="{{ url()->current() }}">
         <meta name="author" content="Lee Wisener">
-        <meta name="keywords" content="Scotland, Property, Mortgages, land, castles, regulation, housing">
+        <meta name="keywords" content="Holocaust, Auschwitz, Birkenau, Treblinka, Nazis, Poland, Jew, Death, Camps, Ghetto, Concentration">
         <title>{{ $page->title ?? 'Holocaust Research' }}</title>
-        <meta name="description" content="{{ $page->summary ?? 'Scottish Property website, mortgages, regulation, housing, castles and more.' }}">
+        <meta name="description" content="{{ $page->summary ?? 'Holocuast history and research site dedicated to learning and understanding more about the Holocaust' }}">
 
         
         @isset($page)

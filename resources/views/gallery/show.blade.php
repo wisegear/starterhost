@@ -16,8 +16,11 @@
                 </div>
                 <div class="mt-4">
                     <ul class="flex justify-center space-x-10">
-                        <li class="">{{ $page->date_taken }}</li>
-                        <li class="">{{ $page->location }}</li>
+                        <li class=""><i class="fa-solid fa-clock mr-2"></i> {{ $page->date_taken }}</li>
+                        <li class=""><i class="fa-solid fa-location-crosshairs mr-2"></i> {{ $page->location }}</li>
+                        <li class=""><a href="{{ asset('/storage/images/gallery/' . $page->category->name . '/' . $page->album->name . '/' . $page->image) }}" 
+                            target="_blank" class=""><i class="fa-solid fa-image"></i> Open Original Image*</a>
+                        </li>
                     </ul>
                 </div>
                 <div class="my-4 text-center">
@@ -29,6 +32,11 @@
                             <a href="../gallery?tag={{ $tag->name }}">{{ $tag->name }}</a>
                         </div>
                     @endforeach     
+                </div>
+                <div class="text-sm my-10 text-slate-500 text-center">
+                    <p>*if you click the link to open the original image be aware that some are several
+                    megabytes in size.  They may open slowly depending on your internet speed.  Be morer cautious of doing this on mobile devices with limited data, it could use up
+                    your data quite quickly.</p>
                 </div>
             </div>
             <div class="my-10">
