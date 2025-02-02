@@ -11,6 +11,15 @@ class GalleryService
 {
     public function handleGalleryImageUpload($image, $categoryName, $albumName)
     {
+
+        // Local and live are different, this stops categories and albums having '' around name.
+        $categoryName = trim((string) $categoryName);
+        $albumName = trim((string) $albumName);
+        
+        // Remove single and double quotes
+        $categoryName = str_replace(["'", '"'], '', $categoryName);
+        $albumName = str_replace(["'", '"'], '', $albumName);
+
         // Ensure category and album exist or create them
         $category = $this->ensureCategoryExists($categoryName);
         $album = $this->ensureAlbumExists($albumName, $category);
@@ -85,7 +94,7 @@ class GalleryService
     
         // Ensure the new folder exists
         if (!Storage::disk('public')->exists($newBasePath)) {
-            Storage::disk('public')->makeDirectory($newBasePath);
+            Storage::disk('public')->makeDirectory(str_replace(["'", '"'], '', $newBasePath));
         }
     
         // List of image versions to move
