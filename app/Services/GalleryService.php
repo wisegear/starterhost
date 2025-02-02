@@ -11,11 +11,6 @@ class GalleryService
 {
     public function handleGalleryImageUpload($image, $categoryName, $albumName)
     {
-        // Option 1: Remove quotes directly
-        $categoryName = trim($categoryName, "\"'");
-    
-        // Option 2: Use a slug for file paths (recommended)
-        $categorySlug = \Illuminate\Support\Str::slug($categoryName);
         
         // Ensure category and album exist or create them
         $category = $this->ensureCategoryExists($categoryName);
