@@ -126,7 +126,7 @@
                         class="text-slate-500 flex items-center">
                             <div class="flex gap-4 items-center p-2">
                                 <div>
-                                    <h3 class="font-semibold">{{ $previousPage->title }}</h3>
+                                    <h3 class="font-semibold">{{ $nextPage->title }}</h3>
                                 </div>
                                 <i class="fa-solid fa-arrow-right mr-2"></i>
                             </div>
