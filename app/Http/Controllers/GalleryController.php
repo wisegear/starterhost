@@ -185,6 +185,7 @@ class GalleryController extends Controller
 
         $imageTotal = GalleryImage::count();
         $categories = GalleryCategory::all();
+        $unpublished = GalleryImage::where('published', false)->get();
 
         $popularTags = DB::table('gallery_image_tag')
             ->leftJoin('gallery_tags', 'gallery_tags.id', '=', 'gallery_image_tag.tag_id')
@@ -194,7 +195,7 @@ class GalleryController extends Controller
             ->limit(15)
             ->get();
 
-        return view('gallery.show', compact('imageTotal', 'categories', 'popularTags', 'page'));
+        return view('gallery.show', compact('imageTotal', 'categories', 'popularTags', 'page', 'unpublished'));
 
     }
 
