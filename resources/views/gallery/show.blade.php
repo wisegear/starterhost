@@ -45,20 +45,19 @@
             </div>
         </div>
 
-        <div class="w-3/12">
-            <!-- Image count -->
-            <div class="flex flex-col items-center justify-center  mb-4 border shadow-lg p-2">
-                <h3 class="font-bold text-lg">Total Gallery Images</h3>
-                <p class="text-slate-500 font-bold">{{ $imageTotal }}</p>        
-            </div>
-            <!-- Gallery Search Box -->
-            <div class="py-4 w-full mx-auto">
-                <form action="/gallery">
-                    <input type="text" class="shadow-lg p-2 border-gray-300 w-full hover:border-gray-600" name="search" id="search" placeholder="Search for images..">
+        <div class="md:w-3/12">
+            <!-- Find images based on user search input -->
+            <div class="mb-10">
+                <form method="get" action="/gallery" class="">
+                    <h2 class="text-lg font-bold mb-2">Search Images</h2>
+                    <div class="relative">
+                        <input type="text" class="border border-gray-300 rounded-md w-full text-sm pl-2 pr-10" id="search" name="search" placeholder="Enter search term">
+                        <button class=" absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
                 </form>
             </div>
             <!-- Gallery Categories -->
-            <div class="py-4">
+            <div class="mb-10">
                 <h2 class="border-b font-bold text-lg mb-4">Categories</h2> 
                 <ul>
                     @foreach( $categories as $category )
@@ -67,13 +66,41 @@
                 </ul>
             </div>
             <!-- Popular Tags -->
-            <div class="">
+            <div class="mb-10">
                 <h2 class="border-b font-bold text-lg mb-4">Popular Tags</h2> 
                 @foreach ($popularTags as $tag)
                     <div class="inline-flex pb-2 pr-2">
                         <a href="../gallery?tag={{ $tag->name }}" class="wise-button-sm">{{ $tag->name }}</a>
                     </div>
                 @endforeach
+            </div>
+            <div class="mb-10">
+            <!-- View Admin for Gallery -->
+                @can('Admin')
+                    <div class="mb-10">
+                        <h2 class="text-lg font-bold mb-4 text-red-800 border-b"><i class="fa-solid fa-user-secret"></i> Admin</h2>
+                        <div class="flex justify-center mb-10">
+                            <a href="/gallery/create"><button class="wise-button-md">Create New Image</button></a>
+                        </div>
+                        @foreach ($unpublished as $item)
+                            <div class="flex justify-between mb-2">
+                                <div>
+                                    <a href="/gallery/{{ $item->id }}/edit">{{ $item->title }}</a>
+                                </div>
+                                <div class="flex justify-end space-x-2">
+                                    <form action="/gallery/{{ $item->id }}" method="POST" onsubmit="return confirm('Do you really want to delete this Quote?');">
+                                    {{ csrf_field() }}
+                                    {{ method_field ('DELETE') }} 
+                                    <button class="hover:text-red-500" role="button" type="submit">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+                                    </form>
+                                    <a class="hover:text-yellow-500" href="/gallery/{{ $item->id }}/edit" role="button"><i class="fa-solid fa-pen-to-square"></i></a>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endcan                
             </div>
         </div>
 

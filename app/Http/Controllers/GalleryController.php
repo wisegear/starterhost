@@ -34,13 +34,23 @@ class GalleryController extends Controller
 
         } elseif (isset($_GET['category'])) {
 
-            $category = GalleryCategory::where('name', $_GET['category'])->first();
+            $slug = ($_GET['category']);
+
+            // Convert slug back to category name
+            $category = str_replace('-', ' ', $slug);
+
+            $category = GalleryCategory::where('name', $category)->first();
 
             $results = GalleryAlbum::with('category')->where('category_id', $category->id)->paginate(15);
 
         } elseif (isset($_GET['album'])) {
 
-            $album = GalleryAlbum::where('name', $_GET['album'])->first();
+            $slug = ($_GET['album']);
+
+            // Convert slug back to category name
+            $album = str_replace('-', ' ', $slug);
+
+            $album = GalleryAlbum::where('name', $album)->first();
 
             $results = GalleryImage::with('album')->where('album_id', $album->id)->paginate(15);
         
@@ -170,6 +180,7 @@ class GalleryController extends Controller
      */
     public function show(string $slug)
     {
+
         $page = GalleryImage::with('tags')->where('slug', $slug)->first();
 
         $imageTotal = GalleryImage::count();

@@ -77,7 +77,7 @@
                         
                         <!-- Album Badge -->
                         <div class="absolute top-2 right-1 border border-gray-400 text-sm bg-slate-500 text-white font-semibold">
-                            <a href="../gallery?album={{ $image->album->name }}">
+                            <a href="../gallery?album={{ \Illuminate\Support\Str::slug($image->album->name) }}">
                                 <p class="px-1">{{ $image->album->name }}</p>
                             </a>
                         </div>
@@ -120,7 +120,7 @@
                 <h2 class="border-b font-bold text-lg mb-4">Categories</h2> 
                 <ul>
                     @foreach( $categories as $category )
-                        <li class=""><a href="../gallery?category={{ $category->name }}">{{ $category->name }}</a></li>
+                        <li class=""><a href="../gallery?category={{ \Illuminate\Support\Str::slug($category->name) }}">{{ $category->name }}</a></li>
                     @endforeach
                 </ul>
             </div>
