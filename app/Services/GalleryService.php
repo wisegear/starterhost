@@ -11,41 +11,49 @@ class GalleryService
 {
     public function handleGalleryImageUpload($image, $categoryName, $albumName)
     {
-        
         // Ensure category and album exist or create them
         $category = $this->ensureCategoryExists($categoryName);
         $album = $this->ensureAlbumExists($albumName, $category);
-
+    
         // Base folder path for the gallery
         $basePath = "images/gallery/{$categoryName}/{$albumName}";
-
+    
         // Generate a unique image name
         $imageName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME) . '_' . time() . '.' . $image->getClientOriginalExtension();
-
+    
         // Paths for different image sizes
         $originalPath = "{$basePath}/{$imageName}";
         $smallPath = "{$basePath}/small_{$imageName}";
         $largePath = "{$basePath}/large_{$imageName}";
-
+    
         // Save the original image
-        $image->storeAs($basePath, $imageName, 'public');
-
+        $storedPath = $image->storeAs($basePath, $imageName, 'public');
+    
+        // Define the full path to the stored image
+        $fullStoredImagePath = storage_path("app/public/{$originalPath}");
+    
+        // Ensure the file exists before processing
+        if (!file_exists($fullStoredImagePath)) {
+            \Log::error("File not found at: " . $fullStoredImagePath);
+            return false;
+        }
+    
         // Create the small image (375x150)
-        Image::read($image->getRealPath())
+        Image::read($fullStoredImagePath)
             ->resize(375, 150, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
             })
             ->save(storage_path("app/public/{$smallPath}"), 75);
-
+    
         // Create the large image (1000x600)
-        Image::read($image->getRealPath())
+        Image::read($fullStoredImagePath)
             ->resize(1000, 600, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
             })
             ->save(storage_path("app/public/{$largePath}"), 75);
-
+    
         return $imageName;
     }
 

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use App\Services\GalleryService;
-
+use Intervention\Image\Laravel\Facades\Image;
 class GalleryController extends Controller
 {
     /**
@@ -96,6 +96,7 @@ class GalleryController extends Controller
      */
     public function store(Request $request, GalleryService $galleryService)
     {
+
         Gate::authorize('Admin');
 
         // Validate the request input
