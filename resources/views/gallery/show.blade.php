@@ -61,7 +61,7 @@
                 <h2 class="border-b font-bold text-lg mb-4">Categories</h2> 
                 <ul>
                     @foreach( $categories as $category )
-                        <li class=""><a href="../gallery?category={{ $category->name }}">{{ $category->name }}</a></li>
+                        <li class=""><a href="../gallery?category={{ \Illuminate\Support\Str::slug($category->name) }}">{{ $category->name }}</a></li>
                     @endforeach
                 </ul>
             </div>
@@ -70,7 +70,7 @@
                 <h2 class="border-b font-bold text-lg mb-4">Popular Tags</h2> 
                 @foreach ($popularTags as $tag)
                     <div class="inline-flex pb-2 pr-2">
-                        <a href="../gallery?tag={{ $tag->name }}" class="wise-button-sm">{{ $tag->name }}</a>
+                      <a href="../gallery?tag={{ $tag->name }}" class=""><button class="wise-button-sm">{{ $tag->name }}</button></a>
                     </div>
                 @endforeach
             </div>
@@ -102,6 +102,7 @@
                     </div>
                 @endcan                
             </div>
+        </div>
         </div>
 
     </div>
