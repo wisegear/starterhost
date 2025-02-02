@@ -13,7 +13,7 @@ class PagesController extends Controller
     public function home() {
 
         // Get x random gallery images
-        $gallery = GalleryImage::orderby('id', 'desc')->with('album')->inRandomOrder()->take(4)->get();
+        $gallery = GalleryImage::orderby('id', 'desc')->with('album')->inRandomOrder()->take(6)->get();
 
         // Get a random quote
         $quote = Quote::inRandomOrder()->first();

@@ -95,7 +95,7 @@
                     <div class="my-6">
                         <h2 class="font-bold text-lg border-b mb-4">Recent Gallery Images</h2>
                         <!-- Single column for simplicity; change to multiple if you prefer -->
-                        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-1 gap-4">
+                        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-2 gap-4">
                             @foreach ($gallery as $image)
                                 <div class="relative border p-2 border-gray-200 shadow-lg">
                                     <a href="../gallery/{{ $image->slug }}">
