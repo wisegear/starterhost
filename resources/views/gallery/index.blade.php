@@ -55,7 +55,7 @@
                     @foreach ($results as $album)
                         <div class="border p-1 relative bg-gray-50">
                             <a class="" href="/gallery?album={{ $album->name }}"> 
-                                <img src="{{ asset('storage/images/gallery/' . $album->category->name . '/' . $album->name . '/small_' . $album->images()->inRandomOrder()->first()?->image) }}" 
+                                <img class="w-full object-cover h-[150px]" src="{{ asset('storage/images/gallery/' . $album->category->name . '/' . $album->name . '/small_' . $album->images()->inRandomOrder()->first()?->image) }}" 
                                      alt="{{ $album->name }}">
                             </a>
                             <p class="absolute top-5 right-0 bg-gray-300 text-xs p-1 shadow-md">{{ $album->category->name }}</p>
