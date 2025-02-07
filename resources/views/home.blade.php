@@ -12,7 +12,7 @@
                     <img 
                         src="../assets/images/site/auschwitz-gate.jpg" 
                         alt="Gate at Auschwitz" 
-                        class="w-full max-h-[250px] object-cover"
+                        class="w-full max-h-[250px] rounded-full object-cover"
                     >
                 </div>
                 <div class="md:w-8/12">
