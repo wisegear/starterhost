@@ -68,7 +68,7 @@
                     ></div>
                     
                     <!-- Timeline Item Card -->
-                    <div class="bg-white p-4 border rounded-md shadow-lg">
+                    <div class="bg-slate-200 p-4 border rounded-md shadow-lg">
                         <!-- Date -->
                         <div class="flex justify-between">
                             <h2 class="text-sm font-bold text-slate-500">
