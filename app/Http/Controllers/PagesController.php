@@ -7,6 +7,8 @@ use App\Models\Article;
 use App\Models\BlogPosts;
 use App\Models\GalleryImage;
 use App\Models\Quote;
+use App\Models\Timeline;
+use Carbon\Carbon;
 
 class PagesController extends Controller
 {
@@ -18,6 +20,11 @@ class PagesController extends Controller
         // Get a random quote
         $quote = Quote::inRandomOrder()->first();
 
+        // Random Timeline event always for the current month
+
+        $currentMonth = Carbon::now()->month;
+        $randomEvent = Timeline::whereMonth('date', $currentMonth)->inRandomOrder()->first();
+
         //get x most recent posts
         $posts = BlogPosts::where('published', true)
             ->with('blogCategories')
@@ -25,7 +32,7 @@ class PagesController extends Controller
             ->take(4)
             ->get();
     
-         return view('home', compact('posts', 'gallery', 'quote'));
+         return view('home', compact('posts', 'gallery', 'quote', 'currentMonth', 'randomEvent'));
     }
 
     public function article(String $slug) {

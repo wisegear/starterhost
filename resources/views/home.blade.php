@@ -77,6 +77,17 @@
                             @endforeach
                         </div>
                     </div>
+                    <!-- Random Timeline Event for x Month -->
+                    <div class="">
+                        <h2 class="border-b text-lg font-bold mb-4">Random Timeline Events During the month of {{ \Carbon\Carbon::now()->format('F') }}</h2>
+                        <div class="my-4">
+                            <div class="flex space-x-4 text-slate-500 font-bold">
+                                <p>{{ $randomEvent->date->format('d.m.Y') }}</p>
+                                <h3 class="">{{ $randomEvent->title }}</h3>
+                            </div>
+                            <p class="my-2">{{ $randomEvent->text }}</p>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Right Content / Sidebar -->
