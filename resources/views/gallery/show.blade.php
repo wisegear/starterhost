@@ -2,10 +2,10 @@
 
 @section('content')
 
-    <div class="flex justify-between space-x-10 my-10">
+    <div class="flex flex-col md:flex-row md:9/12 md:space-x-10">
 
         <!-- Display Gallery Image -->
-        <div class="w-9/12">
+        <div class="md:w-9/12">
             <div class="">
                 <div class="mb-4">
                     <h2 class="font-bold text-2xl text-center mb-2">{{ $page->title }}</h2>
@@ -103,9 +103,6 @@
                 @endcan                
             </div>
         </div>
-        </div>
-
     </div>
-
 
 @endsection
