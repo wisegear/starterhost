@@ -29,7 +29,7 @@ class GalleryController extends Controller
                 $query->where('title', 'LIKE', '%' . $searchTerm . '%')
                     ->orWhere('summary', 'LIKE', '%' . $searchTerm . '%')
                     ->orWhere('text', 'LIKE', '%' . $searchTerm . '%');
-            })->paginate(15);
+            })->paginate(16);
 
 
         } elseif (isset($_GET['category'])) {
