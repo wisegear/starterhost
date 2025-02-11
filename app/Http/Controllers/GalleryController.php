@@ -41,7 +41,7 @@ class GalleryController extends Controller
 
             $category = GalleryCategory::where('name', $category)->first();
 
-            $results = GalleryAlbum::with('category')->where('category_id', $category->id)->paginate(15);
+            $results = GalleryAlbum::with('category')->where('category_id', $category->id)->paginate(16);
 
         } elseif (isset($_GET['album'])) {
 
@@ -52,7 +52,7 @@ class GalleryController extends Controller
 
             $album = GalleryAlbum::where('name', $album)->first();
 
-            $results = GalleryImage::with('album')->where('album_id', $album->id)->paginate(15);
+            $results = GalleryImage::with('album')->where('album_id', $album->id)->paginate(16);
         
         } elseif (isset($_GET['tag'])) {
 
