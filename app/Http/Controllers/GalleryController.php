@@ -114,7 +114,7 @@ class GalleryController extends Controller
             'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
             'title' => 'required|string|max:150',
             'date_taken' => 'nullable|date',
-            'location' => 'required|string|max:200',
+            'location' => 'nullable|string|max:200',
             'summary' => 'nullable|string',
             'text' => 'nullable|string',
             'category_name' => 'required|string', // Expect the category name
@@ -225,8 +225,8 @@ class GalleryController extends Controller
         $request->validate([
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Image is optional for update
             'title' => 'required|string|max:150',
-            'date_taken' => 'required|date',
-            'location' => 'required|string|max:200',
+            'date_taken' => 'nullable|date',
+            'location' => 'nullable|string|max:200',
             'summary' => 'required|string',
             'text' => 'nullable|string',
             'category_name' => 'required|string', // Expect the category name

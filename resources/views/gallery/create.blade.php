@@ -29,7 +29,7 @@
         {{-- Location --}}
         <div>
             <label for="location" class="block text-sm font-medium text-gray-700">Location</label>
-            <input type="text" id="location" name="location" class="mt-2 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Enter the location" required>
+            <input type="text" id="location" name="location" class="mt-2 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Enter the location">
         </div>
 
         {{-- Summary --}}

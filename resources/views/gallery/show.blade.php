@@ -16,15 +16,15 @@
                 </div>
                 <div class="mt-4">
                     <ul class="flex justify-center space-x-10">
-                        <li class=""><i class="fa-solid fa-clock mr-2"></i> {{ $page->date_taken }}</li>
-                        <li class=""><i class="fa-solid fa-location-crosshairs mr-2"></i> {{ $page->location }}</li>
+                        <li class=""><i class="fa-solid fa-clock mr-2"></i> {{ $page->date_taken ?? 'Date Unknown' }}</li>
+                        <li class=""><i class="fa-solid fa-location-crosshairs mr-2"></i> {{ $page->location ?? 'Location Unknown' }}</li>
                         <li class=""><a href="{{ asset('/storage/images/gallery/' . $page->category->name . '/' . $page->album->name . '/' . $page->image) }}" 
                             target="_blank" class=""><i class="fa-solid fa-image"></i> Open Original Image*</a>
                         </li>
                     </ul>
                 </div>
                 <div class="my-4 text-center">
-                    {{ $page->text }}
+                    {{ $page->text ?? 'No text provided for this image' }}
                 </div>
                 <div class="flex justify-center space-x-4 mt-4">
                     @foreach($page->tags as $tag)
