@@ -68,7 +68,7 @@ class GalleryController extends Controller
 
         } else {
 
-            $results = GalleryImage::where('published', true)->orderBy('id', 'desc')->paginate(15);
+            $results = GalleryImage::where('published', true)->orderBy('id', 'desc')->paginate(16);
         
         }
         
