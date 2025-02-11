@@ -61,7 +61,7 @@ class GalleryController extends Controller
             if ($tag) {
                 $results = GalleryImage::whereHas('tags', function ($query) use ($tag) {
                     $query->where('gallery_tags.id', $tag->id); // Specify the table name for the 'id' column
-                })->paginate(15);
+                })->paginate(16);
             } else {
                 $results = collect(); // Return empty collection if tag is not found
             }            
