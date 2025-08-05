@@ -5,12 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="sitemap" type="application/xml" title="Sitemap" href="{{ url('/sitemap.xml') }}">
-        <link rel="mask-icon" href="{{ asset('/assets/images/site/auschwitz-gate.jpg') }}" color="#5bbad5">
+        <link rel="mask-icon" href="{{ asset('/assets/images/site/logo1.jpg') }}" color="#5bbad5">
         <link rel="canonical" href="{{ url()->current() }}">
         <meta name="author" content="Lee Wisener">
-        <meta name="keywords" content="Holocaust, Auschwitz, Birkenau, Treblinka, Nazis, Poland, Jew, Death, Camps, Ghetto, Concentration">
-        <title>{{ $page->title ?? 'Holocaust Research' }}</title>
-        <meta name="description" content="{{ $page->summary ?? 'Holocuast history and research site dedicated to learning and understanding more about the Holocaust' }}">
+        <meta name="keywords" content="Hosting, Free, cPanel, Wordpress, History">
+        <title>{{ $page->title ?? 'StarterHost.net' }}</title>
+        <meta name="description" content="{{ $page->summary ?? 'Free web hosting offers with a particular focus on those wishing to host sites with a historical theme' }}">
 
         
         @isset($page)
