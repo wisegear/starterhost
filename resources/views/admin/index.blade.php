@@ -30,15 +30,6 @@
 		</div>
 	</div>
 
-	<div class="border bg-gray-100 rounded p-4 shadow-lg">
-		<div class="border-b border-b-gray-400">
-			<h2 class="text-xl font-bold text-center pb-2">Links <span class="text-blue-700 text-center">{{ $links->count() }}</span></h2>
-		</div>
-		<div class="mt-5 text-center text-sm text-gray-500">
-			<p class="">Not published: <span class=""></span>{{ $linksunpublished->count() }}</p>
-		</div>
-	</div>
-
 	<div class="bborder bg-gray-100 rounded p-4 shadow-lg">
 		<div class="border-b border-b-gray-400">
 			<h2 class="text-xl font-bold text-center pb-2">Support <span class="text-blue-700 text-center">{{ $tickets->count() }}</span></h2>
@@ -47,33 +38,6 @@
 			<p class="">In Progress:  <span class="">{{ $in_progress_tickets }}</span></p>
 			<p class="">Awaiting Reply:  <span class="">{{ $awaiting_reply }}</span></p>
 			<p class="">Open:  <span class="">{{ $open_tickets }}</span></p>
-		</div>
-	</div>
-
-	<div class="bborder bg-gray-100 rounded p-4 shadow-lg">
-		<div class="border-b border-b-gray-400">
-			<h2 class="text-xl font-bold text-center pb-2">Timeline <span class="text-blue-700 text-center">{{ $timeline }}</span></h2>
-		</div>
-		<div class="mt-5 text-center text-sm text-gray-500">
-			<p class="">Not Published:  <span class="">{{ $timelineunpublished }}</span></p>
-		</div>
-	</div>
-
-	<div class="bborder bg-gray-100 rounded p-4 shadow-lg">
-		<div class="border-b border-b-gray-400">
-			<h2 class="text-xl font-bold text-center pb-2">Gallery <span class="text-blue-700 text-center">{{ $gallery }}</span></h2>
-		</div>
-		<div class="mt-5 text-center text-sm text-gray-500">
-			<p class="">Not Published:  <span class="">{{ $gallerynp }}</span></p>
-		</div>
-	</div>
-
-	<div class="bborder bg-gray-100 rounded p-4 shadow-lg">
-		<div class="border-b border-b-gray-400">
-			<h2 class="text-xl font-bold text-center pb-2">Quotes <span class="text-blue-700 text-center">{{ $quotes }}</span></h2>
-		</div>
-		<div class="mt-5 text-center text-sm text-gray-500">
-			<p class="">Not Published:  <span class="">{{ $quotesnp }}</span></p>
 		</div>
 	</div>
 

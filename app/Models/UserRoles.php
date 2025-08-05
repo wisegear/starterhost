@@ -12,6 +12,6 @@ class UserRoles extends Model
 
     public function users() 
     {
-        return $this->belongsToMany(UserRoles::class, 'user_roles_pivot', 'role_id', 'user_id');
+        return $this->belongsToMany(User::class, 'user_roles_pivot', 'role_id', 'user_id');
     }
 }

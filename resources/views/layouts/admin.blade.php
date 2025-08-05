@@ -31,13 +31,10 @@
                 <div class="space-x-4 hidden md:block md:text-center md:w-8/12">
                     <a href="/" class="hover:text-red-500">Site Home</a>
                     <a href="/admin" class="hover:text-red-500">Admin Home</a>
-                    <a href="/admin/article" class="hover:text-red-500">Articles</a>
                     <a href="/admin/blog" class="hover:text-red-500">Blog</a>
-                    <a href="/admin/quotes" class="hover:text-red-500">Quotes</a>
-                    <a href="/admin/gallery" class="hover:text-red-500">Gallery</a>
-                    <a href="/admin/links" class="hover:text-red-500">Links</a>
                     <a href="/admin/support" class="hover:text-red-500">Support</a>
-                    <a href="/admin/timeline" class="hover:text-red-500">Timeline</a>
+                    <a href="/admin/servers" class="hover:text-red-500">Servers</a>
+                    <a href="/admin/cpanel" class="hover:text-red-500">Cpanel</a>
                     <a href="/admin/users" class="hover:text-red-500">Users</a>
                 </div>
             </div>
@@ -50,7 +47,7 @@
             <!-- Footer for entire site -->
             <!-- Footer -->
             <div class="border-t border-gray-300 mt-auto mb-10">
-                <p class="text-center py-2">PropertyBlog.Scot, by Lee Wisener</p>
+                <p class="text-center py-2">StarterHost.uk, by Lee Wisener</p>
             </div>
 
         </div>

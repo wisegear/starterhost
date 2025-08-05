@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="flex flex-col rounded items-center bg-lime-300 p-4">
+<div class="flex flex-col rounded-md shadow-lg items-center bg-lime-300 p-4">
     <h2 class="font-bold text-2xl">Blog Management</h2>
     <p>Create new blog categories and manage existing categories here.</p>
 </div>
@@ -33,15 +33,15 @@
     <form action="/admin/blog" method="post">
         @csrf
         <input type="hidden" name="form_type" value="create">
-        <div class="flex flex-col border rounded shadow-lg my-10 w-1/2 mx-auto p-6">
+        <div class="flex flex-col border border-zinc-300 rounded shadow-lg my-10 w-1/2 mx-auto p-6">
 
             <label for="new_category_name" class="font-bold mb-2">Enter name of blog category</label>
             @error('create_name')
                 <span class="text-red-500">{{ $message }}</span>
             @enderror
-            <input type="text" id="new_category_name" name="new_category_name" class="rounded mb-4" value="{{ old('create_name') }}">
+            <input type="text" id="new_category_name" name="new_category_name" class="rounded mb-4 border border-zinc-300 p-2" value="{{ old('create_name') }}">
 
-            <button type="submit" class="inline-block self-start mx-auto mt-4 border rounded p-2 bg-lime-400 hover:bg-lime-300">Create</button>
+            <button type="submit" class="cursor-pointer bg-lime-500 hover:bg-lime-400 text-white text-sm font-medium p-2 rounded-md transition inline-block mx-auto">Create Category</button>
         </div>
     </form>
 </div>
@@ -86,7 +86,7 @@
   
                         <td class="space-x-4 text-center">
                             <!-- Update Button -->
-                            <button type="submit" class="border rounded p-2 bg-lime-500 hover:bg-lime-400 font-bold text-xs uppercase">
+                            <button type="submit" class="cursor-pointer bg-lime-500 hover:bg-lime-400 text-white text-sm font-medium p-2 rounded-md transitio">
                                 Update
                             </button>
                         </td>
@@ -130,13 +130,13 @@
             <td><a href="../blog/{{ $post->slug }}">{{ $post->title }}</a></td>
             <td>{{ $post->users->name }}</td>
             <td>{{ $post->date->format('d-m-Y') }}</td>
-            <td class="text-center"><a href="../blog/{{ $post->id }}/edit"><button class="border rounded bg-lime-500 hover:bg-lime-400 p-1 text-sm">Edit</button></a></td>
+            <td class="text-center"><a href="../blog/{{ $post->id }}/edit"><button class="cursor-pointer bg-lime-500 hover:bg-lime-400 text-white text-sm font-medium p-2 rounded-md transition inline-block mx-auto">Edit</button></a></td>
             <td class="text-center">
                 <!-- Delete Form -->
                 <form action="../blog/{{ $post->id}}" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="border rounded bg-red-500 text-white p-1 text-sm hover:bg-red-400">Delete</button>
+                    <button type="submit" class="cursor-pointer bg-red-500 hover:bg-red-400 text-white text-sm font-medium p-2 rounded-md transition inline-block mx-auto">Delete</button>
                 </form>
             </td>
         </tr>

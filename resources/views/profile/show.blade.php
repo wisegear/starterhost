@@ -45,19 +45,19 @@
             </div>
         </div>
         <!-- User Bio -->
-        <div class="text-center bg-lime-100 dark:bg-gray-200">
+        <div class="text-center border border-zinc-300 rounded shadow-lg">
             @if (empty($user->bio))
                 <!-- If no user Bio -->
-                <p class="border p-2">User has not provided any information about themselves.</p>
+                <p class="p-4">User has not provided any information about themselves.</p>
                 @else
                     <!-- display user Bio -->
-                    <p class="border rounded-md p-2 text-gray-700 text-sm">{{ $user->bio }}</p>
+                    <p class="p-4">{{ $user->bio }}</p>
             @endif
         </div>
             <!-- Edit Profile -->
             @if (Auth::user()->name_slug === $user->name_slug || Auth::user()->has_user_role('Admin'))
                 <div class="my-6 text-center">
-                    <a class="border dark:border-gray-400 rounded py-2 px-2 text-sm bg-lime-500 hover:bg-lime-400" href="/profile/{{ $user->name_slug }}/edit" role="button">Edit Profile</a>
+                    <a class="cursor-pointer bg-lime-500 hover:bg-lime-400 text-white text-sm font-medium p-2 rounded-md transition" href="/profile/{{ $user->name_slug }}/edit" role="button">Edit Profile</a>
                 </div>
             @endif
     </div>

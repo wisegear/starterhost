@@ -46,6 +46,11 @@ class User extends Authenticatable
         ];
     }
 
+    public function roles()
+    {
+        return $this->belongsToMany(UserRoles::class, 'user_roles_pivot', 'user_id', 'role_id');
+    }
+
     /**
      * Automatically generate the name_slug when the name is set.
      */

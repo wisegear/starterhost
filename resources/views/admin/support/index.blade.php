@@ -7,8 +7,8 @@
 </div>
 
 <div class="text-center space-x-4 mb-10">
-	<a class="border rounded p-2 bg-lime-500 hover:bg-lime-400" href="/admin/support?closed=true" role="button">Show Closed</a>
-	<a class="border rounded p-2 bg-lime-500 hover:bg-lime-400" href="/admin/support" role="button">Show Open</a>
+	<a class="cursor-pointer bg-lime-500 hover:bg-lime-400 text-white text-sm font-medium p-2 rounded-md transition inline-block mx-auto" href="/admin/support?closed=true" role="button">Show Closed</a>
+	<a class="cursor-pointer bg-lime-500 hover:bg-lime-400 text-white text-sm font-medium p-2 rounded-md transition inline-block mx-auto" href="/admin/support" role="button">Show Open</a>
 </div>
 
 	<div class="w-4/5 mx-auto text-sm text-center">

@@ -2,12 +2,9 @@
 
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\BlogController;
-use App\Http\Controllers\QuotesController;
-use App\Http\Controllers\TimelineController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\SupportController;
-use App\Http\Controllers\GalleryController;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -19,34 +16,22 @@ use Illuminate\Support\Facades\Redirect;
 use Spatie\Sitemap\SitemapGenerator;
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\AdminArticleCategoriesController;
-use App\Http\Controllers\AdminArticleController;
 use App\Http\Controllers\AdminBlogController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminSupportController;
-use App\Http\Controllers\LinksController;
-use App\Http\Controllers\AdminLinksController;
-use App\Http\Controllers\AdminTimelineController;
-use App\Http\Controllers\AdminGalleryController;
-use App\Http\Controllers\AdminQuotesController;
-use App\Http\Controllers\AdminGalleryCategoryController;
-use App\Http\Controllers\AdminGalleryAlbumController;
+use App\Http\Controllers\AdminServersController;
+use App\Http\Controllers\AdminCpanelController;
+use App\Http\Controllers\CpanelController;
+
 
 // Base Pages
 
 Route::get('/', [PagesController::class, ('home')]);
-Route::get('/calculators/mortgage-payments', [PagesController::class, 'mortgagePayments']);
 Route::get('/article/{slug}', [PagesController::class, 'article']);
-Route::get('/calculators/stamp-duty', [PagesController::class, 'calculateStampDuty'])->name('stamp-duty.calculate');
 Route::get('/contact', [PagesController::class, 'contact']);
 Route::get('/about', [PagesController::class, 'about']);
 
-
 Route::resource('/blog', BlogController::class);
-Route::resource('/quotes', QuotesController::class);
-Route::resource('/timeline', TimelineController::class);
-Route::resource('/links', LinksController::class);
-Route::resource('/gallery', GalleryController::class);
 
 // Routes first protected by Auth
 
@@ -57,26 +42,35 @@ Route::middleware('auth')->group(function () {
     Route::post('/comments', [CommentsController::class, 'store'])->name('comments.store');
     Route::resource('support', SupportController::class);
 
+    Route::resource('hosting', CpanelController::class);
+
     // Protect the Dashboard routes behind both Auth and Can
     Route::prefix('admin')->middleware('can:Admin')->group(function () {
         Route::resource('/', AdminController::class);
         Route::resource('/users', AdminUserController::class);
-        Route::resource('/articles', AdminArticleCategoriesController::class);
-        Route::resource('/article', AdminArticleController::class);
         Route::resource('/blog', AdminBlogController::class);
         Route::resource('/support', AdminSupportController::class);
-        Route::resource('/links', AdminLinksController::class);
-        Route::get('/timeline', [AdminTimelineController::class, 'index']);
-        Route::get('/quotes', [AdminQuotesController::class, 'index']);
-        Route::get('/gallery', [AdminGalleryController::class, 'index'])->name('admin.gallery.index');
-        Route::resource('/gallery/categories', AdminGalleryCategoryController::class)->except(['show']);
-        Route::resource('/gallery/albums', AdminGalleryAlbumController::class)->except(['show']);
+        Route::resource('/servers', AdminServersController::class);
+        Route::get('/cpanel', [AdminCpanelController::class, 'index']);
+
+        Route::post('/cpanel/create-account', [AdminCpanelController::class, 'createAccount'])
+            ->name('admin.cpanel.create');
+
+        Route::post('/cpanel/rejectHosting', [AdminCpanelController::class, 'rejectHosting'])
+            ->name('admin.cpanel.reject');
+
+        Route::post('/cpanel/banHosting', [AdminCpanelController::class, 'banHosting'])
+            ->name('admin.cpanel.ban');
+
+        Route::post('/cpanel/suspendAccount', [AdminCpanelController::class, 'suspendAccount'])
+            ->name('admin.cpanel.suspend');
+
+        Route::post('/cpanel/deleteAccount', [AdminCpanelController::class, 'deleteAccount'])
+            ->name('admin.cpanel.delete');
+
+        Route::post('/cpanel/unsuspendAccount', [AdminCpanelController::class, 'unsuspendAccount'])
+            ->name('admin.cpanel.unsuspend');
         
-        Route::get('/gallery/categories/{id}/edit', [AdminGalleryCategoryController::class, 'edit'])->name('categories.edit');
-        Route::put('/gallery/categories/{id}', [AdminGalleryCategoryController::class, 'update'])->name('categories.update');
-        
-        Route::get('/gallery/albums/{id}/edit', [AdminGalleryAlbumController::class, 'edit'])->name('albums.edit');
-        Route::put('/gallery/albums/{id}', [AdminGalleryAlbumController::class, 'update'])->name('albums.update');
     });
 
 });

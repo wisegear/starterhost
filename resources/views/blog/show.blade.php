@@ -4,7 +4,7 @@
 
     <!-- Post Header Section -->
     <div class="mb-10">    
-        <h1 class="text-4xl font-bold text-center dark:text-white">{{ $page->title }}</h1>
+        <h1 class="text-4xl font-bold text-center text-zinc-500">{{ $page->title }}</h1>
         <ul class="flex flex-col md:flex-row items-center md:justify-center md:space-y-0 md:space-x-10 space-y-2 my-4">
             <li>
                 <a href="/profile/{{ $page->users->name_slug }}" class="text-gray-700 dark:text-gray-400 hover:text-sky-700">
@@ -25,12 +25,12 @@
         <!-- Tags -->
         <div class="flex flex-wrap space-x-4 my-6 justify-center">
             @foreach ($page->blogtags as $tag)
-                <a href="/blog?tag={{ $tag->name }}" class=""><button class="wise-button-sm"> {{ $tag->name }} </button></a>
+                <a href="/blog?tag={{ $tag->name }}" class=""><button class="border border-zinc-300 rounded text-sm p-1 bg-zinc-200 hover:bg-zinc-300 hover:text-black cursor-pointer"> {{ $tag->name }} </button></a>
             @endforeach
         </div>
 
         <!-- Featured Image -->
-        <img src="{{ asset('storage/images/blog/large_' . $page->image) }}" class="w-full h-[400px] shadow-lg border dark:border-gray-700 rounded" alt="">
+        <img src="{{ asset('storage/images/blog/large_' . $page->image) }}" class="w-full h-[400px] shadow-lg border border-zinc-300 rounded-md" alt="">
     </div>
 
     <!-- Main Content Section -->
@@ -90,7 +90,7 @@
             </div>
 
             <!-- Author Box -->
-            <div class="flex items-center rounded shadow-lg border bg-slate-100 dark:bg-gray-600 dark:border-gray-700 p-4 my-10 space-y-2">
+            <div class="flex items-center rounded shadow-lg border border-zinc-300 bg-slate-100 p-4 my-10 space-y-2">
                 <div class="w-3/12 lg:w-2/12">
                     <img src="/assets/images/avatars/{{ $page->users->avatar }}" class="mx-auto rounded-full h-20 border border-gray-400 p-1">
                 </div>
@@ -143,22 +143,14 @@
 
         <!-- Sidebar Section -->
         <div class="hidden lg:block lg:w-3/12 mt-10">
-            <h2 class="text-xl font-bold mb-4 dark:text-white">Featured Posts:</h2>
-            @foreach ($featured as $feature)
-                <div class="border mb-4 shadow-lg">
-                    <img src="{{ asset('storage/images/blog/small_' . $feature->image) }}" class="p-2" alt="{{ $feature->title }}">
-                    <div class="p-2">
-                        <h3 class="font-bold"><a href="../blog/{{$feature->slug}}"> {{$feature->title}} </a></h3>
-                        <div class="mb-4">
-                            <ul class="flex space-x-4 text-sm mt-2">
-                                <li class=""><i class="fa-solid fa-clock text-slate-400"></i> {{$feature->date->diffForHumans()}} </li>
-                                <li class=""><i class="fa-solid fa-folder text-slate-400"></i> <a href="/blog?category={{ $feature->blogcategories->name }}">{{$feature->blogcategories->name}}</a></li>
-                            </ul>
-                            <p class="text-sm mt-2"> {{ Str::words($feature->summary, 20, '...') }} </p>
+            <h2 class="text-lg font-bold border-b border-zinc-300 mb-4">Featured Posts</h2>
+                @foreach( $featured as $feature )
+                    <div class="mb-4">
+                        <div class="">
+                            <h3 class=""><a href="../blog/{{$feature->slug}}"> {{$feature->title}} </a></h3>
                         </div>
-                    </div>
-                </div> 
-            @endforeach
+                    </div> 
+                @endforeach
         </div>
     </div>
 
