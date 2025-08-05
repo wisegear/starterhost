@@ -49,7 +49,7 @@ class BlogController extends Controller
 
         // Get the x most recent featured posts and display in the sidebar.
 
-        $featured = BlogPosts::where('featured', true)->orderBy('id', 'desc')->take(3)->get();
+        $featured = BlogPosts::where('featured', true)->orderBy('date', 'desc')->take(3)->get();
 
         // Get all of the categories to display in the sidebar.
         $categories = BlogCategories::all();
