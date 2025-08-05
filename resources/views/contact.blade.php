@@ -12,7 +12,7 @@
                     can create new tickets or view existing ones.
                 </p>
                 <div class="flex justify-center">
-                   <a href="/login"><button class="cursor-pointer bg-lime-500 hover:bg-lime-400 text-white text-sm font-medium p-2 rounded-md transition">Login for support</button></a>
+                   <a href="/support"><button class="cursor-pointer bg-lime-500 hover:bg-lime-400 text-white text-sm font-medium p-2 rounded-md transition">Login for support</button></a>
                 </div>
             </div>
         </div>
