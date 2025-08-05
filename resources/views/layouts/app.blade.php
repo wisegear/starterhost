@@ -9,7 +9,7 @@
         <link rel="canonical" href="{{ url()->current() }}">
         <meta name="author" content="Lee Wisener">
         <meta name="keywords" content="Hosting, Free, cPanel, Wordpress, History">
-        <title>{{ $page->title ?? 'StarterHost.net' }}</title>
+        <title>{{ $page->title ?? 'StarterHost' }}</title>
         <meta name="description" content="{{ $page->summary ?? 'Free web hosting offers with a particular focus on those wishing to host sites with a historical theme' }}">
 
         
